@@ -86,6 +86,8 @@ nmap <Leader>g		:GitGutterToggle<CR>
 map <leader>l 		:Align
 map <silent> <leader>V 	:source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+nmap <Leader>h         :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
+
 set background=dark
 color tir_black
 
