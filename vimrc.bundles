@@ -1,0 +1,34 @@
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
+
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" VIM Script Library
+Bundle 'L9'
+
+Bundle 'AutoComplPop'
+Bundle 'vcscommand.vim'
+Bundle 'git://github.com/airblade/vim-gitgutter.git'
+Bundle 'jsbeautify'
+Bundle 'ctrlp.vim'
+Bundle 'The-NERD-tree'
+Bundle 'https://github.com/Lokaltog/vim-powerline.git'
+Bundle 'Align'
+
+" colorschemes
+Bundle 'tir_black'
+Bundle 'molokai'
+Bundle 'Mustang2'
+Bundle 'badwolf'
+Bundle 'solarized'
+Bundle 'Railscasts-Theme-GUIand256color'
+Bundle 'https://github.com/w0ng/vim-hybrid.git'
