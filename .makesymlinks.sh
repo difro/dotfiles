@@ -2,7 +2,7 @@
 # vim: ts=8 sw=8 noet
 ########## Variables
 
-olddir=dotfiles_old             # old dotfiles backup directory
+olddir=.dotfiles_old             # old dotfiles backup directory
 
 ##########
 
@@ -15,7 +15,7 @@ echo "...done"
 for file in *; do
 	echo $file
 	echo "Moving any existing dotfiles from ~ to $olddir"
-	mv -f ~/.$file dotfiles_old/
+	mv -f ~/.$file $olddir/
 	echo "Creating symlink to $file in home directory."
 	ln -s `pwd`/$file ~/.$file
 done
