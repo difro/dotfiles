@@ -55,5 +55,10 @@ alias	p='perl'
 alias	less='less -r'
 alias	vi='vim'
 
+echo "$MACHTYPE" | grep -i "apple"
+if [[ $? == 0 ]]; then
+	alias	ls='ls -G'
+fi
+
 export	PATH=$HOME/bin:$PATH
 export	FTP_PASSIVE=1
