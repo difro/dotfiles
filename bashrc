@@ -55,6 +55,7 @@ alias	p='perl'
 alias	less='less -r'
 alias	vi='vim'
 alias	tail='tail -n $((${LINES:-12}-5))'
+alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
 
 echo "$MACHTYPE" | grep -i "apple"
 if [[ $? == 0 ]]; then
