@@ -9,7 +9,7 @@
 	default = tracking
 
 [credential]
-	helper = store
+	helper = cache --timeout=3600
 
 [color]
 	diff = true
