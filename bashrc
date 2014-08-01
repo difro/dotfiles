@@ -3,11 +3,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# load host-specific configuration.
-if [ -f ~/.bashrc.`hostname` ]; then
-	. ~/.bashrc.`hostname`
-fi
-
 # enable bash completion in interactive shells
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -43,6 +38,10 @@ bind -m vi-insert "\C-p":previous-history
 bind -m vi-insert "\C-n":next-history
 set -o vi
 
+# load host-specific configuration.
+if [ -f ~/.bashrc.`hostname` ]; then
+	. ~/.bashrc.`hostname`
+fi
 
 alias	tmux='tmux -2'
 alias	urlencode="perl -MCGI::Util=escape -e'while(<>){chop;print escape(\$_).\"\\n\";}'"
@@ -57,8 +56,7 @@ alias	vi='vim'
 alias	tail='tail -n $((${LINES:-12}-5))'
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
 
-echo "$MACHTYPE" | grep -i "apple"
-if [[ $? == 0 ]]; then
+if echo "$MACHTYPE" | grep -qi "apple" ; then
 	alias	ls='ls -G'
 fi
 
