@@ -23,6 +23,7 @@ Bundle 'ctrlp.vim'
 Bundle 'The-NERD-tree'
 Bundle 'https://github.com/Lokaltog/vim-powerline.git'
 Bundle 'Align'
+Bundle 'https://github.com/fatih/vim-go'
 
 " colorschemes
 Bundle 'tir_black'
