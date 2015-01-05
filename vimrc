@@ -49,8 +49,8 @@ au BufEnter *.html set omnifunc=htmlcomplete#CompleteTags
 """""""""""""""
 " Bundle
 let $GIT_SSL_NO_VERIFY = 'true'
-filetype off                 " required!
-filetype plugin indent off    " required!
+filetype off
+filetype plugin indent off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -59,10 +59,20 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
-filetype plugin indent on    " required!
+set runtimepath+=/naver/opt/go/misc/vim
+filetype plugin indent on
 
 """""""""""""""
 let mapleader = ','
+
+
+" Go related mappings
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def-tab)
 
 " Ctrl-P settings
 let g:ctrlp_map = '<Leader>t'
@@ -83,7 +93,7 @@ nmap <Leader>p		:set paste!<CR>
 nmap <Leader>q		:nohlsearch<CR>
 nmap <C-e>		:b#<CR>
 nmap <Leader>e		:NERDTreeToggle<CR>
-nmap <Leader>g		:GitGutterToggle<CR>
+"nmap <Leader>g		:GitGutterToggle<CR>
 map <leader>l 		:Align
 map <silent> <leader>V 	:source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
