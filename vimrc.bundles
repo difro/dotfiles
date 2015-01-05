@@ -32,3 +32,6 @@ Bundle 'badwolf'
 Bundle 'solarized'
 Bundle 'Railscasts-Theme-GUIand256color'
 Bundle 'https://github.com/w0ng/vim-hybrid.git'
+
+Bundle 'fatih/vim-go'
+Bundle 'jnwhiteh/vim-golang'

@@ -50,7 +50,7 @@ au BufEnter *.html set omnifunc=htmlcomplete#CompleteTags
 " Bundle
 let $GIT_SSL_NO_VERIFY = 'true'
 filetype off                 " required!
-filetype plugin indent on    " required!
+filetype plugin indent off    " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -59,6 +59,7 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
+filetype plugin indent on    " required!
 
 """""""""""""""
 let mapleader = ','
@@ -90,6 +91,14 @@ nmap <Leader>h         :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
 set background=dark
 color tir_black
+
+" Go related mappings
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>r <Plug>(go-run)
+au FileType go nmap <Leader>b <Plug>(go-build)
+au FileType go nmap <Leader>t <Plug>(go-test)
+au FileType go nmap gd <Plug>(go-def-tab)
 
 let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
 if filereadable(s:host_vimrc)
