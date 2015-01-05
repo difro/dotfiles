@@ -62,4 +62,6 @@ if [[ $? == 0 ]]; then
 fi
 
 export	PATH=$HOME/bin:$PATH
+
+export	GOPATH=$HOME/work/go
 export	FTP_PASSIVE=1
