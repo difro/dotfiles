@@ -55,6 +55,7 @@ alias	less='less -r'
 alias	vi='vim'
 alias	tail='tail -n $((${LINES:-12}-5))'
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
+alias	curlheader='curl -s -D - -o /dev/null'
 
 if echo "$MACHTYPE" | grep -qi "apple" ; then
 	alias	ls='ls -G'
