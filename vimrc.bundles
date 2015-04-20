@@ -17,11 +17,11 @@ Bundle 'L9'
 
 Bundle 'AutoComplPop'
 Bundle 'vcscommand.vim'
-Bundle 'git://github.com/airblade/vim-gitgutter.git'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'jsbeautify'
 Bundle 'ctrlp.vim'
 Bundle 'The-NERD-tree'
-Bundle 'https://github.com/Lokaltog/vim-powerline.git'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'Align'
 
 " colorschemes
@@ -31,9 +31,11 @@ Bundle 'Mustang2'
 Bundle 'badwolf'
 Bundle 'solarized'
 Bundle 'Railscasts-Theme-GUIand256color'
-Bundle 'https://github.com/w0ng/vim-hybrid.git'
+Bundle 'w0ng/vim-hybrid'
 
 Bundle 'fatih/vim-go'
 Bundle 'jnwhiteh/vim-golang'
 
 Bundle 'ekalinin/Dockerfile.vim'
+
+Bundle 'tpope/vim-commentary'
