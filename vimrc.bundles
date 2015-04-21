@@ -39,3 +39,5 @@ Bundle 'jnwhiteh/vim-golang'
 Bundle 'ekalinin/Dockerfile.vim'
 
 Bundle 'tpope/vim-commentary'
+
+Bundle 'tpope/vim-dispatch'
