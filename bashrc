@@ -55,6 +55,7 @@ alias	less='less -r'
 alias	vi='vim'
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
 alias	curlheader='curl -s -D - -o /dev/null'
+alias	pythonserver='/usr/bin/python -m SimpleHTTPServer'
 
 if echo "$MACHTYPE" | grep -qi "apple" ; then
 	alias	ls='ls -G'
