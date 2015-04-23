@@ -113,6 +113,11 @@ au FileType go nmap gd <Plug>(go-def-tab)
 " vim-beeter-whitespace
 highlight ExtraWhitespace ctermbg=9
 
+" 'junegunn/vim-easy-align'
+" Easy align interactive
+vnoremap <silent> <Enter> :EasyAlign<cr>
+
+
 let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
 if filereadable(s:host_vimrc)
 	execute 'source ' . s:host_vimrc
