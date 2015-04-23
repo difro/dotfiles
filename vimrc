@@ -110,6 +110,9 @@ au FileType go nmap <Leader>b <Plug>(go-build)
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap gd <Plug>(go-def-tab)
 
+" vim-beeter-whitespace
+highlight ExtraWhitespace ctermbg=9
+
 let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
 if filereadable(s:host_vimrc)
 	execute 'source ' . s:host_vimrc
