@@ -9,40 +9,42 @@
 
 
 " let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
+" required!
+Plugin 'gmarik/vundle'
+
+" Git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vcscommand.vim'
 
 " VIM Script Library
-Bundle 'L9'
+Plugin 'L9'
 
-Bundle 'AutoComplPop'
-Bundle 'vcscommand.vim'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'jsbeautify'
-Bundle 'ctrlp.vim'
-Bundle 'The-NERD-tree'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'Align'
+Plugin 'AutoComplPop'
+Plugin 'jsbeautify'
+Plugin 'kien/ctrlp.vim'
+Plugin 'fatih/vim-go'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'ekalinin/Dockerfile.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
+Plugin 'majutsushi/tagbar'
+Plugin 'Raimondi/delimitMate'
 
 " colorschemes
-Bundle 'tir_black'
-Bundle 'molokai'
-Bundle 'Mustang2'
-Bundle 'badwolf'
-Bundle 'solarized'
-Bundle 'Railscasts-Theme-GUIand256color'
-Bundle 'w0ng/vim-hybrid'
-Bundle 'google/vim-colorscheme-primary'
+Plugin 'tir_black'
+Plugin 'molokai'
+Plugin 'Mustang2'
+Plugin 'badwolf'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'Railscasts-Theme-GUIand256color'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'google/vim-colorscheme-primary'
 
-Bundle 'fatih/vim-go'
-Bundle 'jnwhiteh/vim-golang'
-
-Bundle 'ekalinin/Dockerfile.vim'
-
-Bundle 'tpope/vim-commentary'
-
-Bundle 'tpope/vim-dispatch'
-
-Bundle 'ntpeters/vim-better-whitespace'
-
-Bundle 'junegunn/vim-easy-align'
