@@ -32,6 +32,7 @@ Bundle 'badwolf'
 Bundle 'solarized'
 Bundle 'Railscasts-Theme-GUIand256color'
 Bundle 'w0ng/vim-hybrid'
+Bundle 'google/vim-colorscheme-primary'
 
 Bundle 'fatih/vim-go'
 Bundle 'jnwhiteh/vim-golang'
@@ -41,3 +42,4 @@ Bundle 'ekalinin/Dockerfile.vim'
 Bundle 'tpope/vim-commentary'
 
 Bundle 'tpope/vim-dispatch'
+
