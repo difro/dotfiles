@@ -65,7 +65,7 @@ filetype plugin indent on
 let mapleader = ','
 
 " Ctrl-P settings
-let g:ctrlp_map = '<Leader>t'
+let g:ctrlp_map = '<Leader>o'
 let g:ctrlp_match_window_bottom = 1
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
@@ -76,14 +76,14 @@ let g:ctrlp_switch_buffer = 0
 """ key mappings
 nmap <F12> :cs kill -1<CR>:!cscope -Rb<CR>:cs add cscope.out<CR>
 
-nmap ; 			:CtrlPBuffer<CR>
+nmap <Leader>O		:CtrlPBuffer<CR>
 nmap <F2> 		:call DiffToggle()<CR>
 nmap <Leader>n		:setlocal number!<CR>
 nmap <Leader>p		:set paste!<CR>
 nmap <Leader>q		:nohlsearch<CR>
 nmap <C-e>		:b#<CR>
 nmap <silent><Leader>e	:NERDTreeToggle<CR>
-"nmap <Leader>g		:GitGutterToggle<CR>
+nmap <Leader>g		:GitGutterToggle<CR>
 map <silent> <leader>V 	:source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 nmap <Leader>h         :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
