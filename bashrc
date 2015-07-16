@@ -28,8 +28,8 @@ WHITE="\[\033[1;37m\]"
 RED="\[\033[1;31m\]"
 export	PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\w$GRAY)--(\A)\n$WHITE\$$NO_COLOR "
 
-export	LC_ALL=ko_KR.UTF-8
-export	LANG=ko_KR.UTF-8
+export	LC_ALL=en_US.UTF-8
+export	LANG=en_US.UTF-8
 
 export	LESSCHARSET='utf-8'
 
