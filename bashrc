@@ -61,9 +61,10 @@ if echo "$MACHTYPE" | grep -qi "apple" ; then
 	alias	ls='ls -G'
 fi
 
-export	PATH=$HOME/bin:$PATH
-
 export	GOPATH=$HOME/work/go
+
+export	PATH=$HOME/bin:$GOPATH/bin:$PATH
+
 export	FTP_PASSIVE=1
 
 # Preserve bash history in multiple terminal windows
