@@ -50,8 +50,8 @@ au BufEnter *.html set omnifunc=htmlcomplete#CompleteTags
 let $GIT_SSL_NO_VERIFY = 'true'
 filetype off
 filetype plugin indent off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " Install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
