@@ -58,6 +58,8 @@ if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
 
+call vundle#end()
+
 set runtimepath+=/naver/opt/go/misc/vim
 filetype plugin indent on
 
