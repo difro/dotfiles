@@ -22,9 +22,11 @@ set ignorecase
 set smartcase
 set hlsearch
 
-set showmatch
+set showmatch	" highlight matching [{()}]
 set nobackup
 
+set cursorline	" highlight current line
+set wildmenu	" visual autocomplete for command menu
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
