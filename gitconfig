@@ -1,12 +1,15 @@
 # vim: syntax=gitconfig
 [include]
-	path = ~/.gitconfig.user
+	path = ~/.gitconfig.local
 
 [core]
 	abbrev = 12
 
 [push]
 	default = tracking
+
+[credential "https://github.com"]
+	username = difro
 
 [credential]
 	helper = cache --timeout=3600
