@@ -61,7 +61,7 @@ if echo "$MACHTYPE" | grep -qi "apple" ; then
 	alias	ls='ls -G'
 fi
 
-export	GOPATH=$HOME/work/go
+export	GOPATH=$HOME/go
 
 export	PATH=$HOME/bin:$GOPATH/bin:$PATH
 

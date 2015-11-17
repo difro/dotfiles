@@ -46,4 +46,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'Railscasts-Theme-GUIand256color'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'google/vim-colorscheme-primary'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'vim-scripts/twilight'
+Plugin 'wesgibbs/vim-irblack'
 

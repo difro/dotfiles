@@ -92,8 +92,8 @@ map <silent> <leader>V 	:source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vim
 
 nmap <Leader>h         :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
+color jellybeans
 set background=dark
-color tir_black
 
 " Go related mappings
 au FileType go nmap <Leader>i <Plug>(go-info)
