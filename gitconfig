@@ -1,7 +1,4 @@
 # vim: syntax=gitconfig
-[include]
-	path = ~/.gitconfig.local
-
 [core]
 	abbrev = 12
 
@@ -40,3 +37,6 @@
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+[include]
+	path = ~/.gitconfig.local
