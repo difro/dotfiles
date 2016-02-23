@@ -20,13 +20,10 @@ Plugin 'vcscommand.vim'
 " VIM Script Library
 Plugin 'L9'
 
-Plugin 'AutoComplPop'
-Plugin 'jsbeautify'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'fatih/vim-go'
-Plugin 'jnwhiteh/vim-golang'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'tpope/vim-commentary'
+Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'junegunn/vim-easy-align'
@@ -36,6 +33,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
+Plugin 'Shougo/neocomplete.vim'
 
 " colorschemes
 Plugin 'tir_black'
