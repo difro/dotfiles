@@ -125,6 +125,8 @@ let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
 let g:neocomplete#sources.go = ['omni']
 " disable sorting
 call neocomplete#custom#source('_', 'sorters', [])
+set completeopt-=preview
+" === neocomplete ===
 
 noremap <Tab> :call Next_buffer_or_next_tab()<cr>
 
