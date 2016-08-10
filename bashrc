@@ -54,6 +54,7 @@ alias	p='perl'
 alias	less='less -r'
 alias	vi='vim'
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
+alias	vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
 alias	curlheader='curl -s -D - -o /dev/null'
 alias	pythonserver='/usr/bin/python -m SimpleHTTPServer'
 
