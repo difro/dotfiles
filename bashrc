@@ -4,8 +4,8 @@
 [ -z "$PS1" ] && return
 
 # enable bash completion in interactive shells
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+if [ -f $HOME/.bash-completion/bash_completion ]; then
+    . $HOME/bash-completion/bash_completion
 fi
 
 export	HISTSIZE=1000
@@ -79,5 +79,4 @@ shopt -s histappend                      # append to history, don't overwrite it
 # Save and reload the history after each command finishes
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# go get -u github.com/vinceprignano/gocd
-source $GOPATH/src/github.com/vinceprignano/gocd/shellinit
+export CDPATH=.:~:~/src:$GOPATH/src/oss.navercorp.com:$GOPATH/src/github.com
