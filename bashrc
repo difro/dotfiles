@@ -4,8 +4,15 @@
 [ -z "$PS1" ] && return
 
 # enable bash completion in interactive shells
-if [ -f $HOME/.bash-completion/bash_completion ]; then
-    . $HOME/bash-completion/bash_completion
+# for OS-X, use brew version
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+		. $(brew --prefix)/etc/bash_completion
+	fi
+else
+	if [ -f $HOME/.bash-completion/bash_completion ]; then
+	    . $HOME/.bash-completion/bash_completion
+	fi
 fi
 
 export	HISTSIZE=1000
