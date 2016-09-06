@@ -80,7 +80,7 @@ au FileType go nmap <Leader>gr <Plug>(go-run)
 au FileType go nmap <Leader>gb <Plug>(go-build)
 au FileType go nmap <Leader>gt <Plug>(go-test)
 "au FileType go nmap gd <Plug>(go-def-tab)
-au FileType go nmap <Leader>gD <Plug>(go-def-split)
+"au FileType go nmap <Leader>gD <Plug>(go-def-split)
 let g:go_fmt_command = "goimports" " automatically manager imports
 
 "=== vim-beeter-whitespace ===

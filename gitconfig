@@ -1,6 +1,8 @@
 # vim: syntax=gitconfig
 [core]
 	abbrev = 12
+	filemode = false
+	autocrlf = false
 
 [push]
 	default = tracking
@@ -40,3 +42,5 @@
 
 [include]
 	path = ~/.gitconfig.local
+[branch]
+	autosetuprebase = always
