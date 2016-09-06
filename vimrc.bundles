@@ -34,6 +34,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'diepm/vim-rest-console'
 
 " colorschemes
 Plugin 'tir_black'
@@ -47,4 +48,3 @@ Plugin 'google/vim-colorscheme-primary'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/twilight'
 Plugin 'wesgibbs/vim-irblack'
-
