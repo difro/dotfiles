@@ -66,7 +66,7 @@ alias	curlheader='curl -s -D - -o /dev/null'
 alias	pythonserver='/usr/bin/python -m SimpleHTTPServer'
 
 if echo "$MACHTYPE" | grep -qi "apple" ; then
-	alias	ls='ls -G'
+	alias	ls='/bin/ls -G'
 fi
 
 export	GOPATH=$HOME/go
@@ -87,3 +87,8 @@ shopt -s histappend                      # append to history, don't overwrite it
 #export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 export CDPATH=.:~:~/src:$GOPATH/src/oss.navercorp.com:$GOPATH/src/github.com
+
+if [[ "$OSTYPE" =~ ^darwin ]]; then
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+fi
