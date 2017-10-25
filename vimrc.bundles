@@ -35,6 +35,8 @@ Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'diepm/vim-rest-console'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'editorconfig/editorconfig-vim'
 
 " colorschemes
 Plugin 'tir_black'
