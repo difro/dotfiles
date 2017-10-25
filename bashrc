@@ -56,7 +56,7 @@ alias	urldecode="perl -MCGI::Util=unescape -e'while(<>){chop;print unescape(\$_)
 alias	base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
 alias	base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
 alias	ls='ls --color=auto --show-control-chars'
-alias	grep='grep --color=auto'
+alias	grep="grep --exclude-dir vendor --color=yes"
 alias	p='perl'
 alias	less='less -r'
 alias	vi='vim'
