@@ -54,3 +54,9 @@
 
 [commit]
 	verbose = true
+[http "https://gopkg.in"]
+	followRedirects = true
+[http]
+	followRedirects = true
+[hub]
+	host = oss.navercorp.com
