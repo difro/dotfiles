@@ -157,3 +157,11 @@ let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
 if filereadable(s:host_vimrc)
 	execute 'source ' . s:host_vimrc
 endif
+
+set number
+set relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
