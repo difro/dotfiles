@@ -60,3 +60,4 @@
 	followRedirects = true
 [hub]
 	host = oss.navercorp.com
+	protocol = https
