@@ -1,0 +1,38 @@
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/vcscommand.vim'
+
+" VIM Script Library
+Plug 'vim-scripts/L9'
+
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'fatih/vim-go'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-dispatch'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'junegunn/vim-easy-align'
+Plug 'bling/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'Shougo/neocomplete.vim'
+Plug 'diepm/vim-rest-console'
+Plug 'vim-syntastic/syntastic'
+Plug 'editorconfig/editorconfig-vim'
+
+" colorschemes
+Plug 'vim-scripts/tir_black'
+Plug 'vim-scripts/molokai'
+Plug 'vim-scripts/Mustang2'
+Plug 'vim-scripts/badwolf'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-scripts/Railscasts-Theme-GUIand256color'
+Plug 'w0ng/vim-hybrid'
+Plug 'google/vim-colorscheme-primary'
+Plug 'nanotech/jellybeans.vim'
+Plug 'vim-scripts/twilight'
+Plug 'wesgibbs/vim-irblack'

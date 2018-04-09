@@ -1,18 +1,14 @@
 set nocompatible
 
 "==============================
-" Bundle
-let $GIT_SSL_NO_VERIFY = 'true'
-filetype off
-filetype plugin indent off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
+" vim-plug
+call plug#begin('~/.vim/plugged')
 
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
+if filereadable(expand("~/.vimrc.plugins"))
+  source ~/.vimrc.plugins
 endif
 
-call vundle#end()
+call plug#end()
 filetype plugin indent on
 "==============================
 
