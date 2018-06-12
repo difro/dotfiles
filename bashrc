@@ -15,9 +15,6 @@ else
 	fi
 fi
 
-export	HISTSIZE=1000
-export	HISTFILESIZE=1000
-
 export	EDITOR='vim'
 
 # for xterm titles
