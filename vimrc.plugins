@@ -23,6 +23,7 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'diepm/vim-rest-console'
 Plug 'vim-syntastic/syntastic'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " colorschemes
 Plug 'vim-scripts/tir_black'
