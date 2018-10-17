@@ -78,6 +78,7 @@ au FileType go nmap <Leader>gt <Plug>(go-test)
 "au FileType go nmap gd <Plug>(go-def-tab)
 "au FileType go nmap <Leader>gD <Plug>(go-def-split)
 let g:go_fmt_command = "goimports" " automatically manager imports
+au FileType go nmap <C-\>s <Plug>(go-referrers)
 
 "=== vim-beeter-whitespace ===
 highlight ExtraWhitespace ctermbg=9
@@ -138,6 +139,7 @@ endf
 
 "=== key mappings ===
 nmap <F12> :cs kill -1<CR>:!cscope -Rb<CR>:cs add cscope.out<CR>
+nmap <Leader>t		:cs kill -1<CR>:!cscope -Rb<CR>:cs add cscope.out<CR>
 
 nmap <F2> 		:call DiffToggle()<CR>
 nmap <Leader>n		:setlocal number!<CR>
