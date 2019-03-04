@@ -88,7 +88,7 @@ highlight ExtraWhitespace ctermbg=9
 vnoremap <silent> <Enter> :EasyAlign<cr>
 
 " 'bling/vim-airline'
-let g:airline_detect_paste=1
+"let g:airline_detect_paste=1
 
 " NERDTree
 "nmap <silent> <leader>t		:NERDTreeTabsToggle<CR>
@@ -157,3 +157,8 @@ if filereadable(s:host_vimrc)
 endif
 
 set number
+
+set updatetime=800
+
+" rust
+let g:rustfmt_autosave = 1
