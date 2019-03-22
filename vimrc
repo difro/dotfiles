@@ -78,6 +78,7 @@ au FileType go nmap <Leader>gt <Plug>(go-test)
 "au FileType go nmap gd <Plug>(go-def-tab)
 "au FileType go nmap <Leader>gD <Plug>(go-def-split)
 let g:go_fmt_command = "goimports" " automatically manager imports
+let g:go_def_mode = "gopls"
 au FileType go nmap <C-\>s <Plug>(go-referrers)
 
 "=== vim-beeter-whitespace ===
