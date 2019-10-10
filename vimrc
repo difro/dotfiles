@@ -121,7 +121,7 @@ if !exists('g:neocomplete#sources')
 endif
 let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
 let g:neocomplete#sources.go = ['omni']
-" disable sorting
+"" disable sorting
 call neocomplete#custom#source('_', 'sorters', [])
 set completeopt-=preview
 " === neocomplete ===
