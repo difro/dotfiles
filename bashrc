@@ -11,7 +11,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 	fi
 else
 	if [ -f $HOME/.bash-completion/bash_completion ]; then
-	    . $HOME/.bash-completion/bash_completion
+		. $HOME/.bash-completion/bash_completion
 	fi
 fi
 
@@ -43,8 +43,9 @@ bind -m vi-insert "\C-n":next-history
 set -o vi
 
 # load host-specific configuration.
-if [ -f ~/.bashrc.`hostname` ]; then
-	. ~/.bashrc.`hostname`
+if [ -f "$HOME/.bashrc.$(hostname)" ]; then
+	# shellcheck source=/dev/null
+	source "$HOME/.bashrc.$(hostname)"
 fi
 
 alias	tmux='tmux -2'
@@ -75,10 +76,10 @@ export	FTP_PASSIVE=1
 # Preserve bash history in multiple terminal windows
 # from http://unix.stackexchange.com/a/48113
 
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
+export HISTCONTROL=ignoredups:erasedups	# no duplicate entries
+export HISTSIZE=100000			# big big history
+export HISTFILESIZE=100000		# big big history
+shopt -s histappend			# append to history, don't overwrite it
 export SHELL_SESSION_HISTORY=0
 
 # Save and reload the history after each command finishes
@@ -87,8 +88,8 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export CDPATH=.:~:~/src:$GOPATH/src/oss.navercorp.com:$GOPATH/src/github.com
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
