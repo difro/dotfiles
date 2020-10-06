@@ -112,20 +112,7 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
-" === neocomplete ===
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-if !exists('g:neocomplete#sources')
-	let g:neocomplete#sources = {}
-endif
-let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
-let g:neocomplete#sources.go = ['omni']
-"" disable sorting
-call neocomplete#custom#source('_', 'sorters', [])
-set completeopt-=preview
-" === neocomplete ===
-
+set completeopt=menu,noinsert,noselect
 noremap <Tab> :call Next_buffer_or_next_tab()<cr>
 
 fun! Next_buffer_or_next_tab()
