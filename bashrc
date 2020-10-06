@@ -43,9 +43,9 @@ bind -m vi-insert "\C-n":next-history
 set -o vi
 
 # load host-specific configuration.
-if [ -f "$HOME/.bashrc.$(hostname)" ]; then
+if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 	# shellcheck source=/dev/null
-	source "$HOME/.bashrc.$(hostname)"
+	source "$HOME/.bashrc.$(hostname -s)"
 fi
 
 alias	tmux='tmux -2'
