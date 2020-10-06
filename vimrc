@@ -139,7 +139,7 @@ nmap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vim
 nmap <Leader>h          :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
 " =============================================
-let s:host_vimrc = $HOME . '/.vimrc.' . hostname()
+let s:host_vimrc = $HOME . '/.vimrc.' . system('hostname -s')
 if filereadable(s:host_vimrc)
 	execute 'source ' . s:host_vimrc
 endif
