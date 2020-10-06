@@ -85,7 +85,7 @@ export SHELL_SESSION_HISTORY=0
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-export CDPATH=.:~:~/src:$GOPATH/src/oss.navercorp.com:$GOPATH/src/github.com
+export CDPATH=.:~:~/src
 
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
