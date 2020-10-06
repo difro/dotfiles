@@ -42,6 +42,10 @@
 	# for bitbucket/stash remotes
 	spr  = "!f() { git fetch -fu ${2:-origin} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
+	# delete merged branch
+	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -dr
+	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -62,3 +66,9 @@
 [hub]
 	host = oss.navercorp.com
 	protocol = https
+[fetch]
+	prune = true
+[pull]
+	ff = only
+[rerere]
+	enabled = true
