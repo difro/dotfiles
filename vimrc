@@ -150,3 +150,5 @@ set updatetime=800
 
 " rust
 let g:rustfmt_autosave = 1
+
+let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', 'javascript']
