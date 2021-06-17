@@ -6,8 +6,8 @@
 # enable bash completion in interactive shells
 # for OS-X, use brew version
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-	if [ -f $(brew --prefix)/etc/bash_completion ]; then
-		. $(brew --prefix)/etc/bash_completion
+	if [ -f $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion ]; then
+		. $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion
 	fi
 else
 	if [ -f $HOME/.bash-completion/bash_completion ]; then
@@ -69,7 +69,7 @@ fi
 
 export	GOPATH=$HOME/go
 
-export	PATH=$HOME/bin:$GOPATH/bin:$PATH
+export	PATH=$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
 
 export	FTP_PASSIVE=1
 
@@ -90,8 +90,11 @@ export CDPATH=.:~:~/src
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+	eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
