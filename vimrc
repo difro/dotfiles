@@ -152,3 +152,9 @@ set updatetime=800
 let g:rustfmt_autosave = 1
 
 let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', 'javascript']
+
+" fancy space/tab
+"set list listchars+=space:·
+"set listchars+=tab:>-
+"
+au filetype go inoremap <buffer> . .<C-x><C-o>
