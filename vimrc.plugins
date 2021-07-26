@@ -38,7 +38,6 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'vim-scripts/twilight'
 Plug 'wesgibbs/vim-irblack'
 
-Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'chazy/cscope_maps'
 Plug 'vim-jp/vim-cpp'
 
