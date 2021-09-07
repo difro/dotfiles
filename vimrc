@@ -158,3 +158,6 @@ let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', '
 "set listchars+=tab:>-
 "
 au filetype go inoremap <buffer> . .<C-x><C-o>
+
+" Maximizer
+noremap <C-w>z :MaximizerToggle<CR>
