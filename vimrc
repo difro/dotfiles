@@ -161,3 +161,13 @@ au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " Maximizer
 noremap <C-w>z :MaximizerToggle<CR>
+
+" As-you-type autocomplete
+"set completeopt=menu,menuone,preview,noselect,noinsert
+set completeopt=menu,menuone,popup,noselect,noinsert
+let g:ale_completion_enabled = 1
+
+" Required, explicitly enable Elixir LS
+ let g:ale_linters = {
+ \  'rust': ['analyzer'],
+ \}
