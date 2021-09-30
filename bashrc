@@ -3,11 +3,16 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+BREWPATH=/opt/homebrew/bin/brew
+if [[ "$(arch)" == "i386" ]]; then
+	BREWPATH=/usr/local/bin/brew
+fi
+
 # enable bash completion in interactive shells
 # for OS-X, use brew version
 if [[ "$OSTYPE" =~ ^darwin ]]; then
-	if [ -f $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion ]; then
-		. $(/opt/homebrew/bin/brew --prefix)/etc/bash_completion
+	if [ -f $($BREWPATH --prefix)/etc/bash_completion ]; then
+		. $($BREWPATH --prefix)/etc/bash_completion
 	fi
 else
 	if [ -f $HOME/.bash-completion/bash_completion ]; then
@@ -91,7 +96,7 @@ export CDPATH=.:~:~/src
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-	eval $(/opt/homebrew/bin/brew shellenv)
+	eval $($BREWPATH shellenv)
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
