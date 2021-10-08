@@ -72,3 +72,6 @@
 	ff = only
 [rerere]
 	enabled = true
+[user]
+	name = Jihoon Chung
+	email = jihoon@gmail.com
