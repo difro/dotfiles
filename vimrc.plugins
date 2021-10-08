@@ -43,5 +43,3 @@ Plug 'chazy/cscope_maps'
 Plug 'vim-jp/vim-cpp'
 
 Plug 'junegunn/vim-peekaboo'
-
-Plug 'szw/vim-maximizer'
