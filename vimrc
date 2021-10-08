@@ -162,6 +162,10 @@ au filetype go inoremap <buffer> . .<C-x><C-o>
 " Maximizer
 noremap <C-w>z :MaximizerToggle<CR>
 
+""
+" dense-analysis/ale
+""
+
 " As-you-type autocomplete
 "set completeopt=menu,menuone,preview,noselect,noinsert
 set completeopt=menu,menuone,popup,noselect,noinsert
@@ -171,3 +175,7 @@ let g:ale_completion_enabled = 1
  let g:ale_linters = {
  \  'rust': ['analyzer'],
  \}
+
+ " navigate between erros
+ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+ nmap <silent> <C-j> <Plug>(ale_next_wrap)
