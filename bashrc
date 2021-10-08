@@ -3,14 +3,14 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-BREWPATH=/opt/homebrew/bin/brew
-if [[ "$(arch)" == "i386" ]]; then
-	BREWPATH=/usr/local/bin/brew
-fi
 
 # enable bash completion in interactive shells
 # for OS-X, use brew version
 if [[ "$OSTYPE" =~ ^darwin ]]; then
+	BREWPATH=/opt/homebrew/bin/brew
+	if [[ "$(arch)" == "i386" ]]; then
+		BREWPATH=/usr/local/bin/brew
+	fi
 	if [ -f $($BREWPATH --prefix)/etc/bash_completion ]; then
 		. $($BREWPATH --prefix)/etc/bash_completion
 	fi
