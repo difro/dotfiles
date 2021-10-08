@@ -146,7 +146,7 @@ endif
 
 set number
 
-set updatetime=800
+set updatetime=2000
 
 " rust
 let g:rustfmt_autosave = 1
