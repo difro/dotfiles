@@ -158,6 +158,10 @@ let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', '
 "set listchars+=tab:>-
 "
 au filetype go inoremap <buffer> . .<C-x><C-o>
+au filetype c inoremap <buffer> . .<C-x><C-o>
+
+au filetype xml nmap <Leader>P :%!xmllint --format -<CR>
+au filetype json nmap <Leader>P :%!jq .<CR>
 
 " Maximizer
 noremap <C-w>z :MaximizerToggle<CR>
@@ -174,6 +178,7 @@ let g:ale_completion_enabled = 1
 " Required, explicitly enable Elixir LS
  let g:ale_linters = {
  \  'rust': ['analyzer'],
+ \  'c': ['gcc', 'cppcheck'],
  \}
 
  " navigate between erros
