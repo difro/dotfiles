@@ -43,6 +43,9 @@ set wildmenu	" visual autocomplete for command menu
 colorscheme jellybeans
 set background=dark
 
+set number
+set updatetime=2000 " interval between swap file writes
+
 " Always jump to the last known cursor position.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
@@ -54,20 +57,30 @@ function! DiffToggle()
     endif
 :endfunction
 
-
-"""""""""""""""
 let mapleader = ','
 
-"=== Ctrl-P settingsj===
-nmap <Leader>o		:CtrlPBuffer<CR>
-nmap <Leader>O		:CtrlP<CR>
-
+"=== Ctrl-P settings ===
+nmap <Leader>o		      :CtrlPBuffer<CR>
+nmap <Leader>O		      :CtrlP<CR>
+let g:ctrlp_map               = '<c-p>'
 let g:ctrlp_cmd               = 'CtrlPMRU'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_match_window      = 'bottom,order:ttb,max:10'
+let g:ctrlp_match_window      = 'bottom,order:btt,max:15'
 let g:ctrlp_custom_ignore     = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
 let g:ctrlp_switch_buffer     = 'et'
 
+"=== vim-better-whitespace ===
+highlight ExtraWhitespace ctermbg=9
+
+"=== bling/vim-airline ===
+let g:airline_detect_paste=1
+let g:airline_theme='jellybeans'
+
+"=== NERDTree ===
+let g:nerdtree_tabs_open_on_console_startup = 0
+nmap <silent><Leader>e	:NERDTreeToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "=== vim-go ===
 au FileType go nmap <Leader>gi <Plug>(go-info)
@@ -81,20 +94,6 @@ let g:go_fmt_command = "goimports" " automatically manager imports
 let g:go_def_mode = "gopls"
 au FileType go nmap <C-\>s <Plug>(go-referrers)
 
-"=== vim-beeter-whitespace ===
-highlight ExtraWhitespace ctermbg=9
-
-"=== 'junegunn/vim-easy-align' ===
-" Easy align interactive
-vnoremap <silent> <Enter> :EasyAlign<cr>
-
-" 'bling/vim-airline'
-"let g:airline_detect_paste=1
-
-" NERDTree
-"nmap <silent> <leader>t		:NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup = 0
-nmap <silent><Leader>e	:NERDTreeToggle<CR>
 
 " ----- xolox/vim-easytags settings -----
 " Where to look for tags files
@@ -144,9 +143,6 @@ if filereadable(s:host_vimrc)
 	execute 'source ' . s:host_vimrc
 endif
 
-set number
-
-set updatetime=2000
 
 " rust
 let g:rustfmt_autosave = 1
@@ -162,9 +158,6 @@ au filetype c inoremap <buffer> . .<C-x><C-o>
 
 au filetype xml nmap <Leader>P :%!xmllint --format -<CR>
 au filetype json nmap <Leader>P :%!jq .<CR>
-
-" Maximizer
-noremap <C-w>z :MaximizerToggle<CR>
 
 ""
 " dense-analysis/ale
