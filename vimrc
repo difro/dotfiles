@@ -59,6 +59,8 @@ function! DiffToggle()
 
 let mapleader = ','
 
+let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', 'javascript']
+
 "=== Ctrl-P settings ===
 nmap <Leader>o		      :CtrlPBuffer<CR>
 nmap <Leader>O		      :CtrlP<CR>
@@ -146,8 +148,6 @@ endif
 
 " rust
 let g:rustfmt_autosave = 1
-
-let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', 'javascript']
 
 " fancy space/tab
 "set list listchars+=space:·
