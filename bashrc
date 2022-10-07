@@ -75,7 +75,7 @@ fi
 
 export	GOPATH=$HOME/go
 
-export	PATH=$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+export	PATH=$HOME/bin:$HOME/.fzf/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
 
 export	FTP_PASSIVE=1
 
