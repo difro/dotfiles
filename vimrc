@@ -43,8 +43,10 @@ set wildmenu	" visual autocomplete for command menu
 colorscheme jellybeans
 set background=dark
 
-set number
+set number relativenumber
 set updatetime=2000 " interval between swap file writes
+
+set scrolloff=8
 
 " Always jump to the last known cursor position.
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
@@ -57,7 +59,7 @@ function! DiffToggle()
     endif
 :endfunction
 
-let mapleader = ','
+let mapleader = ' '
 
 let g:markdown_fenced_languages = ['html', 'python', 'ruby', 'vim', 'go', 'c', 'javascript']
 
@@ -175,5 +177,11 @@ let g:ale_completion_enabled = 1
  \}
 
  " navigate between erros
- nmap <silent> <C-k> <Plug>(ale_previous_wrap)
- nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
