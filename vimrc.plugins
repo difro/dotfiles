@@ -12,7 +12,7 @@ Plug 'vim-scripts/vcscommand.vim'
 " VIM Script Library
 Plug 'vim-scripts/L9'
 
-Plug 'dense-analysis/ale'
+"Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'ekalinin/Dockerfile.vim'
@@ -33,8 +33,22 @@ Plug 'vim-scripts/molokai'
 Plug 'vim-scripts/Mustang2'
 Plug 'vim-scripts/badwolf'
 Plug 'nanotech/jellybeans.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'vim-scripts/Railscasts-Theme-GUIand256color'
+Plug 'w0ng/vim-hybrid'
+Plug 'google/vim-colorscheme-primary'
+Plug 'vim-scripts/twilight'
+Plug 'wesgibbs/vim-irblack'
+Plug 'morhetz/gruvbox'
+Plug 'tomasiser/vim-code-dark'
+Plug 'romainl/apprentice'
 
 Plug 'chazy/cscope_maps'
-Plug 'vim-jp/vim-cpp'
+Plug 'vim-jp/vim-cpp'	"Vim syntax files with C++11 suppor
 
 Plug 'junegunn/vim-peekaboo'
+Plug 'ludovicchabant/vim-gutentags'	"tags management
+
+"Plug 'wellle/context.vim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}

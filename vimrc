@@ -1,13 +1,10 @@
 set nocompatible
 
-"==============================
-" vim-plug
+" begin vim-plug
 call plug#begin('~/.vim/plugged')
-
 if filereadable(expand("~/.vimrc.plugins"))
   source ~/.vimrc.plugins
 endif
-
 call plug#end()
 filetype plugin indent on
 "==============================
@@ -21,7 +18,7 @@ set noexpandtab
 set tabstop=8
 set shiftwidth=8
 
-set laststatus=2
+set laststatus=2	" last window will have statusline always.
 set encoding=utf-8
 
 set t_Co=256	" number of terminal colors
@@ -40,7 +37,8 @@ set nobackup
 set cursorline	" highlight current line
 set wildmenu	" visual autocomplete for command menu
 
-colorscheme jellybeans
+"colorscheme jellybeans
+colorscheme apprentice
 set background=dark
 
 set number relativenumber
@@ -92,10 +90,12 @@ au FileType go nmap <Leader>gd <Plug>(go-doc-split)
 au FileType go nmap <Leader>gr <Plug>(go-run)
 au FileType go nmap <Leader>gb <Plug>(go-build)
 au FileType go nmap <Leader>gt <Plug>(go-test)
+au FileType go nmap <Leader>gs :GoFillStruct<CR>
 "au FileType go nmap gd <Plug>(go-def-tab)
 "au FileType go nmap <Leader>gD <Plug>(go-def-split)
 let g:go_fmt_command = "goimports" " automatically manager imports
-let g:go_def_mode = "gopls"
+"let g:go_def_mode = "gopls"
+let g:go_metalinter_enabled = 0
 au FileType go nmap <C-\>s <Plug>(go-referrers)
 
 
@@ -115,7 +115,7 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 " Uncomment to open tagbar automatically whenever possible
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 
-set completeopt=menu,noinsert,noselect
+"set completeopt=menu,noinsert,noselect
 noremap <Tab> :call Next_buffer_or_next_tab()<cr>
 
 fun! Next_buffer_or_next_tab()
@@ -137,7 +137,7 @@ nmap <Leader>n		:setlocal number!<CR>
 nmap <Leader>p		:set paste!<CR>
 nmap <Leader><space>	:nohlsearch<CR>
 nmap <C-e>		:b#<CR>
-nmap <Leader>g		:GitGutterToggle<CR>
+"nmap <Leader>g		:GitGutterToggle<CR>
 nmap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 nmap <Leader>h          :e %:p:s,.h$,.X123X,:s,.c$,.h,:s,.X123X$,.c,<CR>
 
@@ -155,7 +155,7 @@ let g:rustfmt_autosave = 1
 "set list listchars+=space:·
 "set listchars+=tab:>-
 "
-au filetype go inoremap <buffer> . .<C-x><C-o>
+"au filetype go inoremap <buffer> . .<C-x><C-o>
 au filetype c inoremap <buffer> . .<C-x><C-o>
 
 au filetype xml nmap <Leader>P :%!xmllint --format -<CR>
@@ -168,13 +168,13 @@ au filetype json nmap <Leader>P :%!jq .<CR>
 " As-you-type autocomplete
 "set completeopt=menu,menuone,preview,noselect,noinsert
 set completeopt=menu,menuone,popup,noselect,noinsert
-let g:ale_completion_enabled = 1
+"let g:ale_completion_enabled = 1
 
 " Required, explicitly enable Elixir LS
- let g:ale_linters = {
- \  'rust': ['analyzer'],
- \  'c': ['gcc', 'cppcheck'],
- \}
+" let g:ale_linters = {
+" \  'rust': ['analyzer'],
+" \  'c': ['gcc', 'cppcheck'],
+" \}
 
  " navigate between erros
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -185,3 +185,45 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
+
+" navigate between erros
+"nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+let g:context_extend_regex = '^\s*\([]{})]\|end\|else\|case\>\|default\>\)'
+let g:context_filetype_blacklist = ["json"]
+
+" coc settings
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+set cmdheight=2
+" gh - get hint on whatever's under the cursor
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+" gi - go to implementation
+nmap <silent> gi <Plug>(coc-implementation)
+" gr - find references
+nmap <silent> gr <Plug>(coc-references)
+"autocmd CursorHold * silent call <SID>show_documentation()
+
+"inoremap <silent><expr> <TAB>
+"      \ coc#pum#visible() ? coc#pum#next(1) :
+"      \ CheckBackspace() ? "\<Tab>" :
+"      \ coc#refresh()
+"inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+" Show all diagnostics.
+"nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>a  :CocDiagnostics<cr>
