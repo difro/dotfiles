@@ -43,9 +43,6 @@
 	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -dr
 	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
 
-	# use delta pager
-	diffd = -c core.pager=delta diff
-
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
