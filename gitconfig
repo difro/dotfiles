@@ -40,8 +40,11 @@
 	spr  = "!f() { git fetch -fu ${2:-origin} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
 	# delete merged branch
-	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -dr
-	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v dev | xargs -n 1 git branch -d
+	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -dr
+	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
+
+	# use delta pager
+	diffd = -c core.pager=delta diff
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -49,8 +52,13 @@
 	required = true
 	process = git-lfs filter-process
 
+[user]
+	name = Jihoon Chung
+	email = jihoon@gmail.com
+
 [include]
 	path = ~/.gitconfig.local
+	path = ~/.gitconfig.themes
 [branch]
 	autosetuprebase = always
 
@@ -69,6 +77,8 @@
 	ff = only
 [rerere]
 	enabled = true
-[user]
-	name = Jihoon Chung
-	email = jihoon@gmail.com
+
+[diff]
+	colorMoved = default
+[safe]
+	directory = .
