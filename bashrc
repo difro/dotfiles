@@ -20,7 +20,7 @@ else
 	fi
 fi
 
-export	EDITOR='vim'
+export	EDITOR='nvim'
 
 # for xterm titles
 export	PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007"'
@@ -35,7 +35,29 @@ NO_COLOR="\[\033[0m\]"
 YELLOW="\[\033[1;33m\]"
 WHITE="\[\033[1;37m\]"
 RED="\[\033[1;31m\]"
-export	PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\w$GRAY)--(\A)\n$WHITE\$$NO_COLOR "
+shorten_path() {
+    # Replace the home directory with ~
+    local path="${PWD/#$HOME/~}"
+    path="${path/#\/home1\/irteam\/naver\/work\/jihoonc/~}"
+
+    local IFS="/"
+    local parts=($path)
+    local new_path=""
+    local len=${#parts[@]}
+
+    for (( i=0; i<$len; i++ )); do
+	    if [[ $i == $((len-1)) ]]; then
+		    # If it's the last element, add the full name
+		    new_path+="${parts[$i]}"
+	    else
+		    # Else, add the first character followed by a /
+		    new_path+="${parts[$i]:0:1}/"
+	    fi
+    done
+    echo -n "$new_path"
+}
+export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRAY)--(\A)\n$WHITE\$$NO_COLOR "
+
 
 export	LC_ALL=en_US.UTF-8
 export	LANG=en_US.UTF-8
@@ -62,7 +84,7 @@ alias	ls='ls --color=auto --show-control-chars'
 alias	grep="grep --exclude-dir vendor --color=yes"
 alias	p='perl'
 alias	less='less -r'
-alias	vi='vim'
+alias	vi='nvim'
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
 alias	vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
 alias	curlheader='curl -s -D - -o /dev/null'
@@ -106,3 +128,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 if [[ -f "$HOME/.cargo/env" ]]; then
 	. "$HOME/.cargo/env"
 fi
+
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

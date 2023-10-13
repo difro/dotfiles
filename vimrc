@@ -76,7 +76,7 @@ highlight ExtraWhitespace ctermbg=9
 
 "=== bling/vim-airline ===
 let g:airline_detect_paste=1
-let g:airline_theme='jellybeans'
+"let g:airline_theme='jellybeans'
 
 "=== NERDTree ===
 let g:nerdtree_tabs_open_on_console_startup = 0
@@ -95,7 +95,7 @@ au FileType go nmap <Leader>gs :GoFillStruct<CR>
 "au FileType go nmap <Leader>gD <Plug>(go-def-split)
 let g:go_fmt_command = "goimports" " automatically manager imports
 "let g:go_def_mode = "gopls"
-let g:go_metalinter_enabled = 0
+"let g:go_metalinter_enabled = 0
 au FileType go nmap <C-\>s <Plug>(go-referrers)
 
 
@@ -208,7 +208,7 @@ nnoremap <silent> gh :call <SID>show_documentation()<CR>
 " gi - go to implementation
 nmap <silent> gi <Plug>(coc-implementation)
 " gr - find references
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gr <Plug>(coc-references)
 "autocmd CursorHold * silent call <SID>show_documentation()
 
 "inoremap <silent><expr> <TAB>
@@ -227,3 +227,8 @@ endfunction
 " Show all diagnostics.
 "nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>a  :CocDiagnostics<cr>
+
+let g:go_metalinter_enabled = []
+let g:go_metalinter_command = 'golangci-lint'
+"let g:go_metalinter_autosave = 1
+"let g:go_metalinter_autosave_enabled = ['vet','revive','errcheck','staticcheck','unused','varcheck']

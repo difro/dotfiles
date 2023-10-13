@@ -5,13 +5,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 
 " Git
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/vcscommand.vim'
 
 " VIM Script Library
 Plug 'vim-scripts/L9'
-
+"
 "Plug 'dense-analysis/ale'
 Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
@@ -20,7 +20,6 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-dispatch'
 Plug 'junegunn/vim-easy-align'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
 Plug 'majutsushi/tagbar'
 Plug 'diepm/vim-rest-console'
 Plug 'vim-syntastic/syntastic'
@@ -47,7 +46,7 @@ Plug 'chazy/cscope_maps'
 Plug 'vim-jp/vim-cpp'	"Vim syntax files with C++11 suppor
 
 Plug 'junegunn/vim-peekaboo'
-Plug 'ludovicchabant/vim-gutentags'	"tags management
+"Plug 'ludovicchabant/vim-gutentags'	"tags management
 
 "Plug 'wellle/context.vim'
 
