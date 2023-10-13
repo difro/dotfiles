@@ -87,7 +87,6 @@ alias	p='perl'
 alias	less='less -r'
 #alias	vi='vim'
 alias	vi='nvim'
->>>>>>> f4ecba52a9c6 (nvim)
 alias 	v='vi $(find . -path "./.git*" -prune -o -print | peco)'
 alias	vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
 alias	curlheader='curl -s -D - -o /dev/null'
