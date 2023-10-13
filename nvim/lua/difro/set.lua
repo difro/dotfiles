@@ -9,7 +9,7 @@ vim.opt.shiftwidth = 8
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.laststatus = 2
 
