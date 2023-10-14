@@ -103,6 +103,9 @@ require('packer').startup(function(use)
         -- see :help lsp-zero-keybindings
         -- to learn the available actions
         lsp_zero.default_keymaps({buffer = bufnr})
+
+	--vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, {})
+	vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, {})
       end)
 
       require('lspconfig').lua_ls.setup(lsp_zero.nvim_lua_ls())
@@ -201,6 +204,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 
 vim.keymap.set("x", "<leader>p", "\"_dP")
+
+-- lsp keymaps
+vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references, {})
+
 
 ---------
 -- set
