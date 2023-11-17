@@ -157,8 +157,18 @@ require('lazy').setup({
   { 'rebelot/kanagawa.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'kanagawa-dragon'
+      -- vim.cmd.colorscheme 'kanagawa-dragon'
     end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+    config = function()
+      vim.cmd.colorscheme 'tokyonight-moon'
+    end,
+
   },
 
 
@@ -263,10 +273,26 @@ require('lazy').setup({
     end
   },
 
+--  {
+--    'nvim-tree/nvim-tree.lua',
+--    opts = {},
+--  },
+
   {
-    'nvim-tree/nvim-tree.lua',
-    opts = {},
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require"octo".setup({
+        github_hostname = "oss.navercorp.com";
+      })
+    end
   },
+
+
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
