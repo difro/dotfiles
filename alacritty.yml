@@ -134,10 +134,21 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: Monaco
+    #family: Monaco
+    #family: Menlo
+    family: Monaspace Neon Light
+    #family: Monaspace Argon Light
+    #family: Monaspace Krypton Light
+    #family: InconsolataGo Nerd Font Mono
+    #family: Inconsolata LGC Nerd Font Mono
+    #family: Monaspace Krypton SemiWide Light
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
+
+  # Point size
+  #size: 11.0
+  size: 12.0
 
   # Bold font face
   #bold:
@@ -172,30 +183,26 @@ font:
     # The `style` can be specified to pick a specific face.
     #style: Bold Italic
 
-  # Point size
-  #size: 11.0
-  size: 12.0
-
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
   # spacing.
   offset:
     x: 2
-    y: 2
+    y: 5
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the
   # right, increasing `y` moves the glyph upward.
-  #glyph_offset:
-  #  x: 0
-  #  y: 0
+  glyph_offset:
+    x: 0
+    y: 0 
 
   # Use built-in font for box drawing characters.
   #
   # If `true`, Alacritty will use a custom built-in font for box drawing
   # characters (Unicode points 2500 - 259f).
   #
-  #builtin_box_drawing: true
+  builtin_box_drawing: true
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
@@ -203,6 +210,38 @@ draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night)
 colors:
+  # Default colors
+  primary:
+    background: '0x222436'
+    foreground: '0xc8d3f5'
+
+  # Normal colors
+  normal:
+    black:   '0x1b1d2b'
+    red:     '0xff757f'
+    green:   '0xc3e88d'
+    yellow:  '0xffc777'
+    blue:    '0x82aaff'
+    magenta: '0xc099ff'
+    cyan:    '0x86e1fc'
+    white:   '0x828bb8'
+
+  # Bright colors
+  bright:
+    black:   '0x444a73'
+    red:     '0xff757f'
+    green:   '0xc3e88d'
+    yellow:  '0xffc777'
+    blue:    '0x82aaff'
+    magenta: '0xc099ff'
+    cyan:    '0x86e1fc'
+    white:   '0xc8d3f5'
+
+  indexed_colors:
+    - { index: 16, color: '0xff966c' }
+    - { index: 17, color: '0xc53b53' }
+    
+  
   # Default colors
   #primary:
   #  background: '#1d1f21'
@@ -298,11 +337,11 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-  normal:
-  #  black:   '#1d1f21'
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-    green:   '#629464'
+#  normal:
+#  #  black:   '#1d1f21'
+#  #  red:     '#cc6666'
+#  #  green:   '#b5bd68'
+#    green:   '#629464'
   #  yellow:  '#f0c674'
   #  blue:    '#81a2be'
   #  magenta: '#b294bb'
@@ -336,7 +375,7 @@ colors:
 
   # Indexed Colors
   #
-  # The indexed colors include all colors from 16 to 256.
+  # The indexed colors include all colors from 17 to 256.
   # When these are not set, they're filled with sensible defaults.
   #
   # Example:
