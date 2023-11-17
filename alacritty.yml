@@ -210,37 +210,70 @@ draw_bold_text_with_bright_colors: true
 
 # Colors (Tomorrow Night)
 colors:
-  # Default colors
-  primary:
-    background: '0x222436'
-    foreground: '0xc8d3f5'
+# tokyonight-night
+#  primary:
+#    background: '0x1a1b26'
+#      #foreground: '0xc0caf5'
+#    foreground: '0xFFFFFF'
+#
+#  # Normal colors
+#  normal:
+#    black:   '0x15161e'
+#    red:     '0xf7768e'
+#    green:   '0x9ece6a'
+#    yellow:  '0xe0af68'
+#    blue:    '0x7aa2f7'
+#    magenta: '0xbb9af7'
+#    cyan:    '0x7dcfff'
+#    white:   '0xa9b1d6'
+#
+#  # Bright colors
+#  bright:
+#    black:   '0x414868'
+#    red:     '0xf7768e'
+#    green:   '0x9ece6a'
+#    yellow:  '0xe0af68'
+#    blue:    '0x7aa2f7'
+#    magenta: '0xbb9af7'
+#    cyan:    '0x7dcfff'
+#    white:   '0xc0caf5'
+#
+#  indexed_colors:
+#    - { index: 16, color: '0xff9e64' }
+#    - { index: 17, color: '0xdb4b4b' }
 
-  # Normal colors
-  normal:
-    black:   '0x1b1d2b'
-    red:     '0xff757f'
-    green:   '0xc3e88d'
-    yellow:  '0xffc777'
-    blue:    '0x82aaff'
-    magenta: '0xc099ff'
-    cyan:    '0x86e1fc'
-    white:   '0x828bb8'
-
-  # Bright colors
-  bright:
-    black:   '0x444a73'
-    red:     '0xff757f'
-    green:   '0xc3e88d'
-    yellow:  '0xffc777'
-    blue:    '0x82aaff'
-    magenta: '0xc099ff'
-    cyan:    '0x86e1fc'
-    white:   '0xc8d3f5'
-
-  indexed_colors:
-    - { index: 16, color: '0xff966c' }
-    - { index: 17, color: '0xc53b53' }
-    
+# tokyonight-moon
+#  # Default colors
+#  primary:
+#    background: '0x222436'
+#    foreground: '0xc8d3f5'
+#
+#  # Normal colors
+#  normal:
+#    black:   '0x1b1d2b'
+#    red:     '0xff757f'
+#    green:   '#629464'
+#    yellow:  '0xffc777'
+#    blue:    '0x82aaff'
+#    magenta: '0xc099ff'
+#    cyan:    '0x86e1fc'
+#    white:   '0x828bb8'
+#
+#  # Bright colors
+#  bright:
+#    black:   '0x444a73'
+#    red:     '0xff757f'
+#    green:   '0xc3e88d'
+#    yellow:  '0xffc777'
+#    blue:    '0x82aaff'
+#    magenta: '0xc099ff'
+#    cyan:    '0x86e1fc'
+#    white:   '0xc8d3f5'
+#
+#  indexed_colors:
+#    - { index: 16, color: '0xff966c' }
+#    - { index: 17, color: '0xc53b53' }
+#    
   
   # Default colors
   #primary:
@@ -337,11 +370,11 @@ colors:
   #  background: CellForeground
 
   # Normal colors
-#  normal:
+  normal:
 #  #  black:   '#1d1f21'
 #  #  red:     '#cc6666'
 #  #  green:   '#b5bd68'
-#    green:   '#629464'
+    green:   '#629464'
   #  yellow:  '#f0c674'
   #  blue:    '#81a2be'
   #  magenta: '#b294bb'
