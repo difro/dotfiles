@@ -157,7 +157,7 @@ require('lazy').setup({
   { 'rebelot/kanagawa.nvim',
     priority = 1000,
     config = function()
-      -- vim.cmd.colorscheme 'kanagawa-dragon'
+      vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
   {
@@ -166,7 +166,7 @@ require('lazy').setup({
     priority = 1000,
     opts = {},
     config = function()
-      vim.cmd.colorscheme 'tokyonight-moon'
+      --vim.cmd.colorscheme 'tokyonight-moon'
     end,
 
   },
