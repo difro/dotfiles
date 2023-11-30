@@ -1,51 +1,9 @@
---[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-
-Kickstart.nvim is *not* a distribution.
-
-Kickstart.nvim is a template for your own configuration.
-  The goal is that you can read every line of code, top-to-bottom, understand
-  what your configuration is doing, and modify it to suit your needs.
-
-  Once you've done that, you should start exploring, configuring and tinkering to
-  explore Neovim!
-
-  If you don't know anything about Lua, I recommend taking some time to read through
-  a guide. One possible example:
-  - https://learnxinyminutes.com/docs/lua/
-
-
-  And then you can explore or search through `:help lua-guide`
-  - https://neovim.io/doc/user/lua-guide.html
-
-
-Kickstart Guide:
-
-I have left several `:help X` comments throughout the init.lua
-You should run that command and read that help section for more information.
-
-In addition, I have some `NOTE:` items throughout the file.
-These are for you, the reader to help understand what is happening. Feel free to delete
-them once you know what you're doing, but they should serve as a guide for when you
-are first encountering a few different constructs in your nvim config.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now :)
---]]
 -- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -74,8 +32,13 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+  -- Useful plugin to show you pending keybinds.
+  'folke/which-key.nvim',
+
+  -- "gc" to comment visual regions/lines
+  'numToStr/Comment.nvim',
+
   -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -107,14 +70,16 @@ require('lazy').setup({
     },
   },
 
-  -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
-
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
+      numhl = true,
+      word_diff = false,
+
+      current_line_blame = true,
+
       signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -126,7 +91,11 @@ require('lazy').setup({
         -- "git diff => gd"
         vim.keymap.set('n', '<leader>gd', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 
+        -- "git blame => gb"
+        vim.keymap.set('n', '<leader>gb', require('gitsigns').toggle_current_line_blame, { buffer = bufnr, desc = 'Toggle current line git blame' })
+
         -- don't override the built-in and fugitive keymaps
+        -- "[c" "]c" : jump to next/prev diff hunk
         local gs = package.loaded.gitsigns
         vim.keymap.set({ 'n', 'v' }, ']c', function()
           if vim.wo.diff then
@@ -154,12 +123,6 @@ require('lazy').setup({
   { 'romainl/Apprentice' },
   { 'rose-pine/neovim', as = 'rose-pine' },
   { "catppuccin/nvim", as = "catppuccin" },
-  { 'rebelot/kanagawa.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'kanagawa-dragon'
-    end,
-  },
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -170,7 +133,12 @@ require('lazy').setup({
     end,
 
   },
-
+  { 'rebelot/kanagawa.nvim',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'kanagawa-dragon'
+    end,
+  },
 
   {
     -- Set lualine as statusline
@@ -178,12 +146,14 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
+        icons_enabled = true,
         --theme = 'onedark',
         --theme = 'papercolor_dark',
         theme = 'seoul256',
-        component_separators = '|',
-        section_separators = '',
+        --component_separators = '|',
+        --section_separators = '',
+        component_separators = { left = '', right = ''},
+        section_separators = { left = '', right = ''},
       },
     },
   },
@@ -191,18 +161,19 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
-    -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
     main = 'ibl',
     opts = {
       scope = {
         enabled = false,
       },
+      indent = {
+        char = '▏',
+      },
+        -- "toggle Indent"
+        vim.keymap.set('n', '<leader>gi', vim.cmd.IBLToggle, { desc = 'Toggle IBL' }),
     },
   },
-
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -273,10 +244,10 @@ require('lazy').setup({
     end
   },
 
---  {
---    'nvim-tree/nvim-tree.lua',
---    opts = {},
---  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    opts = {},
+  },
 
   {
     'pwntester/octo.nvim',
@@ -527,7 +498,6 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-  
   gopls = {
     gopls = {
       completeUnimported = true,
@@ -539,6 +509,7 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+      diagnostics = { globals = { 'vim' } }, -- needed to suppress warning when editing init.lua
     },
   },
 }

@@ -41,6 +41,7 @@ set wildmenu	" visual autocomplete for command menu
 colorscheme apprentice
 set background=dark
 
+aa
 set number relativenumber
 set updatetime=2000 " interval between swap file writes
 
