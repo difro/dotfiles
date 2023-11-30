@@ -57,7 +57,16 @@ shorten_path() {
     done
     echo -n "$new_path"
 }
-export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRAY)--(\A)\n$WHITE\$$NO_COLOR "
+
+get_git_branch() {
+	# Check if the current directory is in a git repository
+	if git rev-parse --git-dir > /dev/null 2>&1; then
+		# Echo the branch name
+		echo -n "[$(git branch --show-current)]"
+	fi
+}
+export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRAY)--(\A)$(  echo -n " $GRAY\$(get_git_branch)$GRAY")\n$WHITE\$$NO_COLOR "
+
 
 
 export	LC_ALL=en_US.UTF-8
