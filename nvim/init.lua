@@ -286,7 +286,7 @@ require('lazy').setup({
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+    --build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
   {
@@ -527,6 +527,7 @@ require('which-key').register {
   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+  ['<leader>u'] = { name = '[U]pdate', _ = 'which_key_ignore' },
   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
@@ -657,6 +658,10 @@ augroup END
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
+
+-- Update Pkgs
+vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
+vim.keymap.set('n', '<leader>um', vim.cmd.Mason, { desc = '[Update] Mason' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
