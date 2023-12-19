@@ -65,6 +65,8 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
 
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-buffer',
       -- Adds a number of user-friendly snippets
       --'rafamadriz/friendly-snippets',
     },
@@ -123,6 +125,7 @@ require('lazy').setup({
   { 'romainl/Apprentice' },
   { 'rose-pine/neovim', as = 'rose-pine' },
   { "catppuccin/nvim", as = "catppuccin" },
+  { 'dracula/vim' , },
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -455,6 +458,10 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+vim.diagnostic.config{
+  float={border="single"}
+}
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -645,6 +652,25 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
 }
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})
 
 -- Always jump to the last known cursor position
 vim.api.nvim_exec([[
