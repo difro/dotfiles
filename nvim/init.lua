@@ -138,6 +138,18 @@ require('lazy').setup({
   },
   { 'rebelot/kanagawa.nvim',
     priority = 1000,
+    opts = {
+      transparent = true,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none"
+            }
+          }
+        }
+      },
+    },
     config = function()
       require("kanagawa").setup({
         --transparent = true,
@@ -147,6 +159,7 @@ require('lazy').setup({
       vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
+  { 'nordtheme/vim' },
 
   {
     -- Set lualine as statusline
@@ -330,7 +343,6 @@ require('lazy').setup({
       require'lsp_signature'.setup(opts)
     end
   },
-
 
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -719,6 +731,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 -- Update Pkgs
 vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
 vim.keymap.set('n', '<leader>um', vim.cmd.Mason, { desc = '[Update] Mason' })
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
