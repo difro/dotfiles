@@ -139,6 +139,11 @@ require('lazy').setup({
   { 'rebelot/kanagawa.nvim',
     priority = 1000,
     config = function()
+      require("kanagawa").setup({
+        --transparent = true,
+        transparent = false,
+        theme = "dragon",
+      })
       vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
@@ -180,7 +185,8 @@ require('lazy').setup({
         enabled = false,
       },
       indent = {
-        char = '▏',
+        -- char = '▏',
+        char = '·',
       },
         -- "toggle Indent"
         vim.keymap.set('n', '<leader>ti', vim.cmd.IBLToggle, { desc = 'Toggle IBL' }),
@@ -298,6 +304,31 @@ require('lazy').setup({
       filter_type = "SHADE",
       filter_percent = .35,
     }
+  },
+
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      hint_enable = false,
+      always_trigger = true,
+
+      vim.keymap.set({ 'n' }, '<C-k>', function()
+        require('lsp_signature').toggle_float_win()
+      end, { silent = true, noremap = true, desc = 'toggle signature' }),
+
+      vim.keymap.set({ 'n' }, '<Leader>k', function()
+        vim.lsp.buf.signature_help()
+      end, { silent = true, noremap = true, desc = 'toggle signature' })
+
+    },
+    config = function(_, opts)
+      require'lsp_signature'.setup(opts)
+    end
   },
 
 
