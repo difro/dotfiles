@@ -125,7 +125,6 @@ require('lazy').setup({
   { 'romainl/Apprentice' },
   { 'rose-pine/neovim', as = 'rose-pine' },
   { "catppuccin/nvim", as = "catppuccin" },
-  { 'dracula/vim' , },
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -156,10 +155,59 @@ require('lazy').setup({
         transparent = false,
         theme = "dragon",
       })
-      vim.cmd.colorscheme 'kanagawa-dragon'
+      --vim.cmd.colorscheme 'kanagawa-dragon'
     end,
   },
   { 'nordtheme/vim' },
+
+  { "ellisonleao/gruvbox.nvim",
+    priority = 1000 ,
+    config = function()
+      require("gruvbox").setup({
+        terminal_colors = true,
+        contrast = "hard", -- can be "hard", "soft" or empty string
+
+      })
+      --vim.o.background = "dark"
+      --vim.cmd.colorscheme 'gruvbox'
+    end,
+  },
+
+  { "savq/melange-nvim",
+    config = function()
+      vim.opt.termguicolors = true
+      --vim.cmd.colorscheme 'melange'
+    end,
+  },
+
+  {
+    'AlexvZyl/nordic.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('nordic').setup({
+        reduced_blue = true,
+        bright_border = true,
+        telescope = {
+          -- Available styles: `classic`, `flat`.
+          style = 'clasic',
+        },
+        --swap_backgrounds = true,
+        cursorline = {
+          -- Bold font in cursorline.
+          bold = false,
+          -- Bold cursorline number.
+          bold_number = true,
+          -- Avialable styles: 'dark', 'light'.
+          theme = 'light',
+          -- Blending the cursorline bg with the buffer bg.
+          blend = 0.99,
+        },
+      })
+      vim.cmd.colorscheme 'nordic'
+    end
+  },
+
 
   {
     -- Set lualine as statusline
@@ -498,6 +546,15 @@ vim.defer_fn(function()
     highlight = {
        enable = true,
       additional_vim_regex_highlighting = false,
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<CR>",
+        node_incremental = "<CR>",
+        scope_incremental = "<Tab>",
+        node_decremental = "<S-Tab>",
+      },
     },
   }
 end, 0)
