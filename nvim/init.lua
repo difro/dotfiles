@@ -36,7 +36,13 @@ require('lazy').setup({
   'folke/which-key.nvim',
 
   -- "gc" to comment visual regions/lines
-  'numToStr/Comment.nvim',
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   {
