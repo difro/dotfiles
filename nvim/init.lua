@@ -367,7 +367,9 @@ require('lazy').setup({
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("go").setup()
+      require("go").setup({
+        icons = false,
+      })
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
