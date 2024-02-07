@@ -35,14 +35,23 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   'folke/which-key.nvim',
 
-  -- "gc" to comment visual regions/lines
+  -- "gcc" "gbc" to comment visual regions/lines
   {
     'numToStr/Comment.nvim',
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
     opts = {
       -- add any options here
     },
     lazy = false,
   },
+
+  -- DAP (Debug Adapter Protocol)
+  'mfussenegger/nvim-dap',
+  'rcarriga/nvim-dap-ui',
+  'theHamsta/nvim-dap-virtual-text',
+  'nvim-telescope/telescope-dap.nvim',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   {
