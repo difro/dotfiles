@@ -191,7 +191,7 @@ require('lazy').setup({
   { "savq/melange-nvim",
     config = function()
       vim.opt.termguicolors = true
-      --vim.cmd.colorscheme 'melange'
+      vim.cmd.colorscheme 'melange'
     end,
   },
 
@@ -219,7 +219,7 @@ require('lazy').setup({
           blend = 0.99,
         },
       })
-      vim.cmd.colorscheme 'nordic'
+      -- vim.cmd.colorscheme 'nordic'
     end
   },
 
@@ -261,7 +261,7 @@ require('lazy').setup({
         enabled = false,
       },
       indent = {
-        -- char = '▏',
+        --char = '▏',
         char = '·',
       },
         -- "toggle Indent"
@@ -369,6 +369,27 @@ require('lazy').setup({
     config = function()
       require("go").setup({
         icons = false,
+        dap_debug_gui = {
+          layouts = {
+            {
+              elements = {      -- Elements can be strings or table with id and size keys.        { id = "breakpoints", size = 0.2 },        
+              "console",
+              "repl",
+              "watches",
+              "stacks",
+            },
+            size = 80, -- 80 columns      
+            position = "right",
+          },
+          {
+            elements = {
+              "scopes",
+            },
+            size = 0.25, -- 25% of total lines
+            position = "bottom",
+          },
+        },
+      },
       })
     end,
     event = {"CmdlineEnter"},
