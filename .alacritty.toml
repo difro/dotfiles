@@ -57,18 +57,18 @@ text = "#2e3440"
 
 [font]
 builtin_box_drawing = true
-#size = 12
-size = 14
+size = 12
+#size = 14
 
 [font.glyph_offset]
 x = 0
-y = 0
+y = 1
 
 [font.normal]
 #family = "MonaspiceAr NFM"
-#family = "MonaspiceNe NFM"
+family = "MonaspiceNe NFM"
 #family = "Inconsolata LGC Nerd Font Mono"
-family = "InconsolataGo Nerd Font Mono"
+#family = "InconsolataGo Nerd Font Mono"
 
 [font.offset]
 #x = 2
