@@ -5,7 +5,8 @@
 	autocrlf = false
 
 [push]
-	default = tracking
+	#default = tracking
+	default = current
 
 [credential "https://github.com"]
 	username = difro
@@ -61,21 +62,34 @@
 
 [commit]
 	verbose = true
+
 [http "https://gopkg.in"]
 	followRedirects = true
+
 [http]
 	followRedirects = true
+
 [hub]
 	host = oss.navercorp.com
 	protocol = https
+
 [fetch]
 	prune = true
+
 [pull]
 	ff = only
+
 [rerere]
 	enabled = true
 
 [diff]
 	colorMoved = default
+	algorithm = histogram
 [safe]
 	directory = .
+
+[merge]
+	#conflictstyle = diff3
+	conflictstyle = zdiff3
+[help]
+	autocorrect = prompt

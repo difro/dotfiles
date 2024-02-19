@@ -142,50 +142,50 @@ require('lazy').setup({
   { "catppuccin/nvim", as = "catppuccin" },
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    config = function()
-      --vim.cmd.colorscheme 'tokyonight-moon'
-    end,
+    -- lazy = false,
+    -- priority = 1000,
+    -- opts = {},
+    -- config = function()
+    --   vim.cmd.colorscheme 'tokyonight-moon'
+    -- end,
 
   },
   { 'rebelot/kanagawa.nvim',
-    priority = 1000,
-    opts = {
-      transparent = true,
-      colors = {
-        theme = {
-          all = {
-            ui = {
-              bg_gutter = "none"
-            }
-          }
-        }
-      },
-    },
-    config = function()
-      require("kanagawa").setup({
-        --transparent = true,
-        transparent = false,
-        theme = "dragon",
-      })
-      --vim.cmd.colorscheme 'kanagawa-dragon'
-    end,
+    -- priority = 1000,
+    -- opts = {
+    --   transparent = true,
+    --   colors = {
+    --     theme = {
+    --       all = {
+    --         ui = {
+    --           bg_gutter = "none"
+    --         }
+    --       }
+    --     }
+    --   },
+    -- },
+    -- config = function()
+    --   require("kanagawa").setup({
+    --     --transparent = true,
+    --     transparent = false,
+    --     theme = "dragon",
+    --   })
+    --   vim.cmd.colorscheme 'kanagawa-dragon'
+    -- end,
   },
   { 'nordtheme/vim' },
 
   { "ellisonleao/gruvbox.nvim",
-    priority = 1000 ,
-    config = function()
-      require("gruvbox").setup({
-        terminal_colors = true,
-        contrast = "hard", -- can be "hard", "soft" or empty string
-
-      })
-      --vim.o.background = "dark"
-      --vim.cmd.colorscheme 'gruvbox'
-    end,
+    -- priority = 1000 ,
+    -- config = function()
+    --   require("gruvbox").setup({
+    --     terminal_colors = true,
+    --     contrast = "hard", -- can be "hard", "soft" or empty string
+    --
+    --   })
+    --   --vim.o.background = "dark"
+    --   vim.cmd.colorscheme 'gruvbox'
+    -- end,
   },
 
   { "savq/melange-nvim",
@@ -197,30 +197,30 @@ require('lazy').setup({
 
   {
     'AlexvZyl/nordic.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('nordic').setup({
-        reduced_blue = true,
-        bright_border = true,
-        telescope = {
-          -- Available styles: `classic`, `flat`.
-          style = 'clasic',
-        },
-        --swap_backgrounds = true,
-        cursorline = {
-          -- Bold font in cursorline.
-          bold = false,
-          -- Bold cursorline number.
-          bold_number = true,
-          -- Avialable styles: 'dark', 'light'.
-          theme = 'light',
-          -- Blending the cursorline bg with the buffer bg.
-          blend = 0.99,
-        },
-      })
-      -- vim.cmd.colorscheme 'nordic'
-    end
+    -- lazy = false,
+    -- priority = 1000,
+    -- config = function()
+    --   require('nordic').setup({
+    --     reduced_blue = true,
+    --     bright_border = true,
+    --     telescope = {
+    --       -- Available styles: `classic`, `flat`.
+    --       style = 'clasic',
+    --     },
+    --     --swap_backgrounds = true,
+    --     cursorline = {
+    --       -- Bold font in cursorline.
+    --       bold = false,
+    --       -- Bold cursorline number.
+    --       bold_number = true,
+    --       -- Avialable styles: 'dark', 'light'.
+    --       theme = 'light',
+    --       -- Blending the cursorline bg with the buffer bg.
+    --       blend = 0.99,
+    --     },
+    --   })
+    --   -- vim.cmd.colorscheme 'nordic'
+    -- end
   },
 
 
