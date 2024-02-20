@@ -1,3 +1,2 @@
-*.swp
-.dotfiles_old
-tags
+nvim/lua/
+nvim/init.lua.backup
