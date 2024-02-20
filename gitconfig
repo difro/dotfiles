@@ -4,6 +4,10 @@
 	filemode = false
 	autocrlf = false
 
+	# get from https://github.com/mookid/diffr
+	#pager = diffr --colors --colors 'refine-removed:background:230,108,108:foreground:white:nobold' --colors 'refine-added:background:84,120,84:foreground:white:nobold' | less -R
+	pager = delta
+
 [push]
 	#default = tracking
 	default = current
@@ -44,6 +48,9 @@
 	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -dr
 	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
 
+	# use delta pager side-by-side
+	diffside = -c core.pager=delta -c delta.side-by-side=true diff
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -54,9 +61,6 @@
 	name = Jihoon Chung
 	email = jihoon@gmail.com
 
-[include]
-	path = ~/.gitconfig.local
-	path = ~/.gitconfig.themes
 [branch]
 	autosetuprebase = always
 
@@ -85,11 +89,29 @@
 [diff]
 	colorMoved = default
 	algorithm = histogram
+
 [safe]
 	directory = .
 
 [merge]
-	#conflictstyle = diff3
 	conflictstyle = zdiff3
+
 [help]
 	autocorrect = prompt
+
+[interactive]
+	#diffFilter = diffr
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true  # use n and N to move between diff sections
+	#features = zebra-dark
+	features = tangara-chilensis
+	dark = true
+	line-numbers = true
+	side-by-side = false
+
+[include]
+	path = ~/.gitconfig.local
+	path = ~/.gitconfig.themes
+
