@@ -138,7 +138,15 @@ require('lazy').setup({
 
   -- colorschemes
   { 'romainl/Apprentice' },
-  { 'rose-pine/neovim', as = 'rose-pine' },
+  {
+    'rose-pine/neovim',
+    as = 'rose-pine',
+    -- config = function()
+    --   require("kanagawa").setup({
+    --     vim.cmd.colorscheme "rose-pine",
+    --   })
+    -- end
+  },
   { "catppuccin/nvim", as = "catppuccin" },
   {
     "folke/tokyonight.nvim",
@@ -750,14 +758,18 @@ require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
+  experimental = {
+    ghost_text = true,
+  },
+
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select } ),
+    ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select } ),
 
     -- Navigate between snippet placeholder
     ['<Tab>'] = cmp.mapping(function(fallback)
