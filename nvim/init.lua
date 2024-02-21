@@ -83,7 +83,7 @@ require('lazy').setup({
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-buffer',
       -- Adds a number of user-friendly snippets
-      --'rafamadriz/friendly-snippets',
+      'rafamadriz/friendly-snippets',
     },
   },
 
@@ -783,10 +783,10 @@ cmp.setup {
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     --['<C-Space>'] = cmp.mapping.complete {},
-    --['<CR>'] = cmp.mapping.confirm {
-    --  behavior = cmp.ConfirmBehavior.Replace,
-    --  select = true,
-    --},
+    ['<CR>'] = cmp.mapping.confirm {
+     behavior = cmp.ConfirmBehavior.Replace,
+     select = true,
+    },
   },
   sources = {
     { name = 'nvim_lsp' },
