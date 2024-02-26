@@ -470,6 +470,7 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.inccommand = 'split'
 
 -- Make line numbers default
 vim.wo.number = true
