@@ -402,6 +402,7 @@ require('lazy').setup({
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
+    vim.keymap.set('n', '<leader>gt', vim.cmd.GoTestPkg, { desc = 'GoTestPkg' }),
     --build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
@@ -410,6 +411,9 @@ require('lazy').setup({
     opts = {
       filter_type = "SHADE",
       filter_percent = .35,
+      excluded_filetypes = { "qf", "dashboard", "lspsagafinder", "packer", "checkhealth", "mason", "NvimTree", "neo-tree", "plugin", "lazy", "TelescopePrompt", "alpha", "toggleterm", "sagafinder", "better_term", "fugitiveblame", "starter", "NeogitPopup", "NeogitStatus", "DiffviewFiles", "DiffviewFileHistory", "DressingInput", "spectre_panel", "zsh", "registers", "startuptime", "OverseerList", "Navbuddy", "noice", "notify", "saga_codeaction", "sagarename" },
+
+        vim.keymap.set('n', '<leader>ts', vim.cmd.SunglassesEnableToggle, { desc = 'Toggle Sunglasses' }),
     }
   },
 
@@ -683,7 +687,7 @@ end
 require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
+  ['<leader>g'] = { name = '[G]it or [G]o', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
