@@ -1,3 +1,6 @@
+[env]
+term = "xterm-256color"
+
 [bell]
 animation = "EaseOutExpo"
 
@@ -69,6 +72,12 @@ y = 1
 family = "MonaspiceNe NFM"
 #family = "Inconsolata LGC Nerd Font Mono"
 #family = "InconsolataGo Nerd Font Mono"
+
+[font.bold]
+style = "normal"
+
+[font.italic]
+style = "normal"
 
 [font.offset]
 #x = 2

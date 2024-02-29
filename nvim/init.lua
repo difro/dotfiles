@@ -198,7 +198,6 @@ require('lazy').setup({
 
   { "savq/melange-nvim",
     config = function()
-      vim.opt.termguicolors = true
       vim.cmd.colorscheme 'melange'
     end,
   },
@@ -269,8 +268,8 @@ require('lazy').setup({
         enabled = false,
       },
       indent = {
-        --char = '▏',
-        char = '·',
+        char = '▏',
+        --char = '·',
       },
         -- "toggle Indent"
         vim.keymap.set('n', '<leader>ti', vim.cmd.IBLToggle, { desc = 'Toggle IBL' }),
