@@ -785,7 +785,15 @@ cmp.setup.cmdline('/', {
   }
 })
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    -- Use default nvim history scrolling
+    ["<C-n>"] = {
+      c = false,
+    },
+    ["<C-p>"] = {
+      c = false,
+    },
+  }),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
