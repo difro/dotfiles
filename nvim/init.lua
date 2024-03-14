@@ -823,6 +823,13 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
 vim.keymap.set('n', '<leader>um', vim.cmd.Mason, { desc = '[Update] Mason' })
 
+-- Set conceallevel=2 for markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt.conceallevel = 2
+  end,
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
