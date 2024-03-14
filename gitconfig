@@ -51,6 +51,9 @@
 	# use delta pager side-by-side
 	diffside = -c core.pager=delta -c delta.side-by-side=true diff
 
+	# original
+	difforig = -c core.pager=less diff
+
 	# git switch master(or main)
 	sm = !git switch $(git branch -l main master --format '%(refname:short)')
 
