@@ -860,17 +860,16 @@ cmp.setup {
 vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", { desc = "toggle nvim-cmp" })
 
 -- gen.nvim
-require('gen').prompts['Commit_Msg'] = {
-  prompt = "Generate concise git commit message, for following diff:\n$text",
-  replace = false
-}
-
 require('gen').prompts['0_Explain_Code'] = {
   prompt = "Explain following code:\n$text",
   replace = false
 }
 require('gen').prompts['0_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
+  replace = false
+}
+require('gen').prompts['Commit_Msg'] = {
+  prompt = "You are a helpful assistant to a programmer. Generate concise git commit message, based on following diff. Do not explain the code. Make the message short and concise. Use bullet points when necessary:\n$text",
   replace = false
 }
 

@@ -50,4 +50,9 @@ Plug 'junegunn/vim-peekaboo'
 
 "Plug 'wellle/context.vim'
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Tabby plugin
+Plug 'TabbyML/vim-tabby'
+" Add config here. Example config:
+let g:tabby_keybinding_accept = '<Tab>'
