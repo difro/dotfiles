@@ -397,7 +397,10 @@ require('lazy').setup({
     },
     config = function()
       require"octo".setup({
-        github_hostname = "oss.navercorp.com";
+        github_hostname = "oss.navercorp.com",
+        suppress_missing_scope = {
+          projects_v2 = true,
+        },
       })
     end
   },
@@ -492,6 +495,21 @@ require('lazy').setup({
   },
 
   { "folke/neodev.nvim", opts = {} },
+
+  { 'TabbyML/vim-tabby' },
+
+  { "David-Kunz/gen.nvim",
+  opts = {
+    host = "cnd908.nfra.io",
+    port = "11434",
+    model = "mistral",
+    -- model = "gemma",
+    -- model = "llama2:7b",
+    show_model = true,
+    -- show_prompt = true,
+    display_mode = "split",
+  },
+},
 
 }, {})
 
@@ -726,9 +744,9 @@ require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
-  experimental = {
+  --[[ experimental = {
     ghost_text = true,
-  },
+  }, ]]
 
   snippet = {
     expand = function(args)
@@ -830,6 +848,33 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt.conceallevel = 2
   end,
 })
+
+-- initialize global var to false -> nvim-cmp turned off per default
+vim.g.cmptoggle = true
+
+cmp.setup {
+  enabled = function()
+    return vim.g.cmptoggle
+  end
+}
+vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", { desc = "toggle nvim-cmp" })
+
+-- gen.nvim
+require('gen').prompts['Commit_Msg'] = {
+  prompt = "Generate concise git commit message, for following diff:\n$text",
+  replace = false
+}
+
+require('gen').prompts['0_Explain_Code'] = {
+  prompt = "Explain following code:\n$text",
+  replace = false
+}
+require('gen').prompts['0_Explain_Code_InKorean'] = {
+  prompt = "Explain following code in Korean:\n$text",
+  replace = false
+}
+
+vim.cmd.SunglassesDisable()
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
