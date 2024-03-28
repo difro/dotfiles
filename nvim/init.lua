@@ -498,18 +498,7 @@ require('lazy').setup({
 
   { 'TabbyML/vim-tabby' },
 
-  { "David-Kunz/gen.nvim",
-  opts = {
-    host = "cnd908.nfra.io",
-    port = "11434",
-    model = "mistral",
-    -- model = "gemma",
-    -- model = "llama2:7b",
-    show_model = true,
-    -- show_prompt = true,
-    display_mode = "split",
-  },
-},
+  { "David-Kunz/gen.nvim", },
 
 }, {})
 
@@ -874,6 +863,20 @@ require('gen').prompts['Commit_Msg'] = {
 }
 
 vim.cmd.SunglassesDisable()
+
+-- Load $(hostname).lua
+local hostname = io.popen("hostname -s"):read("*l")
+local config_filename = hostname .. ".lua"
+local config_path = vim.fn.stdpath('config') .. '/' .. config_filename
+
+local function load_config(path)
+    local ok, err = pcall(dofile, path)
+    if not ok then
+        print("Error loading config: " .. err)
+    end
+end
+
+load_config(config_path)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
