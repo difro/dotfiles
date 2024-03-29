@@ -849,16 +849,35 @@ cmp.setup {
 vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", { desc = "toggle nvim-cmp" })
 
 -- gen.nvim
-require('gen').prompts['0_Explain_Code'] = {
+require('gen').prompts['1_Explain_Code'] = {
   prompt = "Explain following code:\n$text",
+  model = "mistral",
   replace = false
 }
-require('gen').prompts['0_Explain_Code_InKorean'] = {
+require('gen').prompts['2_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
+  model = "mistral",
   replace = false
 }
-require('gen').prompts['Commit_Msg'] = {
+require('gen').prompts['3_Generate_Docs'] = {
+  prompt = "Generate documentation for the following code block:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
+  model = "mistral",
+  replace = false
+}
+require('gen').prompts['4_Generate_Docs_InKorean'] = {
+  prompt = "Generate documentation for the following code block in Korean:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
+  model = "mistral",
+  replace = false
+}
+require('gen').prompts['5_Commit_Msg'] = {
   prompt = "You are a helpful assistant to a programmer. Generate concise git commit message, based on following diff. Do not explain the code. Make the message short and concise. Use bullet points when necessary:\n$text",
+  model = "mistral",
+  replace = false
+}
+require('gen').prompts['6_Add_Tests'] = {
+  prompt = "Write unit tests for the following code block:\n$text\n Please use the most popular testing library suitable for the language of the code. The language is: $filetype. ",
+  --model = "mistral",
+  model = "codellama:7b-instruct",
   replace = false
 }
 
