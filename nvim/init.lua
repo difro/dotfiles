@@ -525,7 +525,14 @@ require('lazy').setup({
   --   },
   -- },
 
-  { "David-Kunz/gen.nvim", },
+  {
+    "David-Kunz/gen.nvim", 
+    opts = {
+      model = "codegemma:instruct",
+      show_model = true,
+      display_mode = "split",
+    },
+  },
 
   {
     'nvim-telescope/telescope-ui-select.nvim',
@@ -779,6 +786,10 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select } ),
     ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select } ),
+    ['<C-e>'] = cmp.mapping.abort(),
+    -- ["<C-b>"] = cmp.mapping(cmp.mapping.complete({
+    --   reason = cmp.ContextReason.Auto,
+    -- }), {"i", "c"}),
 
     -- Navigate between snippet placeholder
     ['<Tab>'] = cmp.mapping(function(fallback)
@@ -803,7 +814,6 @@ cmp.setup {
     -- Scroll up and down in the completion documentation
     ['<C-u>'] = cmp.mapping.scroll_docs(-4),
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    --['<C-Space>'] = cmp.mapping.complete {},
     ['<CR>'] = cmp.mapping.confirm {
      behavior = cmp.ConfirmBehavior.Replace,
      select = true,
@@ -885,42 +895,31 @@ vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggl
 -- gen.nvim
 require('gen').prompts['1_Explain_Code'] = {
   prompt = "Explain following code:\n$text",
-  -- model = "mistral",
-  model = "dolphin-mistral",
   replace = false
 }
 require('gen').prompts['2_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
-  -- model = "mistral",
-  model = "dolphin-mistral",
+  model = "mistral:instruct",
   replace = false
 }
 require('gen').prompts['3_Generate_Docs'] = {
   prompt = "Generate documentation for the following code block:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
-  model = "mistral",
   replace = false
 }
 require('gen').prompts['4_Generate_Docs_InKorean'] = {
   prompt = "Generate documentation for the following code block in Korean:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
-  model = "mistral",
   replace = false
 }
 require('gen').prompts['5_Commit_Msg'] = {
   prompt = "You are a helpful assistant to a programmer. Generate concise git commit message, based on following diff. Do not explain the code. Make the message short and concise. Use bullet points when necessary:\n$text",
-  model = "mistral",
   replace = false
 }
 require('gen').prompts['6_Add_Tests'] = {
   prompt = "Write unit tests for the following code block:\n$text\n Please use the most popular testing library suitable for the language of the code. The language is: $filetype. ",
-  --model = "mistral",
-  model = "codellama:7b-instruct",
   replace = false
 }
 require('gen').prompts['7_Convert_To_Go'] = {
   prompt = "Convert following code to golang. only output the result in format ```go\n...\n```:\n```c\n$text\n```",
-  --model = "mistral",
-  -- model = "codellama:7b-instruct",
-  model = "dolphin-mistral",
   replace = false
 }
 
