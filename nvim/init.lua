@@ -498,7 +498,41 @@ require('lazy').setup({
 
   { 'TabbyML/vim-tabby' },
 
+  -- {
+  --   'huggingface/llm.nvim',
+  --   opts = {
+  --     backend = "ollama",
+  --     -- model = "codellama:7b",
+  --     model = "dolphin-mistral:latest",
+  --     -- url = "http://localhost:11434/api/generate",
+  --     url = "http://cnd908.nfra.io:11434/api/generate",
+  --     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
+  --     -- request_body = {
+  --     --   -- Modelfile options for the model you use
+  --     --   options = {
+  --     --     temperature = 0.2,
+  --     --     top_p = 0.95,
+  --     --   }
+  --     -- }
+  --     tokens_to_clear = { "<EOT>" },
+  --     fim = {
+  --       enabled = true,
+  --       prefix = "<PRE> ",
+  --       middle = " <MID>",
+  --       suffix = " <SUF>",
+  --     },
+  --     context_window = 4096,
+  --   },
+  -- },
+
   { "David-Kunz/gen.nvim", },
+
+  {
+    'nvim-telescope/telescope-ui-select.nvim',
+    config = function()
+      require("telescope").load_extension("ui-select")
+    end
+  },
 
 }, {})
 
@@ -694,13 +728,13 @@ local servers = {
     },
   },
 
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-      diagnostics = { globals = { 'vim' } }, -- needed to suppress warning when editing init.lua
-    },
-  },
+  -- lua_ls = {
+  --   Lua = {
+  --     workspace = { checkThirdParty = false },
+  --     telemetry = { enable = false },
+  --     diagnostics = { globals = { 'vim' } }, -- needed to suppress warning when editing init.lua
+  --   },
+  -- },
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -851,12 +885,14 @@ vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggl
 -- gen.nvim
 require('gen').prompts['1_Explain_Code'] = {
   prompt = "Explain following code:\n$text",
-  model = "mistral",
+  -- model = "mistral",
+  model = "dolphin-mistral",
   replace = false
 }
 require('gen').prompts['2_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
-  model = "mistral",
+  -- model = "mistral",
+  model = "dolphin-mistral",
   replace = false
 }
 require('gen').prompts['3_Generate_Docs'] = {
@@ -878,6 +914,13 @@ require('gen').prompts['6_Add_Tests'] = {
   prompt = "Write unit tests for the following code block:\n$text\n Please use the most popular testing library suitable for the language of the code. The language is: $filetype. ",
   --model = "mistral",
   model = "codellama:7b-instruct",
+  replace = false
+}
+require('gen').prompts['7_Convert_To_Go'] = {
+  prompt = "Convert following code to golang. only output the result in format ```go\n...\n```:\n```c\n$text\n```",
+  --model = "mistral",
+  -- model = "codellama:7b-instruct",
+  model = "dolphin-mistral",
   replace = false
 }
 
