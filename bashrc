@@ -79,12 +79,6 @@ bind -m vi-insert "\C-p":previous-history
 bind -m vi-insert "\C-n":next-history
 set -o vi
 
-# load host-specific configuration.
-if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
-	# shellcheck source=/dev/null
-	source "$HOME/.bashrc.$(hostname -s)"
-fi
-
 alias	tmux='tmux -2'
 alias	urlencode="perl -MCGI::Util=escape -e'while(<>){chop;print escape(\$_).\"\\n\";}'"
 alias	urldecode="perl -MCGI::Util=unescape -e'while(<>){chop;print unescape(\$_).\"\\n\";}'"
@@ -143,3 +137,9 @@ fi
 #export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
+	# shellcheck source=/dev/null
+	source "$HOME/.bashrc.$(hostname -s)"
+fi
+
