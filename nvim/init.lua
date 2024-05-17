@@ -35,18 +35,6 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   'folke/which-key.nvim',
 
-  -- "gcc" "gbc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim',
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-    },
-    opts = {
-      -- add any options here
-    },
-    lazy = false,
-  },
-
   -- DAP (Debug Adapter Protocol)
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
@@ -305,6 +293,11 @@ require('lazy').setup({
               ['<C-d>'] = false,
             },
           },
+          path_display = {
+            filename_first = {
+              reverse_directories = true
+            },
+          }
         },
       }
 
@@ -458,28 +451,34 @@ require('lazy').setup({
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = "rounded"
-      },
-      hint_enable = false,
-      always_trigger = true,
-
-      vim.keymap.set({ 'n' }, '<C-k>', function()
-        require('lsp_signature').toggle_float_win()
-      end, { silent = true, noremap = true, desc = 'toggle signature' }),
-
-      vim.keymap.set({ 'n' }, '<Leader>k', function()
-        vim.lsp.buf.signature_help()
-      end, { silent = true, noremap = true, desc = 'toggle signature' })
-
-    },
-    config = function(_, opts)
-      require'lsp_signature'.setup(opts)
-    end
+    opts = {},
+    config = function(_, opts) require'lsp_signature'.setup(opts) end
   },
-
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     bind = true,
+  --     handler_opts = {
+  --       border = "rounded"
+  --     },
+  --     hint_enable = false,
+  --     always_trigger = true,
+  --
+  --     vim.keymap.set({ 'n' }, '<C-s>', function()
+  --       require('lsp_signature').toggle_float_win()
+  --     end, { silent = true, noremap = true, desc = 'toggle signature' }),
+  --
+  --     vim.keymap.set({ 'n' }, '<Leader>k', function()
+  --       vim.lsp.buf.signature_help()
+  --     end, { silent = true, noremap = true, desc = 'toggle signature' })
+  --
+  --   },
+  --   config = function(_, opts)
+  --     require'lsp_signature'.setup(opts)
+  --   end
+  -- },
+  --
   {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
@@ -528,7 +527,9 @@ require('lazy').setup({
   {
     "David-Kunz/gen.nvim", 
     opts = {
-      model = "codegemma:instruct",
+      -- model = "codegemma:instruct",
+      model = "llama3:instruct",
+      -- model = "llama3:8b-instruct-q8_0",
       show_model = true,
       display_mode = "split",
     },
@@ -678,8 +679,8 @@ local on_attach = function(_, bufnr)
   })
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -732,6 +733,15 @@ local servers = {
     gopls = {
       completeUnimported = true,
       usePlaceholders = true,
+      -- hints = {
+      --   rangeVariableTypes = true,
+      --   parameterNames = true,
+      --   constantValues = true,
+      --   assignVariableTypes = true,
+      --   compositeLiteralFields = true,
+      --   compositeLiteralTypes = true,
+      --   functionTypeParameters = true,
+      -- },
     },
   },
 
@@ -899,7 +909,8 @@ require('gen').prompts['1_Explain_Code'] = {
 }
 require('gen').prompts['2_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
-  model = "mistral:instruct",
+  -- model = "mistral:instruct",
+  -- model = "llama3:instruct",
   replace = false
 }
 require('gen').prompts['3_Generate_Docs'] = {
@@ -912,6 +923,9 @@ require('gen').prompts['4_Generate_Docs_InKorean'] = {
 }
 require('gen').prompts['5_Commit_Msg'] = {
   prompt = "You are a helpful assistant to a programmer. Generate concise git commit message, based on following diff. Do not explain the code. Make the message short and concise. Use bullet points when necessary:\n$text",
+  -- prompt = "Using the following git diff, generate a consise and clear git commit message, with a short title summary that is 75 characters or less and you shoud give me commit message immediately. And you don't need to explain unnecessary things.:\n$text",
+  -- model = "mistral:instruct",
+  -- model = "llama3:instruct",
   replace = false
 }
 require('gen').prompts['6_Add_Tests'] = {
@@ -922,6 +936,18 @@ require('gen').prompts['7_Convert_To_Go'] = {
   prompt = "Convert following code to golang. only output the result in format ```go\n...\n```:\n```c\n$text\n```",
   replace = false
 }
+
+vim.keymap.set({ 'n' }, '<C-s>', function()       require('lsp_signature').toggle_float_win()
+end, { silent = true, noremap = true, desc = 'toggle signature' })
+require "lsp_signature".setup({
+  bind = true,
+  handler_opts = {
+    border = "rounded"
+  },
+  hint_enable = false,
+  always_trigger = true,
+  auto_close_after = nil,
+})
 
 vim.cmd.SunglassesDisable()
 

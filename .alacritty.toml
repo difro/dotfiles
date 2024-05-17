@@ -69,7 +69,9 @@ y = 1
 
 [font.normal]
 #family = "MonaspiceAr NFM"
-family = "MonaspiceNe NFM"
+#family = "MonaspiceNe NFM"
+family = "Cascadia Mono NF"
+style = "SemiLight"
 #family = "Inconsolata LGC Nerd Font Mono"
 #family = "InconsolataGo Nerd Font Mono"
 
