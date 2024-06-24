@@ -495,41 +495,19 @@ require('lazy').setup({
 
   { "folke/neodev.nvim", opts = {} },
 
-  { 'TabbyML/vim-tabby' },
-
-  -- {
-  --   'huggingface/llm.nvim',
-  --   opts = {
-  --     backend = "ollama",
-  --     -- model = "codellama:7b",
-  --     model = "dolphin-mistral:latest",
-  --     -- url = "http://localhost:11434/api/generate",
-  --     url = "http://cnd908.nfra.io:11434/api/generate",
-  --     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
-  --     -- request_body = {
-  --     --   -- Modelfile options for the model you use
-  --     --   options = {
-  --     --     temperature = 0.2,
-  --     --     top_p = 0.95,
-  --     --   }
-  --     -- }
-  --     tokens_to_clear = { "<EOT>" },
-  --     fim = {
-  --       enabled = true,
-  --       prefix = "<PRE> ",
-  --       middle = " <MID>",
-  --       suffix = " <SUF>",
-  --     },
-  --     context_window = 4096,
-  --   },
-  -- },
+  {
+    'TabbyML/vim-tabby',
+    config = function()
+      -- vim.g.tabby_keybinding_accept = '<Tab>'
+      vim.g.tabby_keybinding_accept = '<C-y>'
+      vim.g.tabby_keybinding_trigger_or_dismiss = '<C-\\>'
+    end
+  },
 
   {
     "David-Kunz/gen.nvim", 
     opts = {
-      -- model = "codegemma:instruct",
       model = "llama3:instruct",
-      -- model = "llama3:8b-instruct-q8_0",
       show_model = true,
       display_mode = "split",
     },
@@ -909,8 +887,8 @@ require('gen').prompts['1_Explain_Code'] = {
 }
 require('gen').prompts['2_Explain_Code_InKorean'] = {
   prompt = "Explain following code in Korean:\n$text",
-  -- model = "mistral:instruct",
   -- model = "llama3:instruct",
+  -- model = "mistral:instruct",
   replace = false
 }
 require('gen').prompts['3_Generate_Docs'] = {
