@@ -135,7 +135,11 @@ require('lazy').setup({
     --   })
     -- end
   },
-  { "catppuccin/nvim", as = "catppuccin" },
+  { "catppuccin/nvim", as = "catppuccin",
+    config = function()
+      vim.cmd.colorscheme 'catppuccin-macchiato'
+    end
+  },
   {
     "folke/tokyonight.nvim",
     -- lazy = false,
@@ -185,9 +189,9 @@ require('lazy').setup({
   },
 
   { "savq/melange-nvim",
-    config = function()
-      vim.cmd.colorscheme 'melange'
-    end,
+    -- config = function()
+    --   vim.cmd.colorscheme 'melange'
+    -- end,
   },
 
   {
