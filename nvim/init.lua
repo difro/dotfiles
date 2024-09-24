@@ -33,7 +33,17 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   -- Useful plugin to show you pending keybinds.
-  'folke/which-key.nvim',
+  {
+    'folke/which-key.nvim',
+    dependencies = {
+      'echasnovski/mini.icons'
+    },
+    config = function()
+      require"which-key".setup({
+        notify = false,
+      })
+    end
+  },
 
   -- DAP (Debug Adapter Protocol)
   'mfussenegger/nvim-dap',
