@@ -143,3 +143,5 @@ if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 	source "$HOME/.bashrc.$(hostname -s)"
 fi
 
+alias llama3="ollama run llama3:instruct"
+alias llama3_8b="ollama run llama3:8b-instruct-q8_0"

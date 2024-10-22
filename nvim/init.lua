@@ -373,6 +373,11 @@ require('lazy').setup({
             scope_incremental = "<Tab>",
             node_decremental = "<S-Tab>",
           },
+          is_supported = function()
+            local ct = vim.fn.getcmdwintype()
+            if ct ~= "" then return false end
+            return true
+          end,
         },
         matchup = {
           enable = true,              -- mandatory, false will disable the whole extension
@@ -408,6 +413,7 @@ require('lazy').setup({
         suppress_missing_scope = {
           projects_v2 = true,
         },
+        use_local_fs = true,
       })
     end
   },
@@ -462,37 +468,38 @@ require('lazy').setup({
     }
   },
 
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts) require'lsp_signature'.setup(opts) end
-  },
   -- {
   --   "ray-x/lsp_signature.nvim",
   --   event = "VeryLazy",
-  --   opts = {
-  --     bind = true,
-  --     handler_opts = {
-  --       border = "rounded"
-  --     },
-  --     hint_enable = false,
-  --     always_trigger = true,
-  --
-  --     vim.keymap.set({ 'n' }, '<C-s>', function()
-  --       require('lsp_signature').toggle_float_win()
-  --     end, { silent = true, noremap = true, desc = 'toggle signature' }),
-  --
-  --     vim.keymap.set({ 'n' }, '<Leader>k', function()
-  --       vim.lsp.buf.signature_help()
-  --     end, { silent = true, noremap = true, desc = 'toggle signature' })
-  --
-  --   },
-  --   config = function(_, opts)
-  --     require'lsp_signature'.setup(opts)
-  --   end
+  --   opts = {},
+  --   config = function(_, opts) require'lsp_signature'.setup(opts) end
   -- },
-  --
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {
+      bind = true,
+      handler_opts = {
+        border = "rounded"
+      },
+      hint_enable = false,
+      always_trigger = false,
+      transparency = 20,
+
+      vim.keymap.set({ 'i', "n" }, '<C-s>', function()
+        require('lsp_signature').toggle_float_win()
+      end, { silent = true, noremap = true, desc = 'toggle signature' }),
+
+      -- vim.keymap.set({ 'n' }, '<Leader>k', function()
+      --   vim.lsp.buf.signature_help()
+      -- end, { silent = true, noremap = true, desc = 'toggle signature' })
+
+    },
+    config = function(_, opts)
+      require'lsp_signature'.setup(opts)
+    end
+  },
+
   {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
@@ -512,9 +519,10 @@ require('lazy').setup({
   {
     'TabbyML/vim-tabby',
     config = function()
-      -- vim.g.tabby_keybinding_accept = '<Tab>'
-      vim.g.tabby_keybinding_accept = '<C-y>'
-      vim.g.tabby_keybinding_trigger_or_dismiss = '<C-\\>'
+      --vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
+      vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
+      --vim.g.tabby_keybinding_accept = '<C-y>'
+      vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = '<C-\\>'
     end
   },
 
@@ -532,6 +540,31 @@ require('lazy').setup({
     config = function()
       require("telescope").load_extension("ui-select")
     end
+  },
+
+  -- {
+  --   "chrisgrieser/nvim-lsp-endhints",
+  --   event = "LspAttach",
+  --   opts = {}, -- required, even if empty
+  -- },
+
+  {
+    "ldelossa/gh.nvim",
+    dependencies = {
+      {
+        "ldelossa/litee.nvim",
+        config = function()
+          require("litee.lib").setup()
+        end,
+      },
+    },
+    config = function()
+      require("litee.gh").setup({
+        keymaps = {
+          actions = "gA",
+        },
+      })
+    end,
   },
 
 }, {})
@@ -928,18 +961,18 @@ require('gen').prompts['7_Convert_To_Go'] = {
   prompt = "Convert following code to golang. only output the result in format ```go\n...\n```:\n```c\n$text\n```",
   replace = false
 }
-
-vim.keymap.set({ 'n' }, '<C-s>', function()       require('lsp_signature').toggle_float_win()
-end, { silent = true, noremap = true, desc = 'toggle signature' })
-require "lsp_signature".setup({
-  bind = true,
-  handler_opts = {
-    border = "rounded"
-  },
-  hint_enable = false,
-  always_trigger = true,
-  auto_close_after = nil,
-})
+--
+-- vim.keymap.set({ 'n' }, '<C-s>', function()       require('lsp_signature').toggle_float_win()
+-- end, { silent = true, noremap = true, desc = 'toggle signature' })
+-- require "lsp_signature".setup({
+--   bind = true,
+--   handler_opts = {
+--     border = "rounded"
+--   },
+--   hint_enable = false,
+--   always_trigger = true,
+--   auto_close_after = nil,
+-- })
 
 vim.cmd.SunglassesDisable()
 
