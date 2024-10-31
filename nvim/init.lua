@@ -519,8 +519,8 @@ require('lazy').setup({
   {
     'TabbyML/vim-tabby',
     config = function()
-      --vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
-      vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
+      vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
+      -- vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
       --vim.g.tabby_keybinding_accept = '<C-y>'
       vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = '<C-\\>'
     end
@@ -564,6 +564,13 @@ require('lazy').setup({
           actions = "gA",
         },
       })
+    end,
+  },
+
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
     end,
   },
 
