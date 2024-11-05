@@ -24,7 +24,7 @@ config.window_frame = {
   -- Berkeley Mono for me again, though an idea could be to try a
   -- serif font here instead of monospace for a nicer look?
   font = wezterm.font({ family = 'Berkeley Mono', weight = 'Bold' }),
-  font_size = 11,
+  font_size = 9,
 }
 
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
