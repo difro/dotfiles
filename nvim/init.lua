@@ -147,6 +147,9 @@ require('lazy').setup({
   },
   { "catppuccin/nvim", as = "catppuccin",
     config = function()
+      require("catppuccin").setup({
+        transparent_background = true,
+      })
       vim.cmd.colorscheme 'catppuccin-macchiato'
     end
   },
@@ -519,6 +522,14 @@ require('lazy').setup({
 
   {
     'TabbyML/vim-tabby',
+    lazy = false,
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
+    init = function()
+      vim.g.tabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
+      vim.g.tabby_inline_completion_trigger = "auto"
+    end,
     config = function()
       vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
       -- vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
