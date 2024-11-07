@@ -15,9 +15,12 @@ font-style-italic = false
 # theme = catppuccin-macchiato
 theme = catppuccin-mocha
 
-background-opacity = 0.97
+#background-opacity = 0.97
+background-opacity = 0.9
+background-blur-radius = 20
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+keybind = ctrl+[=text:\x1b
 
 #macos-titlebar-style = tabs
 macos-titlebar-style = hidden
