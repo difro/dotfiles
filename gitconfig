@@ -112,8 +112,12 @@
 [delta]
 	navigate = true  # use n and N to move between diff sections
 	#features = discord
-	features = collared-trogon
-	#features = colibri
+	#features = collared-trogon
+	#features = tangara-chilensis
+	#features = villsau
+	features = difro
+	
+	
 	dark = false
 	line-numbers = true
 	side-by-side = false
