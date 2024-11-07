@@ -125,6 +125,3 @@
 [include]
 	path = ~/.gitconfig.local
 	path = ~/.gitconfig.themes
-
-[credential]
-	helper = /usr/local/share/gcm-core/git-credential-manager
