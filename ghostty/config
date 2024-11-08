@@ -24,6 +24,7 @@ keybind = ctrl+[=text:\x1b
 
 #macos-titlebar-style = tabs
 macos-titlebar-style = hidden
+macos-option-as-alt = true
 
 macos-non-native-fullscreen = true
 
