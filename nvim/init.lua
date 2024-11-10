@@ -327,6 +327,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>O', require('telescope.builtin').find_files, { desc = '[O]pen Files' })
       vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>sn', require('telescope').extensions.notify.notify, { desc = '[S]earch [N]otify' })
       vim.keymap.set('n', '<leader>p', require('telescope.builtin').registers, { desc = '[P]aste register' })
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
