@@ -20,10 +20,14 @@ background-opacity = 0.9
 background-blur-radius = 20
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
-keybind = ctrl+[=text:\x1b
+#keybind = ctrl+[=text:\x1b
 
-#macos-titlebar-style = tabs
-macos-titlebar-style = hidden
+macos-titlebar-style = tabs
+# macos-titlebar-style = transparent
+# macos-titlebar-style = hidden
+# macos-titlebar-style = native
+window-decoration = true
+
 macos-option-as-alt = true
 
 macos-non-native-fullscreen = true
