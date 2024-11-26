@@ -46,10 +46,10 @@ require('lazy').setup({
   },
 
   -- DAP (Debug Adapter Protocol)
-  'mfussenegger/nvim-dap',
-  'rcarriga/nvim-dap-ui',
-  'theHamsta/nvim-dap-virtual-text',
-  'nvim-telescope/telescope-dap.nvim',
+  -- 'mfussenegger/nvim-dap',
+  -- 'rcarriga/nvim-dap-ui',
+  -- 'theHamsta/nvim-dap-virtual-text',
+  -- 'nvim-telescope/telescope-dap.nvim',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   {
@@ -479,31 +479,31 @@ require('lazy').setup({
   --   opts = {},
   --   config = function(_, opts) require'lsp_signature'.setup(opts) end
   -- },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {
-      bind = true,
-      handler_opts = {
-        border = "rounded"
-      },
-      hint_enable = false,
-      always_trigger = false,
-      transparency = 20,
-
-      vim.keymap.set({ 'i', "n" }, '<C-s>', function()
-        require('lsp_signature').toggle_float_win()
-      end, { silent = true, noremap = true, desc = 'toggle signature' }),
-
-      -- vim.keymap.set({ 'n' }, '<Leader>k', function()
-      --   vim.lsp.buf.signature_help()
-      -- end, { silent = true, noremap = true, desc = 'toggle signature' })
-
-    },
-    config = function(_, opts)
-      require'lsp_signature'.setup(opts)
-    end
-  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     bind = true,
+  --     handler_opts = {
+  --       border = "rounded"
+  --     },
+  --     hint_enable = false,
+  --     always_trigger = false,
+  --     transparency = 20,
+  --
+  --     vim.keymap.set({ 'i', "n" }, '<C-s>', function()
+  --       require('lsp_signature').toggle_float_win()
+  --     end, { silent = true, noremap = true, desc = 'toggle signature' }),
+  --
+  --     vim.keymap.set({ 'n' }, '<Leader>k', function()
+  --       vim.lsp.buf.signature_help()
+  --     end, { silent = true, noremap = true, desc = 'toggle signature' })
+  --
+  --   },
+  --   config = function(_, opts)
+  --     require'lsp_signature'.setup(opts)
+  --   end
+  -- },
 
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -522,22 +522,25 @@ require('lazy').setup({
   { "folke/neodev.nvim", opts = {} },
 
   {
-    'TabbyML/vim-tabby',
-    lazy = false,
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
-    init = function()
-      vim.g.tabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
-      vim.g.tabby_inline_completion_trigger = "auto"
-    end,
-    config = function()
-      vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
-      -- vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
-      --vim.g.tabby_keybinding_accept = '<C-y>'
-      vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = '<C-\\>'
-    end
+    "github/copilot.vim",
   },
+  -- {
+  --   'TabbyML/vim-tabby',
+  --   lazy = false,
+  --   dependencies = {
+  --     "neovim/nvim-lspconfig",
+  --   },
+  --   init = function()
+  --     vim.g.tabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
+  --     vim.g.tabby_inline_completion_trigger = "auto"
+  --   end,
+  --   config = function()
+  --     vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
+  --     -- vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
+  --     --vim.g.tabby_keybinding_accept = '<C-y>'
+  --     vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = '<C-\\>'
+  --   end
+  -- },
 
   {
     "David-Kunz/gen.nvim", 
