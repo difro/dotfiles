@@ -34,3 +34,8 @@ macos-option-as-alt = true
 macos-non-native-fullscreen = true
 
 confirm-close-surface = false
+
+shell-integration = bash
+
+cursor-opacity = 0.8
+cursor-text = black
