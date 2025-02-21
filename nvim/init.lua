@@ -524,23 +524,6 @@ require('lazy').setup({
   {
     "github/copilot.vim",
   },
-  -- {
-  --   'TabbyML/vim-tabby',
-  --   lazy = false,
-  --   dependencies = {
-  --     "neovim/nvim-lspconfig",
-  --   },
-  --   init = function()
-  --     vim.g.tabby_agent_start_command = {"npx", "tabby-agent", "--stdio"}
-  --     vim.g.tabby_inline_completion_trigger = "auto"
-  --   end,
-  --   config = function()
-  --     vim.g.tabby_inline_completion_keybinding_accept = '<Tab>'
-  --     -- vim.g.tabby_inline_completion_keybinding_accept = '<C-y>'
-  --     --vim.g.tabby_keybinding_accept = '<C-y>'
-  --     vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = '<C-\\>'
-  --   end
-  -- },
 
   {
     "David-Kunz/gen.nvim", 
@@ -845,15 +828,15 @@ cmp.setup {
     end,
   },
   mapping = cmp.mapping.preset.insert {
-    ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select } ),
-    ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select } ),
-    ['<C-e>'] = cmp.mapping.abort(),
+    -- ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select } ),
+    -- ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select } ),
+    -- ['<C-e>'] = cmp.mapping.abort(),
     -- ["<C-b>"] = cmp.mapping(cmp.mapping.complete({
     --   reason = cmp.ContextReason.Auto,
     -- }), {"i", "c"}),
 
     -- Navigate between snippet placeholder
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-n>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -862,7 +845,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<C-p>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
