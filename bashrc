@@ -102,8 +102,6 @@ fi
 
 export	GOPATH=$HOME/go
 
-export	PATH=$HOME/bin:$HOME/.fzf/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
-
 export	FTP_PASSIVE=1
 
 # Preserve bash history in multiple terminal windows
@@ -138,6 +136,8 @@ fi
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export	PATH=$HOME/.local/bin:$HOME/bin:$HOME/.fzf/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+
 if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 	# shellcheck source=/dev/null
 	source "$HOME/.bashrc.$(hostname -s)"
@@ -145,3 +145,9 @@ fi
 
 alias llama3="ollama run llama3:instruct"
 alias llama3_8b="ollama run llama3:8b-instruct-q8_0"
+
+PATH="/Users/jihoonc/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/jihoonc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/jihoonc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/jihoonc/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/jihoonc/perl5"; export PERL_MM_OPT;

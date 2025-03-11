@@ -454,6 +454,7 @@ require('lazy').setup({
           },
         },
       },
+      remap_commands = { GoDoc = false },
       })
     end,
     event = {"CmdlineEnter"},
@@ -575,6 +576,46 @@ require('lazy').setup({
       })
     end,
   },
+
+  {
+    "fredrikaverpil/godoc.nvim",
+    version = "*",
+    dependencies = {
+      { "nvim-telescope/telescope.nvim" }, -- optional
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = {
+          ensure_installed = { "go" },
+        },
+      },
+    },
+    build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
+    -- cmd = { "GoDoc" }, -- optional
+    opts = {
+      adapters = {
+        -- for details, see lua/godoc/adapters/go.lua
+        {
+          name = "go",
+          opts = {
+            command = "GoDoc", -- the vim command to invoke Go documentation
+            get_syntax_info = function()
+              return {
+                filetype = "godoc", -- filetype for the buffer
+                language = "go", -- tree-sitter parser, for syntax highlighting
+              }
+            end,
+          },
+        },
+      },
+      window = {
+        type = "split", -- split | vsplit
+      },
+
+      picker = {
+        type = "telescope",
+      },
+    }, -- see further down below for configuration
+  }
 
 }, {})
 
