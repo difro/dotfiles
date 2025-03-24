@@ -524,6 +524,12 @@ require('lazy').setup({
 
   {
     "github/copilot.vim",
+    lazy = false,
+    config = function()
+      vim.g.copilot_proxy_strict_ssl = false
+      vim.g.copilot_integration_id = 'vscode-chat'
+      vim.g.copilot_settings = { selectedCompletionModel = 'gpt-4o-copilot' }
+    end,
   },
 
   {
