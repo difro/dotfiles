@@ -124,7 +124,8 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 	eval $($BREWPATH shellenv)
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
+[ -f ~/.fzf/shell/completion.bash ] && source ~/.fzf/shell/completion.bash
 
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
@@ -136,7 +137,8 @@ fi
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export	PATH=$HOME/.local/bin:$HOME/bin:$HOME/.fzf/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+#export	PATH=$HOME/.local/bin:$HOME/bin:$HOME/.fzf/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+export	PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
 
 if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 	# shellcheck source=/dev/null
