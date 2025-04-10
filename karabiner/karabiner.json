@@ -4,6 +4,32 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "Ctrl + Alt + 9 to open or switch to Works",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": { "mandatory": ["control", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Works'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Ctrl + Alt + 0 to open or switch to KakaoTalk",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "0",
+                                    "modifiers": { "mandatory": ["control", "command"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'KakaoTalk'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Ctrl + Alt + 4 to open or switch to vscode",
                         "manipulators": [
                             {
@@ -67,6 +93,15 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": false
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 591,
+                        "vendor_id": 1452
+                    },
+                    "ignore": false
                 }
             ],
             "name": "Default profile",
