@@ -4,12 +4,12 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Ctrl + Alt + 9 to open or switch to Works",
+                        "description": "Option + 9 to open or switch to Works",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "9",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Works'" }],
                                 "type": "basic"
@@ -17,12 +17,12 @@
                         ]
                     },
                     {
-                        "description": "Ctrl + Alt + 0 to open or switch to KakaoTalk",
+                        "description": "Option + 0 to open or switch to KakaoTalk",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "0",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'KakaoTalk'" }],
                                 "type": "basic"
@@ -30,12 +30,12 @@
                         ]
                     },
                     {
-                        "description": "Ctrl + Alt + 4 to open or switch to vscode",
+                        "description": "Option + 4 to open or switch to vscode",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "4",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Visual Studio Code'" }],
                                 "type": "basic"
@@ -43,12 +43,12 @@
                         ]
                     },
                     {
-                        "description": "Ctrl + Alt + ` to open or switch to Ghostty",
+                        "description": "Option + ` to open or switch to Ghostty",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "grave_accent_and_tilde",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Ghostty'" }],
                                 "type": "basic"
@@ -56,12 +56,12 @@
                         ]
                     },
                     {
-                        "description": "Ctrl + Alt + 2 to open or switch to whale",
+                        "description": "Option + 2 to open or switch to whale",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "2",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Whale'" }],
                                 "type": "basic"
@@ -69,12 +69,12 @@
                         ]
                     },
                     {
-                        "description": "Ctrl + Alt + 1 to open or switch to Google Chrome",
+                        "description": "Option+ 1 to open or switch to Google Chrome",
                         "manipulators": [
                             {
                                 "from": {
                                     "key_code": "1",
-                                    "modifiers": { "mandatory": ["control", "command"] }
+                                    "modifiers": { "mandatory": ["option"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Google Chrome'" }],
                                 "type": "basic"
