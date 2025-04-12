@@ -19,7 +19,7 @@ theme = catppuccin-mocha
 background-opacity = 0.9
 background-blur-radius = 20
 
-#keybind = global:ctrl+grave_accent=toggle_quick_terminal
+keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
 keybind = ctrl+[=text:\x1b
 
 
