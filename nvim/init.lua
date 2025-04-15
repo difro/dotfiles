@@ -405,23 +405,23 @@ require('lazy').setup({
     },
   },
 
-  {
-    'pwntester/octo.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require"octo".setup({
-        github_hostname = "oss.navercorp.com",
-        suppress_missing_scope = {
-          projects_v2 = true,
-        },
-        use_local_fs = true,
-      })
-    end
-  },
+  -- {
+  --   'pwntester/octo.nvim',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim',
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function()
+  --     require"octo".setup({
+  --       github_hostname = "oss.navercorp.com",
+  --       suppress_missing_scope = {
+  --         projects_v2 = true,
+  --       },
+  --       use_local_fs = true,
+  --     })
+  --   end
+  -- },
 
   {
     "ray-x/go.nvim",
@@ -525,11 +525,11 @@ require('lazy').setup({
   {
     "github/copilot.vim",
     lazy = false,
-    config = function()
-      vim.g.copilot_proxy_strict_ssl = false
-      vim.g.copilot_integration_id = 'vscode-chat'
-      vim.g.copilot_settings = { selectedCompletionModel = 'gpt-4o-copilot' }
-    end,
+    -- config = function()
+    --   vim.g.copilot_proxy_strict_ssl = false
+    --   vim.g.copilot_integration_id = 'vscode-chat'
+    --   vim.g.copilot_settings = { selectedCompletionModel = 'gpt-4o-copilot' }
+    -- end,
   },
 
   {
@@ -756,6 +756,36 @@ local on_attach = function(_, bufnr)
         end
       end
       vim.lsp.buf.format({async = false})
+    end
+  })
+
+  function formatAndOrganizeImports()
+    vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
+    if vim.bo.filetype == "python" then
+      vim.lsp.buf.code_action({
+        context = {
+          only = { "source.organizeImports.ruff" },
+        },
+        apply = true,
+      })
+    end
+  end
+
+  -- use ruff
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.py",
+    callback = function()
+      vim.lsp.buf.code_action({
+        context = { only = {  'source.fixAll' } },
+        apply = true,
+      })
+      vim.wait(100)
+      vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
+      vim.lsp.buf.code_action({
+        context = { only = { "source.organizeImports.ruff" } },
+        apply = true,
+      })
+      -- formatAndOrganizeImports()
     end
   })
 
