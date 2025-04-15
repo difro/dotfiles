@@ -621,7 +621,17 @@ require('lazy').setup({
         type = "telescope",
       },
     }, -- see further down below for configuration
-  }
+  },
+
+  {
+    -- original author
+    -- "stevanmilic/nvim-lspimport",
+    -- nvim11 patch author
+    -- "UN-9BOT/nvim-lspimport",
+    -- commented out "no unresolved import error"
+    "difro/nvim-lspimport",
+    branch = "nvim11",
+  },
 
 }, {})
 
@@ -775,17 +785,18 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.py",
     callback = function()
+      vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
       vim.lsp.buf.code_action({
         context = { only = {  'source.fixAll' } },
         apply = true,
       })
       vim.wait(100)
-      vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
       vim.lsp.buf.code_action({
         context = { only = { "source.organizeImports.ruff" } },
         apply = true,
       })
       -- formatAndOrganizeImports()
+      require("lspimport").import()
     end
   })
 
