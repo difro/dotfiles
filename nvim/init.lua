@@ -525,6 +525,8 @@ require('lazy').setup({
   {
     "github/copilot.vim",
     lazy = false,
+    -- current version needs new CLIB (patchelf ?)
+    -- commit = "a9228e015528c9307890c48083c925eb98a64a79",
     -- config = function()
     --   vim.g.copilot_proxy_strict_ssl = false
     --   vim.g.copilot_integration_id = 'vscode-chat'

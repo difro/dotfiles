@@ -108,8 +108,8 @@ export	FTP_PASSIVE=1
 # from http://unix.stackexchange.com/a/48113
 
 export HISTCONTROL=ignoredups:erasedups	# no duplicate entries
-export HISTSIZE=100000			# big big history
-export HISTFILESIZE=100000		# big big history
+export HISTSIZE=10000000		# big big history
+export HISTFILESIZE=10000000		# big big history
 shopt -s histappend			# append to history, don't overwrite it
 export SHELL_SESSION_HISTORY=0
 
@@ -126,6 +126,7 @@ fi
 
 [ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
 [ -f ~/.fzf/shell/completion.bash ] && source ~/.fzf/shell/completion.bash
+source ~/.fzf.bash
 
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
