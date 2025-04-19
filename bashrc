@@ -124,8 +124,9 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 	eval $($BREWPATH shellenv)
 fi
 
-[ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
-[ -f ~/.fzf/shell/completion.bash ] && source ~/.fzf/shell/completion.bash
+# [ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
+# [ -f ~/.fzf/shell/completion.bash ] && source ~/.fzf/shell/completion.bash
+
 source ~/.fzf.bash
 
 

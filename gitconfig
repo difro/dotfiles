@@ -132,3 +132,5 @@
 	path = ~/.gitconfig.local
 	path = ~/.gitconfig.themes
 
+[credential "https://oss.navercorp.com"]
+	provider = github
