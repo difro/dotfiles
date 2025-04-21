@@ -14,6 +14,7 @@ font-style-italic = false
 
 # theme = catppuccin-macchiato
 theme = catppuccin-mocha
+# theme = Dimidium
 
 #background-opacity = 0.97
 background-opacity = 0.9
