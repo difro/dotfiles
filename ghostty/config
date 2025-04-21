@@ -23,6 +23,9 @@ background-blur-radius = 20
 keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
 keybind = ctrl+[=text:\x1b
 
+# send cmd-p as opt-p (for tmux ignores cmd-p)
+keybind = "cmd+p=text:\x1bp"
+
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
