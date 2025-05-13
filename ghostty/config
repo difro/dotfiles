@@ -26,6 +26,7 @@ keybind = ctrl+[=text:\x1b
 # send cmd-p as opt-p (for tmux ignores cmd-p)
 keybind = "cmd+p=text:\x1bp"
 
+quick-terminal-position = center
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
