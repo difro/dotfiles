@@ -742,98 +742,101 @@ vim.diagnostic.config{
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = 'LSP: ' .. desc
+-- local on_attach = function(_, bufnr)
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    -- NOTE: Remember that lua is a real programming language, and as such it is possible
+    -- to define small helper and utility functions so you don't have to repeat yourself
+    -- many times.
+    --
+    -- In this case, we create a function that lets us more easily define mappings specific
+    -- for LSP related items. It sets the mode, buffer and description for us each time.
+    local nmap = function(keys, func, desc)
+      if desc then
+        desc = 'LSP: ' .. desc
+      end
+
+      vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
-    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-  end
+    --nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  --nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+    nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+    nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+    nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-  nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
-  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-  -- auto goimport && gofmt
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.go",
-    callback = function()
-      local params = vim.lsp.util.make_range_params()
-      params.context = { only = {"source.organizeImports"} }
-      local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-      for cid, res in pairs(result or {}) do
-        for _, r in pairs(res.result or {}) do
-          if r.edit then
-            local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-            vim.lsp.util.apply_workspace_edit(r.edit, enc)
+    -- auto goimport && gofmt
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*.go",
+      callback = function()
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = {"source.organizeImports"} }
+        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+        for cid, res in pairs(result or {}) do
+          for _, r in pairs(res.result or {}) do
+            if r.edit then
+              local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+              vim.lsp.util.apply_workspace_edit(r.edit, enc)
+            end
           end
         end
+        vim.lsp.buf.format({async = false})
       end
-      vim.lsp.buf.format({async = false})
-    end
-  })
+    })
 
-  function formatAndOrganizeImports()
-    vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
-    if vim.bo.filetype == "python" then
-      vim.lsp.buf.code_action({
-        context = {
-          only = { "source.organizeImports.ruff" },
-        },
-        apply = true,
-      })
-    end
-  end
-
-  -- use ruff
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.py",
-    callback = function()
+    function formatAndOrganizeImports()
       vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
-      vim.lsp.buf.code_action({
-        context = { only = {  'source.fixAll' } },
-        apply = true,
-      })
-      vim.wait(100)
-      vim.lsp.buf.code_action({
-        context = { only = { "source.organizeImports.ruff" } },
-        apply = true,
-      })
-      -- formatAndOrganizeImports()
-      require("lspimport").import()
+      if vim.bo.filetype == "python" then
+        vim.lsp.buf.code_action({
+          context = {
+            only = { "source.organizeImports.ruff" },
+          },
+          apply = true,
+        })
+      end
     end
-  })
 
-  -- See `:help K` for why this keymap
-  -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    -- use ruff
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*.py",
+      callback = function()
+        vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
+        vim.lsp.buf.code_action({
+          context = { only = {  'source.fixAll' } },
+          apply = true,
+        })
+        vim.wait(100)
+        vim.lsp.buf.code_action({
+          context = { only = { "source.organizeImports.ruff" } },
+          apply = true,
+        })
+        -- formatAndOrganizeImports()
+        require("lspimport").import()
+      end
+    })
 
-  -- Lesser used LSP functionality
-  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  --nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-  --nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  --nmap('<leader>wl', function()
-  --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  --end, '[W]orkspace [L]ist Folders')
+    -- See `:help K` for why this keymap
+    -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-  -- Create a command `:Format` local to the LSP buffer
-  --vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-  --  vim.lsp.buf.format()
-  --end, { desc = 'Format current buffer with LSP' })
-end
+    -- Lesser used LSP functionality
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+    --nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+    --nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+    --nmap('<leader>wl', function()
+    --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    --end, '[W]orkspace [L]ist Folders')
+
+    -- Create a command `:Format` local to the LSP buffer
+    --vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    --  vim.lsp.buf.format()
+    --end, { desc = 'Format current buffer with LSP' })
+  end,
+})
 
 -- document existing key chains
 require('which-key').register {
@@ -902,6 +905,17 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  
+  handlers = {
+    function(server_name)
+      require('lspconfig')[server_name].setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+        filetypes = (servers[server_name] or {}).filetypes,
+      }
+    end,
+  },
 }
 
 -- mason_lspconfig.setup_handlers {
