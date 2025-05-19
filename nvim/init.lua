@@ -886,48 +886,31 @@ local servers = {
       -- },
     },
   },
-
-  -- lua_ls = {
-  --   Lua = {
-  --     workspace = { checkThirdParty = false },
-  --     telemetry = { enable = false },
-  --     diagnostics = { globals = { 'vim' } }, -- needed to suppress warning when editing init.lua
-  --   },
-  -- },
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
-
+--
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
-  
+--
   handlers = {
     function(server_name)
-      require('lspconfig')[server_name].setup {
+      local opts = {
         capabilities = capabilities,
-        on_attach = on_attach,
-        settings = servers[server_name],
-        filetypes = (servers[server_name] or {}).filetypes,
+        -- settings = servers[server_name],
       }
+
+      vim.lsp.config[server_name] = opts
+      vim.lsp.enable(server_name)
     end,
   },
 }
-
--- mason_lspconfig.setup_handlers {
---  function(server_name)
---    require('lspconfig')[server_name].setup {
---      capabilities = capabilities,
---      on_attach = on_attach,
---      settings = servers[server_name],
---      filetypes = (servers[server_name] or {}).filetypes,
---    }
---  end,
---}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -1118,5 +1101,16 @@ end
 
 load_config(config_path)
 
+-- vim.diagnostic.config({
+--   -- Use the default configuration
+--   virtual_lines = true
+--
+--   -- Alternatively, customize specific options
+--   -- virtual_lines = {
+--   --  -- Only show virtual line diagnostics for the current cursor line
+--   --  current_line = true,
+--   -- },
+-- })
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
