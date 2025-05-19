@@ -325,6 +325,7 @@ require('lazy').setup({
      -- See `:help telescope.builtin`
       -- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<M-p>', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+      vim.keymap.set('n', '<D-p>', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<leader>o', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>O', require('telescope.builtin').find_files, { desc = '[O]pen Files' })
       vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -1020,13 +1021,13 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
 vim.keymap.set('n', '<leader>um', vim.cmd.Mason, { desc = '[Update] Mason' })
 
--- Set conceallevel=2 for markdown
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt.conceallevel = 2
-  end,
-})
+-- -- Set conceallevel=2 for markdown
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "markdown",
+--   callback = function()
+--     vim.opt.conceallevel = 2
+--   end,
+-- })
 
 -- initialize global var to false -> nvim-cmp turned off per default
 vim.g.cmptoggle = true
