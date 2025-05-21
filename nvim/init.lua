@@ -543,20 +543,28 @@ require('lazy').setup({
       { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
-  build = "make tiktoken", -- Only on MacOS or Linux
+    build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
       -- See Configuration section for options
+      -- model = 'gpt-4.1',
+      model = 'o3-mini',
+
+      prompts = {
+        ExplainKorean = {
+          prompt = "Explain this code in Korean",
+          mapping = '<leader>cce',
+        },
+        ReviewKorean = {
+          prompt = "Review the selected code in Korean",
+          mapping = '<leader>ccr',
+        },
+      },
+
+      window = {
+        layout = 'vertical',
+      },
     },
     -- See Commands section for default commands if you want to lazy load on them
-  },
-
-  {
-    "David-Kunz/gen.nvim", 
-    opts = {
-      model = "llama3:instruct",
-      show_model = true,
-      display_mode = "split",
-    },
   },
 
   {
@@ -975,6 +983,10 @@ cmp.setup {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
+  completion = {
+    completeopt = 'menu,menuone,noselect',
+  },
+  preselect = cmp.PreselectMode.None,
 }
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -1039,40 +1051,6 @@ cmp.setup {
 }
 vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", { desc = "toggle nvim-cmp" })
 
--- gen.nvim
-require('gen').prompts['1_Explain_Code'] = {
-  prompt = "Explain following code:\n$text",
-  replace = false
-}
-require('gen').prompts['2_Explain_Code_InKorean'] = {
-  prompt = "Explain following code in Korean:\n$text",
-  -- model = "llama3:instruct",
-  -- model = "mistral:instruct",
-  replace = false
-}
-require('gen').prompts['3_Generate_Docs'] = {
-  prompt = "Generate documentation for the following code block:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
-  replace = false
-}
-require('gen').prompts['4_Generate_Docs_InKorean'] = {
-  prompt = "Generate documentation for the following code block in Korean:\n$text\n Use the most popular documentation tool for the language $filetype. If you don't know infer the tool.",
-  replace = false
-}
-require('gen').prompts['5_Commit_Msg'] = {
-  prompt = "You are a helpful assistant to a programmer. Generate concise git commit message, based on following diff. Do not explain the code. Make the message short and concise. Use bullet points when necessary:\n$text",
-  -- prompt = "Using the following git diff, generate a consise and clear git commit message, with a short title summary that is 75 characters or less and you shoud give me commit message immediately. And you don't need to explain unnecessary things.:\n$text",
-  -- model = "mistral:instruct",
-  -- model = "llama3:instruct",
-  replace = false
-}
-require('gen').prompts['6_Add_Tests'] = {
-  prompt = "Write unit tests for the following code block:\n$text\n Please use the most popular testing library suitable for the language of the code. The language is: $filetype. ",
-  replace = false
-}
-require('gen').prompts['7_Convert_To_Go'] = {
-  prompt = "Convert following code to golang. only output the result in format ```go\n...\n```:\n```c\n$text\n```",
-  replace = false
-}
 --
 -- vim.keymap.set({ 'n' }, '<C-s>', function()       require('lsp_signature').toggle_float_win()
 -- end, { silent = true, noremap = true, desc = 'toggle signature' })
