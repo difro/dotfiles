@@ -659,6 +659,13 @@ require('lazy').setup({
     branch = "nvim11",
   },
 
+  {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {},
+  },
+
 }, {})
 
 -- [[ Setting options ]]
