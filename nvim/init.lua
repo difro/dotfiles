@@ -817,22 +817,46 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 
     -- use ruff
+    local augroup = vim.api.nvim_create_augroup("PyFormatOnSave", { clear = true })
+
+    local function should_format(bufnr)
+      local path = vim.api.nvim_buf_get_name(bufnr)
+      if path == "" then return false end
+
+      local settings = vim.fs.find(".vscode/settings.json", {
+        path = vim.fs.dirname(path),
+        upward = true,
+        stop = vim.loop.os_homedir(),
+      })[1]
+      if not settings then return false end
+
+      local ok, cfg = pcall(vim.fn.json_decode, table.concat(vim.fn.readfile(settings), "\n"))
+      if not ok then return false end
+
+      local py = cfg["[python]"]
+      return py and py["editor.formatOnSave"] == true
+    end
+
     vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
       pattern = "*.py",
-      callback = function()
-        vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
+      callback = function(event)
+        if not should_format(event.buf) then return end
+
+        vim.lsp.buf.format({ bufnr = event.buf, async = false })
         vim.lsp.buf.code_action({
-          context = { only = {  'source.fixAll' } },
+          bufnr = event.buf,
+          context = { only = { "source.fixAll" } },
           apply = true,
         })
         vim.wait(100)
         vim.lsp.buf.code_action({
+          bufnr = event.buf,
           context = { only = { "source.organizeImports.ruff" } },
           apply = true,
         })
-        -- formatAndOrganizeImports()
         require("lspimport").import()
-      end
+      end,
     })
 
     -- See `:help K` for why this keymap
