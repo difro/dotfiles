@@ -86,7 +86,7 @@
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "4",
+                                    "key_code": "5",
                                     "modifiers": { "mandatory": ["command", "control"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'cursor'" }],
