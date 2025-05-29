@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "cmd + control + m to open or switch to youtube music",
+                        "description": "command + control + m to open or switch to youtube music",
                         "manipulators": [
                             {
                                 "from": {
@@ -12,19 +12,6 @@
                                     "modifiers": { "mandatory": ["command", "control"] }
                                 },
                                 "to": [{ "shell_command": "open -a 'Youtube Music'" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "command + control + 9 to open or switch to Works",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "9",
-                                    "modifiers": { "mandatory": ["command", "control"] }
-                                },
-                                "to": [{ "shell_command": "open -a 'Works'" }],
                                 "type": "basic"
                             }
                         ]
@@ -43,27 +30,14 @@
                         ]
                     },
                     {
-                        "description": "command + control + 4 to open or switch to vscode",
+                        "description": "command + control + 1 to open or switch to Google Chrome",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "4",
+                                    "key_code": "1",
                                     "modifiers": { "mandatory": ["command", "control"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Visual Studio Code'" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "command + control + 3 to open or switch to Ghostty",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "3",
-                                    "modifiers": { "mandatory": ["command", "control"] }
-                                },
-                                "to": [{ "shell_command": "open -a 'Ghostty'" }],
+                                "to": [{ "shell_command": "open -a 'Google Chrome'" }],
                                 "type": "basic"
                             }
                         ]
@@ -82,14 +56,53 @@
                         ]
                     },
                     {
-                        "description": "cmd + control + 1 to open or switch to Google Chrome",
+                        "description": "command + control + 3 to open or switch to Ghostty",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "1",
+                                    "key_code": "3",
                                     "modifiers": { "mandatory": ["command", "control"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Google Chrome'" }],
+                                "to": [{ "shell_command": "open -a 'Ghostty'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "command + control + 4 to open or switch to vscode",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "mandatory": ["command", "control"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Visual Studio Code'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "command + control + 5 to open or switch to cursor",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "4",
+                                    "modifiers": { "mandatory": ["command", "control"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'cursor'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "command + control + 9 to open or switch to Works",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "9",
+                                    "modifiers": { "mandatory": ["command", "control"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Works'" }],
                                 "type": "basic"
                             }
                         ]
