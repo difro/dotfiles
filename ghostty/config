@@ -1,13 +1,16 @@
 font-family = 
 #font-family = "MonaspiceAr NFM"
-font-family = "JetBrains Mono Medium"
+# font-family = "JetBrains Mono Medium"
+font-family = "Comic Mono"
 #font-family = "D2Coding"
 
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-font-size = 11.5
+font-size = 12.5
+adjust-cell-height = 15%
+# font-size = 15
 
 font-style-bold = false
 font-style-italic = false

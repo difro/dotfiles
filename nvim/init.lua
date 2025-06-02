@@ -659,12 +659,12 @@ require('lazy').setup({
     branch = "nvim11",
   },
 
-  {
-    "m4xshen/hardtime.nvim",
-    lazy = false,
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
-  },
+  -- {
+  --   "m4xshen/hardtime.nvim",
+  --   lazy = false,
+  --   dependencies = { "MunifTanjim/nui.nvim" },
+  --   opts = {},
+  -- },
 
 }, {})
 
@@ -1096,6 +1096,9 @@ vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggl
 -- })
 
 vim.cmd.SunglassesDisable()
+
+-- remember marks/oldfiles for the last 1000 files
+vim.opt.shada = "!,'1000,<50,s10,h"
 
 -- Load $(hostname).lua
 local hostname = io.popen("hostname -s"):read("*l")
