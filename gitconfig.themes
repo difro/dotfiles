@@ -268,8 +268,9 @@
     plus-emph-style = syntax bold "#007800"
     plus-style = syntax "#004000"
     whitespace-error-style = "#280050" reverse
-    zero-style = syntax
-    syntax-theme = Nord
+    zero-style = white
+    #syntax-theme = Nord
+    syntax-theme = base16
 
 [delta "mantis-shrimp"]
     #author: https://github.com/2kabhishek

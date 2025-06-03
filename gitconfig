@@ -121,7 +121,9 @@
 	#features = collared-trogon
 	#features = tangara-chilensis
 	#features = villsau
-	features = difro
+	features = calochortus-lyallii
+	#features = mantis-shrimp
+	#features = difro
 	
 	
 	dark = false

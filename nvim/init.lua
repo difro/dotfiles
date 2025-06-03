@@ -150,7 +150,8 @@ require('lazy').setup({
       require("catppuccin").setup({
         transparent_background = true,
       })
-      vim.cmd.colorscheme 'catppuccin-macchiato'
+      -- vim.cmd.colorscheme 'catppuccin-macchiato'
+      -- vim.cmd.colorscheme 'catppuccin-mocha'
     end
   },
   {
@@ -233,6 +234,30 @@ require('lazy').setup({
     --   })
     --   -- vim.cmd.colorscheme 'nordic'
     -- end
+  },
+
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('everforest').setup({
+        background = 'hard', -- soft, medium, hard
+        transparent_background_level = 2,
+      })
+      vim.cmd.colorscheme 'everforest'
+    end,
+  },
+
+  {
+    "thesimonho/kanagawa-paper.nvim",
+    config = function()
+      require("kanagawa-paper").setup({
+        transparent = false,
+      })
+      -- vim.cmd.colorscheme 'kanagawa-paper'
+    end,
   },
 
 
