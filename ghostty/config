@@ -1,15 +1,17 @@
 font-family = 
-#font-family = "MonaspiceAr NFM"
+# font-family = "MonaspiceAr NFM"
 # font-family = "JetBrains Mono Medium"
 font-family = "Comic Mono"
+# font-family = "Cascadia Mono"
 #font-family = "D2Coding"
 
 font-feature = -calt
 font-feature = -liga
 font-feature = -dlig
 
-font-size = 12.5
-adjust-cell-height = 15%
+# font-size = 12.5
+font-size = 12
+adjust-cell-height = 17%
 # font-size = 15
 
 font-style-bold = false
@@ -20,8 +22,8 @@ font-style-italic = false
 # theme = catppuccin-mocha
 theme = "Everforest Dark - Hard"
 
-#background-opacity = 0.97
-background-opacity = 0.9
+background-opacity = 0.95
+# background-opacity = 0.9
 background-blur-radius = 20
 
 keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
@@ -30,13 +32,18 @@ keybind = ctrl+[=text:\x1b
 # send cmd-p as opt-p (for tmux ignores cmd-p)
 keybind = "cmd+p=text:\x1bp"
 
-quick-terminal-position = center
+# quick-terminal-position = center
+quick-terminal-position = left
+
+quick-terminal-autohide = false
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
 # macos-titlebar-style = hidden
 # macos-titlebar-style = native
 window-decoration = true
+
+window-title-font-family = "D2Coding"
 
 macos-option-as-alt = true
 

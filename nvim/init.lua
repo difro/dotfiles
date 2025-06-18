@@ -25,9 +25,8 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
 
-  -- Git related plugins
+  -- the premier Vim plugin for Git
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -42,6 +41,15 @@ require('lazy').setup({
       require"which-key".setup({
         notify = false,
       })
+      require('which-key').add {
+        {'<leader>c', group = '[C]ode or [C]opilot' },
+        {'<leader>d', group = '[D]ocument' },
+        {'<leader>g', group = '[G]it or [G]o' },
+        {'<leader>u', group = '[U]pdate' },
+        {'<leader>s', group = '[S]earch' },
+        {'<leader>t', group = '[T]oggle' },
+        {'<leader>w', group = '[W]orkspace' },
+      }
     end
   },
 
@@ -758,7 +766,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 
-vim.keymap.set('n', '<leader>CD', ":cd %:p:h<CR>" , { desc = '[C]hange [D]ir' })
+vim.keymap.set('n', '<leader>CD', ":cd %:p:h<CR>" , { desc = '[C]hange Dir' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -902,19 +910,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --end, { desc = 'Format current buffer with LSP' })
   end,
 })
-
--- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-  ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = '[G]it or [G]o', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
-  ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-  ['<leader>u'] = { name = '[U]pdate', _ = 'which_key_ignore' },
-  ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.

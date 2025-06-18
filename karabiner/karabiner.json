@@ -4,6 +4,19 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "command + shift + 8 to open or switch to gemini",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "8",
+                                    "modifiers": { "mandatory": ["command", "shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'Google Chrome' 'https://gemini.google.com/' --args --profile-directory='Default'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "command + control + m to open or switch to youtube music",
                         "manipulators": [
                             {
