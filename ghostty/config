@@ -34,8 +34,8 @@ keybind = "cmd+p=text:\x1bp"
 
 # quick-terminal-position = center
 quick-terminal-position = left
-
 quick-terminal-autohide = false
+quick-terminal-animation-duration = 0.2
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
