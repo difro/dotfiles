@@ -1,9 +1,10 @@
 font-family = 
 # font-family = "MonaspiceAr NFM"
-# font-family = "JetBrains Mono Medium"
+# font-family = "InconsolataGo Nerd Font Mono"
 font-family = "Comic Mono"
 # font-family = "Cascadia Mono"
-#font-family = "D2Coding"
+# font-family = "Cascadia Code NF Regular"
+# font-family = "D2Coding
 
 font-feature = -calt
 font-feature = -liga
@@ -11,7 +12,7 @@ font-feature = -dlig
 
 # font-size = 12.5
 font-size = 12
-adjust-cell-height = 17%
+adjust-cell-height = 10%
 # font-size = 15
 
 font-style-bold = false
@@ -19,14 +20,17 @@ font-style-italic = false
 
 # theme = catppuccin-macchiato
 # theme = Dimidium
-# theme = catppuccin-mocha
-theme = "Everforest Dark - Hard"
+theme = catppuccin-mocha
+# theme = "Everforest Dark - Hard"
+# theme = "tokyonight"
 
-background-opacity = 0.95
+# background-opacity = 0.95
+background-opacity = 0.85
 # background-opacity = 0.9
-background-blur-radius = 20
+background-blur-radius = 3
 
-keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
+# keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
+keybind = global:opt+grave_accent=toggle_quick_terminal
 keybind = ctrl+[=text:\x1b
 
 # send cmd-p as opt-p (for tmux ignores cmd-p)
