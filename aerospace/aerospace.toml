@@ -1,4 +1,5 @@
 # Place a copy of this config to ~/.aerospace.toml
+
 # After that, you can edit ~/.aerospace.toml to your liking
 
 # You can use it to add commands that run after AeroSpace startup.
@@ -201,10 +202,10 @@ automatically-unhide-macos-hidden-apps = true
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-    alt-ctrl-h = ['join-with left', 'mode main']
-    alt-ctrl-j = ['join-with down', 'mode main']
-    alt-ctrl-k = ['join-with up', 'mode main']
-    alt-ctrl-l = ['join-with right', 'mode main']
+    alt-shift-cmd-h = ['join-with left', 'mode main']
+    alt-shift-cmd-j = ['join-with down', 'mode main']
+    alt-shift-cmd-k = ['join-with up', 'mode main']
+    alt-shift-cmd-l = ['join-with right', 'mode main']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
