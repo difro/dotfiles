@@ -6,7 +6,7 @@
 
 	# get from https://github.com/mookid/diffr
 	#pager = diffr --colors --colors 'refine-removed:background:230,108,108:foreground:white:nobold' --colors 'refine-added:background:84,120,84:foreground:white:nobold' | less -R
-	pager = delta
+	; pager = delta
 
 [push]
 	#default = tracking
@@ -112,8 +112,8 @@
 	autocorrect = prompt
 
 [interactive]
-	#diffFilter = diffr
-	diffFilter = delta --color-only
+	; diffFilter = diffr
+	; diffFilter = delta --color-only
 
 [delta]
 	navigate = true  # use n and N to move between diff sections

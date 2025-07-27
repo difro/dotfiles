@@ -487,23 +487,23 @@ require('lazy').setup({
     },
   },
 
-  -- {
-  --   'pwntester/octo.nvim',
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --     'nvim-telescope/telescope.nvim',
-  --     'nvim-tree/nvim-web-devicons',
-  --   },
-  --   config = function()
-  --     require"octo".setup({
-  --       github_hostname = "oss.navercorp.com",
-  --       suppress_missing_scope = {
-  --         projects_v2 = true,
-  --       },
-  --       use_local_fs = true,
-  --     })
-  --   end
-  -- },
+  {
+    'pwntester/octo.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require"octo".setup({
+        github_hostname = "oss.navercorp.com",
+        suppress_missing_scope = {
+          projects_v2 = true,
+        },
+        use_local_fs = true,
+      })
+    end
+  },
 
   {
     "ray-x/go.nvim",
