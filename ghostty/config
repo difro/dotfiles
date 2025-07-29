@@ -29,8 +29,8 @@ background-opacity = 0.85
 # background-opacity = 0.9
 background-blur-radius = 3
 
-keybind = global:opt+grave_accent=toggle_quick_terminal
-keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
+# keybind = global:opt+grave_accent=toggle_quick_terminal
+# keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
 keybind = ctrl+[=text:\x1b
 
 # send cmd-p as opt-p (for tmux ignores cmd-p)

@@ -3,7 +3,7 @@
 options=(
 	style=round
 	# style=square
-	width=1.0
+	width=1.5
 	order=above
 	# hidpi=off
 	hidpi=on
