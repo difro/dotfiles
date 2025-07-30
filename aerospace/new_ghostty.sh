@@ -12,4 +12,6 @@ tell application "Ghostty"
 	end if
 end tell'
 
+sleep 0.7
+
 aerospace move-node-to-workspace --focus-follows-window "$cur_workspace"
