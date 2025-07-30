@@ -93,16 +93,17 @@ outer.right =      2
     # end tell'
     # '''
     # alt-t = 'exec-and-forget open -a Ghostty -n'
-   alt-t = '''exec-and-forget osascript -e '
-     tell application "Ghostty"
-	  if it is running then
-	      activate
-	      tell application "System Events" to keystroke "n" using {command down}
-	  else
-	      activate
-	  end if
-     end tell'
-     '''
+    alt-t = 'exec-and-forget ~/.config/aerospace/new_ghostty.sh'
+   # alt-t = '''exec-and-forget osascript -e '
+   #   tell application "Ghostty"
+   # if it is running then
+   #     activate
+   #     tell application "System Events" to keystroke "n" using {command down}
+   # else
+   #     activate
+   # end if
+   #   end tell'
+   #   '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     alt-slash = 'layout tiles horizontal vertical'
