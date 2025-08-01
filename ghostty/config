@@ -2,6 +2,7 @@ font-family =
 # font-family = "MonaspiceAr NFM"
 # font-family = "InconsolataGo Nerd Font Mono"
 font-family = "Comic Mono"
+# font-family = "Google Sans Code Light"
 # font-family = "Cascadia Mono"
 # font-family = "Cascadia Code NF Regular"
 # font-family = "D2Coding
@@ -29,8 +30,8 @@ background-opacity = 0.85
 # background-opacity = 0.9
 background-blur-radius = 3
 
-# keybind = global:opt+grave_accent=toggle_quick_terminal
-# keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
+keybind = global:opt+grave_accent=toggle_quick_terminal
+keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
 keybind = ctrl+[=text:\x1b
 
 # send cmd-p as opt-p (for tmux ignores cmd-p)
