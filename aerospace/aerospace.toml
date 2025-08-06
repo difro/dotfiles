@@ -116,17 +116,21 @@ outer.right =      2
     alt-l = 'focus right --boundaries all-monitors-outer-frame'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    alt-shift-h = 'move left --boundaries all-monitors-outer-frame'
-    alt-shift-j = 'move down --boundaries all-monitors-outer-frame'
-    alt-shift-k = 'move up --boundaries all-monitors-outer-frame'
-    alt-shift-l = 'move right --boundaries all-monitors-outer-frame'
+    alt-cmd-h = 'move left --boundaries all-monitors-outer-frame'
+    alt-cmd-j = 'move down --boundaries all-monitors-outer-frame'
+    alt-cmd-k = 'move up --boundaries all-monitors-outer-frame'
+    alt-cmd-l = 'move right --boundaries all-monitors-outer-frame'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'
     alt-0 = 'balance-sizes'
 
+    alt-cmd-minus = 'resize smart -102'
+    alt-cmd-equal = 'resize smart +100'
+
     alt-f = 'fullscreen'
+    alt-cmd-f = 'layout floating tiling'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     alt-1 = 'workspace 1'
@@ -198,15 +202,16 @@ outer.right =      2
     # alt-shift-z = 'move-node-to-workspace Z'
 
     alt-shift-c = ['reload-config', 'mode main']
+    alt-cmd-shift-c = ['reload-config', 'mode main']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
-    alt-cmd-equal = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh up', 'reload-config']
-    alt-cmd-minus = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh down', 'reload-config']
-    alt-cmd-0 = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh reset', 'reload-config']
+    # alt-cmd-equal = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh up', 'reload-config']
+    # alt-cmd-minus = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh down', 'reload-config']
+    # alt-cmd-0 = ['exec-and-forget ~/.config/aerospace/modify_gaps.sh reset', 'reload-config']
 
     alt-shift-cmd-h = ['join-with left', 'mode main']
     alt-shift-cmd-j = ['join-with down', 'mode main']
@@ -244,19 +249,19 @@ outer.right =      2
 [[on-window-detected]]
 if.app-id="com.kakao.KakaoTalkMac"
 run= [
-  "layout floating",
+  # "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="com.naver.ncs"
 run= [
-  "layout floating",
+  # "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="jp.naver.line.mac"
 run= [
-  "layout floating",
+  # "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
@@ -268,7 +273,7 @@ run= [
 [[on-window-detected]]
 if.app-id="com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
 run= [
-  "layout floating",
+  # "layout floating",
   "move-node-to-workspace 5",
 ]
 # [[on-window-detected]]
