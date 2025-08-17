@@ -135,7 +135,7 @@ if [[ -f "$HOME/.cargo/env" ]]; then
 	. "$HOME/.cargo/env"
 fi
 
-export	PATH=$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+export	PATH=$HOME/.nix-profile/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
 
 if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 	# shellcheck source=/dev/null

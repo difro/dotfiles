@@ -11,7 +11,7 @@
                                     "key_code": "8",
                                     "modifiers": { "mandatory": ["command", "control"] }
                                 },
-                                "to": [{ "shell_command": "open -a 'Google Chrome' 'https://gemini.google.com/' --args --profile-directory='Default'" }],
+                                "to": [{ "shell_command": "open -a 'Brave Browser' 'https://gemini.google.com/' --args --profile-directory='Default'" }],
                                 "type": "basic"
                             }
                         ]
@@ -150,12 +150,12 @@
                     },
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        },
-                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
                         }
                     ]
                 }

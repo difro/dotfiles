@@ -205,7 +205,8 @@ outer.right =      2
     alt-cmd-shift-c = ['reload-config', 'mode main']
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    alt-tab = 'workspace-back-and-forth'
+    # alt-tab = 'workspace-back-and-forth'
+    alt-tab = 'focus dfs-next --boundaries-action wrap-around-the-workspace'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
     alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
@@ -249,19 +250,19 @@ outer.right =      2
 [[on-window-detected]]
 if.app-id="com.kakao.KakaoTalkMac"
 run= [
-  # "layout floating",
+  "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="com.naver.ncs"
 run= [
-  # "layout floating",
+  "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="jp.naver.line.mac"
 run= [
-  # "layout floating",
+  "layout floating",
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
@@ -269,6 +270,16 @@ if.app-id="com.todoist.mac.Todoist"
 run= [
   "layout floating",
   "move-node-to-workspace 5",
+]
+[[on-window-detected]]
+if.app-id="net.pulsesecure.Pulse-Secure"
+run= [
+  "layout floating",
+]
+[[on-window-detected]]
+if.app-id="com.bitwarden.desktop"
+run= [
+  "layout floating",
 ]
 [[on-window-detected]]
 if.app-id="com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
