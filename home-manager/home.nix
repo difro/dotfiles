@@ -1,5 +1,5 @@
 # ~/nix-config/home.nix
-{ pkgs, nix-ai-tools, ... }:
+{ pkgs, masterPkgs, aiToolsPkgs, ... }:
 
 {
 
@@ -11,28 +11,29 @@
 
   # List of packages you want on ALL your systems
   home.packages = [
+    pkgs.bat
+    pkgs.btop
+    pkgs.cadaver
+    pkgs.codex
+    pkgs.curl
+    pkgs.delta
+    pkgs.fzf
+    pkgs.gh
+    pkgs.htop
+    pkgs.jq
     pkgs.git
+    pkgs.go
     pkgs.man-db
     pkgs.man-pages
-    pkgs.ripgrep
-    pkgs.htop
-    pkgs.neovim
-    pkgs.uv
-    pkgs.codex
-    pkgs.go
-    pkgs.curl
-    pkgs.tmux
-    pkgs.jq
-    pkgs.fzf
-    pkgs.nodejs
-    pkgs.gh
-    pkgs.delta
-    pkgs.cadaver
-    pkgs.btop
-    pkgs.bat
     pkgs.neofetch
-    nix-ai-tools.packages.${pkgs.system}.opencode
-    nix-ai-tools.packages.${pkgs.system}.qwen-code
+    pkgs.neovim
+    pkgs.nodejs
+    pkgs.ripgrep
+    pkgs.tmux
+    pkgs.uv
+
+    aiToolsPkgs.opencode
+    aiToolsPkgs.qwen-code
   ];
 
   nixpkgs.config.allowUnfree = true; # Allow unfree packages

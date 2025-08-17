@@ -16,24 +16,37 @@
   outputs = { self, nixpkgs, nixpkgs-master, nix-ai-tools, home-manager }:
   let
     masterPkgsFor = system: import nixpkgs-master { inherit system; };
-    aiToolsPkgsFor = system: import nix-ai-tools { inherit system; };
+    aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
   in
   {
     # Configuration for your Linux machine
-    homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      extraSpecialArgs = { masterPkgs = masterPkgsFor "x86_64-linux"; aiToolsPkgs = aiToolsPkgsFor "x86_64-linux"; };
-      modules = [ ./home.nix ./linux.nix ];
-    };
+    homeConfigurations."linux" = home-manager.lib.homeManagerConfiguration (
+      let
+        system = "x86_64-linux"; 
+      in 
+      {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = { 
+         masterPkgs = masterPkgsFor system;
+         aiToolsPkgs = aiToolsPkgsFor system;
+        };
+        modules = [ ./home.nix ./linux.nix ];
+      }
+    );
 
     # Configuration for your macOS machine
-    homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-darwin; # Or x86_64-darwin
-      extraSpecialArgs = { 
-       masterPkgs = masterPkgsFor "aarch64-darwin";
-       inherit nix-ai-tools;
-      };
-      modules = [ ./home.nix ./macos.nix ];
-    };
+    homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration (
+      let
+        system = "aarch64-darwin";
+      in 
+      {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = { 
+         masterPkgs = masterPkgsFor system;
+         aiToolsPkgs = aiToolsPkgsFor system;
+        };
+        modules = [ ./home.nix ./macos.nix ];
+      }
+    );
   };
 }
