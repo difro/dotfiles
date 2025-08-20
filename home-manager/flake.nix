@@ -1,4 +1,8 @@
 # ~/nix-config/flake.nix
+
+# init with nix run home-manager -- switch --flake .#macbook
+# update with home-manager switch --flake .#macbook
+
 {
   description = "My cross-platform home environment";
 

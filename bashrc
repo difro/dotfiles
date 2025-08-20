@@ -129,6 +129,8 @@ fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+[ -f ~/.nix-profile/share/fzf/key-bindings.bash ] && source ~/.nix-profile/share/fzf/key-bindings.bash
+
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 if [[ -f "$HOME/.cargo/env" ]]; then
