@@ -19,16 +19,17 @@
     pkgs.delta
     pkgs.fzf
     pkgs.gh
+    pkgs.glibcLocalesUtf8
     pkgs.htop
     pkgs.jq
     pkgs.git
-    pkgs.go
     pkgs.man-db
     pkgs.man-pages
     pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs
     pkgs.ripgrep
+    pkgs.tig
     pkgs.tmux
     pkgs.uv
 
@@ -38,6 +39,11 @@
 
   nixpkgs.config.allowUnfree = true; # Allow unfree packages
   nixpkgs.config.allowUnsupportedSystem = true; # Allow unsupported systems
+
+  # To remove locale warning when exiting vim
+  home.sessionVariables = {
+    LOCALE_ARCHIVE = "${pkgs.glibcLocalesUtf8}/lib/locale/locale-archive";
+  };
 
   # Example: Manage a dotfile declaratively
   # home.file.".gitconfig".text = ''

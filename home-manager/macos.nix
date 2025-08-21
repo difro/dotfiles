@@ -7,6 +7,7 @@
 
   home.packages = [
     pkgs.ffmpeg
+    pkgs.go
   #   # Packages only for macOS
   #   pkgs.rectangle # A window manager for macOS
   #   pkgs.sketchybar

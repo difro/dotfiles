@@ -38,6 +38,21 @@
       }
     );
 
+    # Configuration for your cnd901 machine
+    homeConfigurations."office" = home-manager.lib.homeManagerConfiguration (
+      let
+        system = "x86_64-linux"; 
+      in 
+      {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = { 
+         masterPkgs = masterPkgsFor system;
+         aiToolsPkgs = aiToolsPkgsFor system;
+        };
+        modules = [ ./home.nix ./office.nix ];
+      }
+    );
+
     # Configuration for your macOS machine
     homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration (
       let

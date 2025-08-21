@@ -145,3 +145,7 @@ if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
 fi
 
 export MANPAGER='nvim +Man!'
+
+# nix aliases
+alias home-manager-update="cd ~/.config/home-manager && nix flake update && home-manager switch --flake .#office && cd -"
+alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
