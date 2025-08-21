@@ -147,5 +147,11 @@ fi
 export MANPAGER='nvim +Man!'
 
 # nix aliases
-alias home-manager-update="cd ~/.config/home-manager && nix flake update && home-manager switch --flake .#office && cd -"
+home-manager-update() {
+	if [ -z "$1" ]; then
+		echo "Usage: home-manager-update <macbook|office>"
+		return 1
+	fi
+	cd ~/.config/home-manager && nix flake update && home-manager switch --flake ".#$1" && cd -
+}
 alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
