@@ -6,7 +6,7 @@
 
 	# get from https://github.com/mookid/diffr
 	#pager = diffr --colors --colors 'refine-removed:background:230,108,108:foreground:white:nobold' --colors 'refine-added:background:84,120,84:foreground:white:nobold' | less -R
-	; pager = delta
+	pager = delta
 
 [push]
 	#default = tracking
@@ -113,20 +113,13 @@
 
 [interactive]
 	; diffFilter = diffr
-	; diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
 	navigate = true  # use n and N to move between diff sections
-	#features = discord
-	#features = collared-trogon
-	#features = tangara-chilensis
-	#features = villsau
-	features = calochortus-lyallii
-	#features = mantis-shrimp
-	#features = difro
+	features = catppuccin-mocha
 	
-	
-	dark = false
+	dark = true
 	line-numbers = true
 	side-by-side = false
 
