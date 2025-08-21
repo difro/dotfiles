@@ -284,6 +284,11 @@ run= [
   "layout floating",
 ]
 [[on-window-detected]]
+if.app-id="us.zoom.xos"
+run= [
+  "layout floating",
+]
+[[on-window-detected]]
 if.app-id="com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
 run= [
   # "layout floating",
