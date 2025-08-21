@@ -11,7 +11,7 @@
     pkgs.glibcLocalesUtf8 # For locale support
   ];
 
-  To remove locale warning when exiting vim
+  # To remove locale warning when exiting vim
   home.sessionVariables = {
     LOCALE_ARCHIVE = "${pkgs.glibcLocalesUtf8}/lib/locale/locale-archive";
   };
