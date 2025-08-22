@@ -55,7 +55,7 @@
     );
 
     # Configuration for your macOS machine
-    homeConfigurations."macbook" = home-manager.lib.homeManagerConfiguration (
+    homeConfigurations."macos" = home-manager.lib.homeManagerConfiguration (
       let
         system = "aarch64-darwin";
       in 

@@ -1,4 +1,3 @@
-# ~/nix-config/cnd901.nix
 { pkgs, ... }:
 
 {
@@ -6,7 +5,7 @@
   home.homeDirectory = "/home1/irteam/work/jihoonc";
 
   home.packages = [
-  #   # Packages only for cnd901
+  #   # Packages only for office
   #  pkgs.nodejs
     pkgs.glibcLocalesUtf8 # For locale support
   ];
