@@ -27,7 +27,7 @@
     pkgs.man-pages
     pkgs.neofetch
     pkgs.neovim
-    pkgs.nodejs
+    pkgs.nodejs_24
     pkgs.ripgrep
     pkgs.tig
     pkgs.tmux
