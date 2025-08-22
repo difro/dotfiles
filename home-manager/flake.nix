@@ -8,7 +8,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
 
     home-manager = {
@@ -17,9 +17,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-master, nix-ai-tools, home-manager }:
+  # outputs = { self, nixpkgs, nixpkgs-master, nix-ai-tools, home-manager }:
+  outputs = { self, nixpkgs, nix-ai-tools, home-manager }:
   let
-    masterPkgsFor = system: import nixpkgs-master { inherit system; };
+    # masterPkgsFor = system: import nixpkgs-master { inherit system; };
     aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
   in
   {
@@ -31,7 +32,7 @@
       {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { 
-         masterPkgs = masterPkgsFor system;
+         # masterPkgs = masterPkgsFor system;
          aiToolsPkgs = aiToolsPkgsFor system;
         };
         modules = [ ./home.nix ./linux.nix ];
@@ -46,7 +47,7 @@
       {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { 
-         masterPkgs = masterPkgsFor system;
+         # masterPkgs = masterPkgsFor system;
          aiToolsPkgs = aiToolsPkgsFor system;
         };
         modules = [ ./home.nix ./office.nix ];
@@ -61,7 +62,7 @@
       {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { 
-         masterPkgs = masterPkgsFor system;
+         # masterPkgs = masterPkgsFor system;
          aiToolsPkgs = aiToolsPkgsFor system;
         };
         modules = [ ./home.nix ./macos.nix ];

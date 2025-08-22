@@ -1,5 +1,6 @@
 # ~/nix-config/home.nix
-{ pkgs, masterPkgs, aiToolsPkgs, ... }:
+# { pkgs, masterPkgs, aiToolsPkgs, ... }:
+{ pkgs, aiToolsPkgs, ... }:
 
 {
 
