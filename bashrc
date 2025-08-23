@@ -39,7 +39,8 @@ RED="\[\033[1;31m\]"
 shorten_path() {
     # Replace the home directory with ~
     local path="${PWD/#$HOME/~}"
-    path="${path/#\/home1\/irteam\/naver\/work\/jihoonc/~}"
+    # path="${path/#\/home1\/irteam\/naver\/work\/jihoonc/~}"
+    path="${path/#$(readlink -f $HOME)/\~}"
 
     local IFS="/"
     local parts=($path)
