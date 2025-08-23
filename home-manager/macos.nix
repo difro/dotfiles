@@ -6,8 +6,9 @@
   home.homeDirectory = "/Users/jihoonc";
 
   home.packages = [
-    pkgs.ffmpeg
+    pkgs.bash
     pkgs.go
+    pkgs.ffmpeg
   #   # Packages only for macOS
   #   pkgs.rectangle # A window manager for macOS
   #   pkgs.sketchybar
