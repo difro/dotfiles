@@ -274,6 +274,11 @@ run= [
   "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
+if.app-id="com.TickTick.task.mac"
+run= [
+  "layout floating",
+]
+[[on-window-detected]]
 if.app-id="net.pulsesecure.Pulse-Secure"
 run= [
   "layout floating",

@@ -4,6 +4,19 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "command + control + t to open or switch to TickTick",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": { "mandatory": ["command", "control"] }
+                                },
+                                "to": [{ "shell_command": "open -a 'TickTick'" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "command + control + 8 to open or switch to gemini",
                         "manipulators": [
                             {
