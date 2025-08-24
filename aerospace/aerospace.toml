@@ -94,6 +94,19 @@ outer.right =      2
     # '''
     # alt-t = 'exec-and-forget open -a Ghostty -n'
     alt-t = 'exec-and-forget ~/.config/aerospace/new_ghostty.sh'
+
+    # App shortcuts
+    cmd-ctrl-t = 'exec-and-forget open -a TickTick'
+    cmd-ctrl-m = 'exec-and-forget open -a "Youtube Music"'
+    cmd-ctrl-1 = 'exec-and-forget open -a "Brave Browser"'
+    cmd-ctrl-2 = 'exec-and-forget open -a "Whale"'
+    cmd-ctrl-3 = 'exec-and-forget open -a "Ghostty"'
+    cmd-ctrl-4 = 'exec-and-forget open -a "cursor"'
+    cmd-ctrl-8 = 'exec-and-forget open -a "Brave Browser" "https://gemini.google.com/"'
+    cmd-ctrl-9 = 'exec-and-forget open -a "Works"'
+    cmd-ctrl-0 = 'exec-and-forget open -a "KakaoTalk"'
+
+
    # alt-t = '''exec-and-forget osascript -e '
    #   tell application "Ghostty"
    # if it is running then
@@ -277,6 +290,7 @@ run= [
 if.app-id="com.TickTick.task.mac"
 run= [
   "layout floating",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="net.pulsesecure.Pulse-Secure"
@@ -287,14 +301,16 @@ run= [
 if.app-id="com.bitwarden.desktop"
 run= [
   "layout floating",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="us.zoom.xos"
 run= [
   "layout floating",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
-if.app-id="com.google.Chrome.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
+if.app-id="com.brave.Browser.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
 run= [
   # "layout floating",
   "move-node-to-workspace 5",

@@ -4,20 +4,8 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "command + control + t to open or switch to TickTick",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "t",
-                                    "modifiers": { "mandatory": ["command", "control"] }
-                                },
-                                "to": [{ "shell_command": "open -a 'TickTick'" }],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "command + control + 8 to open or switch to gemini",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -31,6 +19,7 @@
                     },
                     {
                         "description": "command + control + m to open or switch to youtube music",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -44,6 +33,7 @@
                     },
                     {
                         "description": "command + control + 0 to open or switch to KakaoTalk",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -57,6 +47,7 @@
                     },
                     {
                         "description": "command + control + 1 to open or switch to Google Chrome",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -70,6 +61,7 @@
                     },
                     {
                         "description": "command + control + 2 to open or switch to whale",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -83,6 +75,7 @@
                     },
                     {
                         "description": "command + control + 3 to open or switch to Ghostty",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -96,6 +89,7 @@
                     },
                     {
                         "description": "command + control + 4 to open or switch to cursor",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -109,6 +103,7 @@
                     },
                     {
                         "description": "command + control + 5 to open or switch to cursor",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -122,6 +117,7 @@
                     },
                     {
                         "description": "command + control + 9 to open or switch to Works",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
