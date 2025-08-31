@@ -15,7 +15,6 @@
     pkgs.bat
     pkgs.btop
     pkgs.cadaver
-    pkgs.codex
     pkgs.curl
     pkgs.delta
     pkgs.fzf
@@ -25,7 +24,7 @@
     pkgs.git
     pkgs.man-db
     pkgs.man-pages
-    pkgs.neofetch
+    # pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs_24
     pkgs.ripgrep
