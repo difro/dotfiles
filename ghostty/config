@@ -29,7 +29,8 @@ theme = catppuccin-mocha
 # background-opacity = 0.95
 background-opacity = 0.85
 # background-opacity = 0.9
-background-blur-radius = 3
+# background-blur-radius = 3
+background-blur = 5
 
 keybind = global:opt+grave_accent=toggle_quick_terminal
 keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
@@ -38,6 +39,8 @@ keybind = ctrl+[=text:\x1b
 # send cmd-p as opt-p (for tmux ignores cmd-p)
 keybind = "cmd+p=text:\x1bp"
 
+# Toggle background opacity between 0.85 and 1
+keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d"
 # quick-terminal-position = center
 quick-terminal-position = left
 quick-terminal-autohide = false
