@@ -4,8 +4,8 @@
   home.username = "irteam";
   home.homeDirectory = "/home1/irteam/work/jihoonc";
 
+  # Packages only for office
   home.packages = [
-  #   # Packages only for office
   #  pkgs.nodejs
     pkgs.glibcLocalesUtf8 # For locale support
   ];
