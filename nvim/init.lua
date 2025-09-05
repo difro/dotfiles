@@ -174,7 +174,22 @@ require('lazy').setup({
         transparent_background = true,
       })
       -- vim.cmd.colorscheme 'catppuccin-macchiato'
-      vim.cmd.colorscheme 'catppuccin-mocha'
+      -- vim.cmd.colorscheme 'catppuccin-mocha'
+    end
+  },
+  {
+    "arzg/vim-colors-xcode",
+    config = function()
+      -- vim.cmd.colorscheme 'xcodedarkhc'
+    end
+  },
+  { 
+    'datsfilipe/vesper.nvim',
+    config = function()
+      require('vesper').setup({
+        transparent = true,
+      })
+      -- vim.cmd.colorscheme 'vesper'
     end
   },
   {

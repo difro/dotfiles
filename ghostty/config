@@ -21,6 +21,7 @@ font-style-italic = false
 
 # theme = catppuccin-macchiato
 # theme = Dimidium
+# theme = vesper
 theme = catppuccin-mocha
 # theme = Dracula
 # theme = "Everforest Dark - Hard"
