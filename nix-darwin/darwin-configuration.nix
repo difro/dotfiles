@@ -12,12 +12,32 @@
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
-    taps = [];
+    taps = [
+    	"FelixKratz/formulae" # for jankyborders
+        "nikitabobko/tap" # for aerospace
+    ];
     brews = [
       "borders"
+      "podman"
     ];
     casks = [
-      "nikitabobko/tap/aerospace"
+      "aerospace"
+      "alfred"
+      "bitwarden"
+      "brave-browser"
+      "calibre"
+      "choosy"
+      "font-comic-mono"
+      "font-d2coding"
+      "ghostty"
+      "heynote"
+      "input-source-pro"
+      "itsycal"
+      "jordanbaird-ice"
+      "podman-desktop"
+      "stats"
+      "ticktick"
+      "zoom"
     ];
   };
 }

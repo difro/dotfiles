@@ -156,3 +156,7 @@ home-manager-update() {
 	cd ~/.config/home-manager && nix flake update && home-manager switch --flake ".#$1" && cd -
 }
 alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
+
+nix-darwin-update() {
+	cd ~/.config/nix-darwin && nix flake update && sudo nix run nix-darwin -- switch --flake .#mac || cd -
+}
