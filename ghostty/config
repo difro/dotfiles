@@ -65,3 +65,6 @@ shell-integration = bash
 
 cursor-opacity = 0.8
 cursor-text = black
+
+# include per-host config
+config-file = ?local.config
