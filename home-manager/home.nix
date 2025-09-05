@@ -32,6 +32,7 @@
     pkgs.tmux
     pkgs.uv
 
+    aiToolsPkgs.cursor-agent
     aiToolsPkgs.opencode
     aiToolsPkgs.qwen-code
   ];
