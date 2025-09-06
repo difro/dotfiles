@@ -257,18 +257,18 @@ outer.right =      2
     shift-down = ['volume set 0', 'mode main']
 
 [workspace-to-monitor-force-assignment]
-    5 = 'secondary'
-    6 = 'secondary'
-    7 = 'secondary'
-    8 = '16mr70'
-    9 = '16mr70'
+    5 = [ 'U2720Q', 'secondary' ]
+    6 = [ 'U2720Q', 'secondary' ]
+    7 = [ 'U2720Q', 'secondary' ]
+    8 = [ '16mr70', 'secondary' ]
+    9 = [ '16mr70', 'secondary' ]
 
 
 [[on-window-detected]]
 if.app-id="com.kakao.KakaoTalkMac"
 run= [
   "layout floating",
-  "move-node-to-workspace 5",
+  # "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="com.naver.ncs"

@@ -1,5 +1,5 @@
 # ~/nix-config/macos.nix
-{ pkgs, ... }:
+{ pkgs, aiToolsPkgs, ... }:
 
 {
   home.username = "jihoonc";
@@ -10,5 +10,7 @@
     pkgs.bash
     pkgs.go
     pkgs.ffmpeg
+
+    aiToolsPkgs.gemini-cli
   ];
 }
