@@ -22,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
-require('lazy').setup({
+local plugins = {
   -- NOTE: First, some plugins that don't require any configuration
 
   -- the premier Vim plugin for Git
@@ -110,8 +110,7 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      on_attach = function(bufnr)
-        -- "git diff => gd"
+      on_attach = function(bufnr) -- "git diff => gd"
         vim.keymap.set('n', '<leader>gd', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 
         -- "git blame => gb"
@@ -155,179 +154,6 @@ require('lazy').setup({
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
-  },
-
-  -- colorschemes
-  { 'romainl/Apprentice' },
-  {
-    'rose-pine/neovim',
-    as = 'rose-pine',
-    -- config = function()
-    --   require("kanagawa").setup({
-    --     vim.cmd.colorscheme "rose-pine",
-    --   })
-    -- end
-  },
-  { "catppuccin/nvim", as = "catppuccin",
-    config = function()
-      require("catppuccin").setup({
-        transparent_background = true,
-      })
-      -- vim.cmd.colorscheme 'catppuccin-macchiato'
-      -- vim.cmd.colorscheme 'catppuccin-mocha'
-    end
-  },
-  {
-    "arzg/vim-colors-xcode",
-    config = function()
-      -- vim.cmd.colorscheme 'xcodedarkhc'
-    end
-  },
-  { 
-    'datsfilipe/vesper.nvim',
-    config = function()
-      require('vesper').setup({
-        transparent = true,
-      })
-      -- vim.cmd.colorscheme 'vesper'
-    end
-  },
-  {
-    "folke/tokyonight.nvim",
-    -- lazy = false,
-    -- priority = 1000,
-    -- opts = {},
-    config = function()
-      -- vim.cmd.colorscheme 'tokyonight-moon'
-    end,
-
-  },
-  { 'rebelot/kanagawa.nvim',
-    -- priority = 1000,
-    -- opts = {
-    --   transparent = true,
-    --   colors = {
-    --     theme = {
-    --       all = {
-    --         ui = {
-    --           bg_gutter = "none"
-    --         }
-    --       }
-    --     }
-    --   },
-    -- },
-    -- config = function()
-    --   require("kanagawa").setup({
-    --     --transparent = true,
-    --     transparent = false,
-    --     theme = "dragon",
-    --   })
-    --   vim.cmd.colorscheme 'kanagawa-dragon'
-    -- end,
-  },
-  {
-    "zenbones-theme/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    dependencies = "rktjmp/lush.nvim",
-    lazy = false,
-    priority = 1000,
-    -- you can set set configuration options here
-    config = function()
-      vim.g.zenbones_darken_comments = 5
-      -- vim.cmd.colorscheme('kanagawabones')
-    end
-  },
-  { 'nordtheme/vim' },
-
-  { "ellisonleao/gruvbox.nvim",
-    -- priority = 1000 ,
-    -- config = function()
-    --   require("gruvbox").setup({
-    --     terminal_colors = true,
-    --     contrast = "hard", -- can be "hard", "soft" or empty string
-    --
-    --   })
-    --   --vim.o.background = "dark"
-    --   vim.cmd.colorscheme 'gruvbox'
-    -- end,
-  },
-
-  { "savq/melange-nvim",
-    -- config = function()
-    --   vim.cmd.colorscheme 'melange'
-    -- end,
-  },
-
-  {
-    'AlexvZyl/nordic.nvim',
-    -- lazy = false,
-    -- priority = 1000,
-    -- config = function()
-    --   require('nordic').setup({
-    --     reduced_blue = true,
-    --     bright_border = true,
-    --     telescope = {
-    --       -- Available styles: `classic`, `flat`.
-    --       style = 'clasic',
-    --     },
-    --     --swap_backgrounds = true,
-    --     cursorline = {
-    --       -- Bold font in cursorline.
-    --       bold = false,
-    --       -- Bold cursorline number.
-    --       bold_number = true,
-    --       -- Avialable styles: 'dark', 'light'.
-    --       theme = 'light',
-    --       -- Blending the cursorline bg with the buffer bg.
-    --       blend = 0.99,
-    --     },
-    --   })
-    --   -- vim.cmd.colorscheme 'nordic'
-    -- end
-  },
-
-  {
-    "neanias/everforest-nvim",
-    version = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require('everforest').setup({
-        background = 'hard', -- soft, medium, hard
-        transparent_background_level = 2,
-      })
-      -- vim.cmd.colorscheme 'everforest'
-    end,
-  },
-
-  {
-    "thesimonho/kanagawa-paper.nvim",
-    config = function()
-      require("kanagawa-paper").setup({
-        transparent = false,
-      })
-      -- vim.cmd.colorscheme 'kanagawa-paper'
-    end,
-  },
-
-  {
-    "Mofiqul/dracula.nvim",
-    -- config = function()
-    --   vim.cmd.colorscheme 'dracula'
-    -- end,
-  },
-
-  {
-    "loctvl842/monokai-pro.nvim",
-    config = function()
-      require("monokai-pro").setup({
-        transparent_background = true,
-        filter = "pro", -- classic | octagon | pro | ristretto | spectrum | machine
-      })
-      -- vim.cmd.colorscheme 'monokai-pro'
-    end
   },
 
   {
@@ -571,38 +397,6 @@ require('lazy').setup({
     }
   },
 
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "VeryLazy",
-  --   opts = {},
-  --   config = function(_, opts) require'lsp_signature'.setup(opts) end
-  -- },
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     bind = true,
-  --     handler_opts = {
-  --       border = "rounded"
-  --     },
-  --     hint_enable = false,
-  --     always_trigger = false,
-  --     transparency = 20,
-  --
-  --     vim.keymap.set({ 'i', "n" }, '<C-s>', function()
-  --       require('lsp_signature').toggle_float_win()
-  --     end, { silent = true, noremap = true, desc = 'toggle signature' }),
-  --
-  --     vim.keymap.set({ 'n' }, '<Leader>k', function()
-  --       vim.lsp.buf.signature_help()
-  --     end, { silent = true, noremap = true, desc = 'toggle signature' })
-  --
-  --   },
-  --   config = function(_, opts)
-  --     require'lsp_signature'.setup(opts)
-  --   end
-  -- },
-
   {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
@@ -622,13 +416,6 @@ require('lazy').setup({
   {
     "github/copilot.vim",
     lazy = false,
-    -- current version needs new CLIB (patchelf ?)
-    -- commit = "a9228e015528c9307890c48083c925eb98a64a79",
-    -- config = function()
-    --   vim.g.copilot_proxy_strict_ssl = false
-    --   vim.g.copilot_integration_id = 'vscode-chat'
-    --   vim.g.copilot_settings = { selectedCompletionModel = 'gpt-4o-copilot' }
-    -- end,
   },
 
   {
@@ -639,8 +426,6 @@ require('lazy').setup({
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      -- See Configuration section for options
-      -- model = 'gpt-4.1',
       model = 'o3-mini',
 
       prompts = {
@@ -658,7 +443,6 @@ require('lazy').setup({
         layout = 'vertical',
       },
     },
-    -- See Commands section for default commands if you want to lazy load on them
   },
 
   {
@@ -667,12 +451,6 @@ require('lazy').setup({
       require("telescope").load_extension("ui-select")
     end
   },
-
-  -- {
-  --   "chrisgrieser/nvim-lsp-endhints",
-  --   event = "LspAttach",
-  --   opts = {}, -- required, even if empty
-  -- },
 
   {
     "ldelossa/gh.nvim",
@@ -716,10 +494,8 @@ require('lazy').setup({
       },
     },
     build = "go install github.com/lotusirous/gostdsym/stdsym@latest", -- optional
-    -- cmd = { "GoDoc" }, -- optional
     opts = {
       adapters = {
-        -- for details, see lua/godoc/adapters/go.lua
         {
           name = "go",
           opts = {
@@ -744,23 +520,16 @@ require('lazy').setup({
   },
 
   {
-    -- original author
-    -- "stevanmilic/nvim-lspimport",
-    -- nvim11 patch author
-    -- "UN-9BOT/nvim-lspimport",
-    -- commented out "no unresolved import error"
     "difro/nvim-lspimport",
     branch = "nvim11",
   },
+}
 
-  -- {
-  --   "m4xshen/hardtime.nvim",
-  --   lazy = false,
-  --   dependencies = { "MunifTanjim/nui.nvim" },
-  --   opts = {},
-  -- },
+for _, p in ipairs(require('colors')) do
+  table.insert(plugins, p)
+end
 
-}, {})
+require('lazy').setup(plugins, {})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
@@ -1129,7 +898,7 @@ cmp.setup.cmdline(':', {
 })
 
 -- Always jump to the last known cursor position
-vim.api.nvim_exec([[
+vim.api.nvim_exec([[ 
 augroup PreserveCursorPosition
 autocmd!
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
@@ -1194,6 +963,14 @@ local function load_config(path)
 end
 
 load_config(config_path)
+
+-- Set default colorscheme
+vim.api.nvim_create_autocmd('VimEnter', {
+  pattern = '*',
+  callback = function()
+    vim.cmd.colorscheme 'catppuccin-mocha'
+  end,
+})
 
 -- vim.diagnostic.config({
 --   -- Use the default configuration
