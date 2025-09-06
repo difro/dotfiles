@@ -87,7 +87,7 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 # ALIASES
 #-------------------------------------------------------------------------------
 alias ls='ls --color=auto --show-control-chars'
-alias grep="grep --exclude-dir vendor --color=yes"
+alias grep="grep --exclude-dir vendor --color=auto"
 alias p='perl'
 alias less='less -r'
 alias vi='nvim'
@@ -176,4 +176,12 @@ nix-darwin-update() {
 if [ -f "$HOME/.bashrc.$(hostname -s)" ]; then
     # shellcheck source=/dev/null
     source "$HOME/.bashrc.$(hostname -s)"
+fi
+
+#-------------------------------------------------------------------------------
+# When called by LLM
+#-------------------------------------------------------------------------------
+if [ -n "$CURSOR_AGENT" ]; then
+    unset HISTFILE
+    export PS1="$ "
 fi
