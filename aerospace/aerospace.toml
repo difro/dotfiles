@@ -33,6 +33,7 @@ default-root-container-orientation = 'auto'
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
 # Fallback value (if you omit the key): on-focused-monitor-changed = []
 # on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
 # Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
@@ -259,8 +260,9 @@ outer.right =      2
     5 = 'secondary'
     6 = 'secondary'
     7 = 'secondary'
-    8 = 'secondary'
-    9 = 'secondary'
+    8 = '16mr70'
+    9 = '16mr70'
+
 
 [[on-window-detected]]
 if.app-id="com.kakao.KakaoTalkMac"
