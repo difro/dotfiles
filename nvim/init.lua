@@ -196,9 +196,11 @@ local plugins = {
         char = '▏',
         --char = '·',
       },
-        -- "toggle Indent"
-        vim.keymap.set('n', '<leader>ti', vim.cmd.IBLToggle, { desc = 'Toggle IBL' }),
     },
+    config = function(_, opts)
+      require("ibl").setup(opts)
+      vim.keymap.set('n', '<leader>ti', '<cmd>IBLToggle<CR>', { desc = 'Toggle IBL' })
+    end,
   },
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -316,15 +318,15 @@ local plugins = {
 
   {
     'mbbill/undotree',
-    config = function()
-    vim.keymap.set('n', '<leader>tu', vim.cmd.UndotreeToggle, { desc = 'Toggle undotree' })
-    end,
+    keys = {
+      { '<leader>tu', function() vim.cmd.UndotreeToggle() end, desc = 'Toggle undotree' },
+    },
   },
 
   {
     'nvim-tree/nvim-tree.lua',
-    opts = {
-      vim.keymap.set('n', '<leader>tt', vim.cmd.NvimTreeFindFileToggle, { desc = 'Toggle nvimTree' })
+    keys = {
+      { '<leader>tt', function() vim.cmd.NvimTreeFindFileToggle() end, desc = 'Toggle nvimTree' },
     },
   },
 
@@ -382,7 +384,9 @@ local plugins = {
     end,
     event = {"CmdlineEnter"},
     ft = {"go", 'gomod'},
-    vim.keymap.set('n', '<leader>gt', vim.cmd.GoTestPkg, { desc = 'GoTestPkg' }),
+    keys = {
+      { '<leader>gt', function() vim.cmd.GoTestPkg() end, desc = 'GoTestPkg' },
+    },
     --build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
@@ -392,9 +396,10 @@ local plugins = {
       filter_type = "SHADE",
       filter_percent = .35,
       excluded_filetypes = { "qf", "dashboard", "lspsagafinder", "packer", "checkhealth", "mason", "NvimTree", "neo-tree", "plugin", "lazy", "TelescopePrompt", "alpha", "toggleterm", "sagafinder", "better_term", "fugitiveblame", "starter", "NeogitPopup", "NeogitStatus", "DiffviewFiles", "DiffviewFileHistory", "DressingInput", "spectre_panel", "zsh", "registers", "startuptime", "OverseerList", "Navbuddy", "noice", "notify", "saga_codeaction", "sagarename" },
-
-        vim.keymap.set('n', '<leader>ts', vim.cmd.SunglassesEnableToggle, { desc = 'Toggle Sunglasses' }),
-    }
+    },
+    keys = {
+      { '<leader>ts', function() vim.cmd.SunglassesEnableToggle() end, desc = 'Toggle Sunglasses' },
+    },
   },
 
   {
@@ -945,8 +950,6 @@ vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggl
 --   auto_close_after = nil,
 -- })
 
-vim.cmd.SunglassesDisable()
-
 -- remember marks/oldfiles for the last 1000 files
 vim.opt.shada = "!,'1000,<50,s10,h"
 
@@ -969,6 +972,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
   pattern = '*',
   callback = function()
     vim.cmd.colorscheme 'catppuccin-mocha'
+    pcall(vim.cmd.SunglassesDisable)
   end,
 })
 
