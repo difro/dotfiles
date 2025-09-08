@@ -11,7 +11,11 @@
   # --- Homebrew Configuration ---
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "zap";
+      upgrade = true;
+    };
     taps = [
     	"FelixKratz/formulae" # for jankyborders
         "nikitabobko/tap" # for aerospace
