@@ -6,6 +6,10 @@
 
   system.primaryUser = "jihoonc";
 
+  system.defaults.trackpad = {
+    Clicking = true; # enable tap to click
+  };
+
   nix.enable = false;
 
   # --- Homebrew Configuration ---
@@ -39,6 +43,7 @@
       "itsycal"
       "jordanbaird-ice"
       "podman-desktop"
+      "scroll-reverser"
       "stats"
       "ticktick"
       "zoom"
