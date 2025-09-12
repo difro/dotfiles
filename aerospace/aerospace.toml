@@ -179,8 +179,8 @@ outer.right =      2
     # alt-y = 'workspace Y'
     # alt-z = 'workspace Z'
 
-    alt-right = 'workspace next'
-    alt-left = 'workspace prev'
+    # alt-right = 'workspace next'
+    # alt-left = 'workspace prev'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace --focus-follows-window 1'
