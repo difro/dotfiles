@@ -148,6 +148,7 @@ fi
 # eza
 if command -v eza >/dev/null 2>&1; then
     alias ls='eza --color=auto --git --time-style relative'
+    export EZA_CONFIG_DIR=~/.config/eza
 fi
 
 #-------------------------------------------------------------------------------
