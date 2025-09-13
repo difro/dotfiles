@@ -14,6 +14,7 @@
   home.packages = [
     pkgs.bat
     pkgs.btop
+    pkgs.bun
     pkgs.cadaver
     pkgs.curl
     pkgs.delta
@@ -36,7 +37,6 @@
 
     aiToolsPkgs.claude-code
     aiToolsPkgs.cursor-agent
-    aiToolsPkgs.opencode
     aiToolsPkgs.qwen-code
   ];
 
