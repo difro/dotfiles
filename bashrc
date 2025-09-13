@@ -195,4 +195,5 @@ fi
 if [ -n "$CURSOR_AGENT" ]; then
     unset HISTFILE
     export PS1="$ "
+    unalias ls
 fi
