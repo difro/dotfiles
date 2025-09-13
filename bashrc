@@ -139,6 +139,17 @@ if [[ -f "$HOME/.cargo/env" ]]; then
     . "$HOME/.cargo/env"
 fi
 
+# zoxide
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init bash)"
+    alias cd=z
+fi
+
+# eza
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --color=auto --git --time-style relative'
+fi
+
 #-------------------------------------------------------------------------------
 # OS-SPECIFIC CONFIGURATION
 #-------------------------------------------------------------------------------
@@ -151,7 +162,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     eval $($BREWPATH shellenv)
 
     # ls alias for macOS
-    alias ls='/bin/ls -G'
+    # alias ls='/bin/ls -G'
 fi
 
 #-------------------------------------------------------------------------------

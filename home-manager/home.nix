@@ -17,6 +17,7 @@
     pkgs.cadaver
     pkgs.curl
     pkgs.delta
+    pkgs.eza
     pkgs.fzf
     pkgs.gh
     pkgs.htop
@@ -31,6 +32,7 @@
     pkgs.tig
     pkgs.tmux
     pkgs.uv
+    pkgs.zoxide
 
     aiToolsPkgs.claude-code
     aiToolsPkgs.cursor-agent
