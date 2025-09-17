@@ -236,6 +236,9 @@ outer.right =      2
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     alt-shift-semicolon = 'mode service'
 
+    alt-w = 'exec-and-forget current_workspace="$(aerospace list-workspaces --focused)"; aerospace close; aerospace workspace "$current_workspace"'
+
+
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]

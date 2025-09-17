@@ -22,7 +22,7 @@ font-style-italic = false
 # theme = catppuccin-macchiato
 # theme = Dimidium
 # theme = vesper
-theme = catppuccin-mocha
+theme = "Catppuccin Mocha"
 # theme = Dracula
 # theme = "Everforest Dark - Hard"
 # theme = "tokyonight"
@@ -46,6 +46,7 @@ keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d
 quick-terminal-position = left
 quick-terminal-autohide = false
 quick-terminal-animation-duration = 0.2
+quick-terminal-size = 30%
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
@@ -65,6 +66,8 @@ shell-integration = bash
 
 cursor-opacity = 0.8
 cursor-text = black
+
+undo-timeout = 300s
 
 # include per-host config
 config-file = ?local.config
