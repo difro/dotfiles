@@ -2,7 +2,7 @@
 
 # Toggle background opacity between 0.85 and 1 in Ghostty config
 
-CONFIG_FILE="$HOME/.dotfiles/ghostty/config"
+CONFIG_FILE="$HOME/.dotfiles/ghostty/local.config"
 
 # Get current background-opacity value
 current_opacity=$(grep "^background-opacity" "$CONFIG_FILE" | cut -d'=' -f2 | tr -d ' ')
