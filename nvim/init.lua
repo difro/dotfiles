@@ -629,6 +629,7 @@ vim.diagnostic.config{
 -- local on_attach = function(_, bufnr)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
+    local bufnr = args.buf
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don't have to repeat yourself
     -- many times.
@@ -652,25 +653,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     nmap('<leader>dd', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
     nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-    -- auto goimport && gofmt
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = "*.go",
-      callback = function()
-        local params = vim.lsp.util.make_range_params()
-        params.context = { only = {"source.organizeImports"} }
-        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-        for cid, res in pairs(result or {}) do
-          for _, r in pairs(res.result or {}) do
-            if r.edit then
-              local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-              vim.lsp.util.apply_workspace_edit(r.edit, enc)
-            end
-          end
-        end
-        vim.lsp.buf.format({async = false})
-      end
-    })
 
     function formatAndOrganizeImports()
       vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
@@ -743,6 +725,30 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     --  vim.lsp.buf.format()
     --end, { desc = 'Format current buffer with LSP' })
+  end,
+})
+
+-- auto goimport && gofmt
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+    local client = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })[1]
+    if not client then
+      vim.lsp.buf.format({ async = false })
+      return
+    end
+    local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
+    params.context = { only = { "source.organizeImports" } }
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+    for cid, res in pairs(result or {}) do
+      for _, r in pairs(res.result or {}) do
+        if r.edit then
+          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+        end
+      end
+    end
+    vim.lsp.buf.format({ async = false })
   end,
 })
 
