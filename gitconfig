@@ -4,8 +4,8 @@
 	filemode = false
 	autocrlf = false
 
-	# get from https://github.com/mookid/diffr
-	#pager = diffr --colors --colors 'refine-removed:background:230,108,108:foreground:white:nobold' --colors 'refine-added:background:84,120,84:foreground:white:nobold' | less -R
+	; get from https://github.com/mookid/diffr
+	; pager = diffr --colors --colors 'refine-removed:background:230,108,108:foreground:white:nobold' --colors 'refine-added:background:84,120,84:foreground:white:nobold' | less -R
 	; pager = delta
 
 [push]

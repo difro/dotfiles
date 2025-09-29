@@ -101,7 +101,7 @@ alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode
 alias curlheader='curl -s -D - -o /dev/null'
 alias pythonserver='/usr/bin/python -m SimpleHTTPServer'
 alias xml_pp='xmllint --format -'
-alias sova="source ~/.venv/bin/activate"
+alias sova="source .venv/bin/activate"
 
 #-------------------------------------------------------------------------------
 # KEYBINDINGS

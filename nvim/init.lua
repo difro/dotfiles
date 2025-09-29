@@ -337,6 +337,9 @@ local plugins = {
       'nvim-telescope/telescope.nvim',
       'nvim-tree/nvim-web-devicons',
     },
+    -- see https://github.com/pwntester/octo.nvim/issues/685
+    commit = 'f09ff9413652e3c06a6817ba6284591c00121fe0',
+    pin = true,
     config = function()
       require"octo".setup({
         github_hostname = "oss.navercorp.com",
@@ -455,25 +458,6 @@ local plugins = {
     config = function()
       require("telescope").load_extension("ui-select")
     end
-  },
-
-  {
-    "ldelossa/gh.nvim",
-    dependencies = {
-      {
-        "ldelossa/litee.nvim",
-        config = function()
-          require("litee.lib").setup()
-        end,
-      },
-    },
-    config = function()
-      require("litee.gh").setup({
-        keymaps = {
-          actions = "gA",
-        },
-      })
-    end,
   },
 
   {
