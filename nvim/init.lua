@@ -5,7 +5,7 @@ vim.g.maplocalleader = ' '
 
 -- Install package manager
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -70,7 +70,7 @@ local plugins = {
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', opts = {} },
     },
   },
 
@@ -159,6 +159,7 @@ local plugins = {
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     -- See `:help lualine.txt`
     opts = {
       options = {
@@ -419,7 +420,16 @@ local plugins = {
     end
   },
 
-  { "folke/neodev.nvim", opts = {} },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true },
 
   {
     "github/copilot.vim",
@@ -532,8 +542,8 @@ vim.o.smartcase = true
 vim.o.inccommand = 'split'
 
 -- Make line numbers default
-vim.wo.number = true
-vim.o.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = ''
@@ -553,7 +563,7 @@ vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 100
@@ -660,7 +670,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local settings = vim.fs.find(".vscode/settings.json", {
         path = vim.fs.dirname(path),
         upward = true,
-        stop = vim.loop.os_homedir(),
+        stop = vim.uv.os_homedir(),
       })[1]
       if not settings then return false end
 
@@ -893,12 +903,17 @@ cmp.setup.cmdline(':', {
 })
 
 -- Always jump to the last known cursor position
-vim.api.nvim_exec([[ 
-augroup PreserveCursorPosition
-autocmd!
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-augroup END
-]], false)
+local preserve_cursor_group = vim.api.nvim_create_augroup('PreserveCursorPosition', { clear = true })
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = preserve_cursor_group,
+  pattern = '*',
+  callback = function()
+    local line = vim.fn.line
+    if line("'\"") > 0 and line("'\"") <= line("$") then
+      vim.cmd('normal! g`"')
+    end
+  end,
+})
 
 -- Add border to 'K' hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {

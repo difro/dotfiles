@@ -1,8 +1,8 @@
 return {
-  { 'rose-pine/neovim', as = 'rose-pine' },
+  { 'rose-pine/neovim', name = 'rose-pine' },
   {
     "catppuccin/nvim",
-    as = "catppuccin",
+    name = "catppuccin",
     lazy = false,
     priority = 1000,
     config = function()
