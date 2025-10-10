@@ -35,6 +35,7 @@
       "brave-browser"
       "calibre"
       "choosy"
+      "container"
       "font-comic-mono"
       "font-d2coding"
       "ghostty"
