@@ -86,22 +86,23 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 #-------------------------------------------------------------------------------
 # ALIASES
 #-------------------------------------------------------------------------------
-alias ls='ls --color=auto --show-control-chars'
-alias grep="grep --exclude-dir vendor --color=auto"
-alias p='perl'
-alias less='less -r'
-alias vi='nvim'
-alias v='vi $(find . -path "./.git*" -prune -o -print | peco)'
-alias vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
-alias tmux='tmux -2'
-alias urlencode="perl -MCGI::Util=escape -e'while(<>){chop;print escape(\$_).\"\\n\";}'"
-alias urldecode="perl -MCGI::Util=unescape -e'while(<>){chop;print unescape(\$_).\"\\n\";}'"
-alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
 alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
+alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
+alias cc=claude
 alias curlheader='curl -s -D - -o /dev/null'
+alias grep="grep --exclude-dir vendor --color=auto"
+alias less='less -r'
+alias ls='ls --color=auto --show-control-chars'
+alias p='perl'
 alias pythonserver='/usr/bin/python -m SimpleHTTPServer'
-alias xml_pp='xmllint --format -'
 alias sova="source .venv/bin/activate"
+alias tmux='tmux -2'
+alias urldecode="perl -MCGI::Util=unescape -e'while(<>){chop;print unescape(\$_).\"\\n\";}'"
+alias urlencode="perl -MCGI::Util=escape -e'while(<>){chop;print escape(\$_).\"\\n\";}'"
+alias v='vi $(find . -path "./.git*" -prune -o -print | peco)'
+alias vi='nvim'
+alias vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
+alias xml_pp='xmllint --format -'
 
 #-------------------------------------------------------------------------------
 # KEYBINDINGS
