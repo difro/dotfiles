@@ -71,3 +71,4 @@ undo-timeout = 300s
 
 # include per-host config
 config-file = ?local.config
+keybind = shift+enter=text:\x1b\r
