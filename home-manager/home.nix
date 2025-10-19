@@ -21,12 +21,13 @@
     pkgs.eza
     pkgs.fzf
     pkgs.gh
+    pkgs.git
     pkgs.htop
     pkgs.jq
-    pkgs.git
+    pkgs.lazygit
     pkgs.man-db
     pkgs.man-pages
-    # pkgs.neofetch
+    pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs_24
     pkgs.ripgrep
