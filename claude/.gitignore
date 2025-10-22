@@ -1,0 +1,18 @@
+# Local-specific repository (separate git repo)
+local/
+
+# Temporary/Runtime files
+history.jsonl
+file-history/
+debug/
+shell-snapshots/
+todos/
+
+# Local/Private files
+.credentials.json
+settings.local.json
+plugins/
+statsig/
+
+# Project-specific directories
+projects/
