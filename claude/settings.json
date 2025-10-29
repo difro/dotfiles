@@ -1,7 +1,6 @@
 {
   "cleanupPeriodDays": 99999,
   "includeCoAuthoredBy": false,
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "npx -y ccstatusline@latest",
