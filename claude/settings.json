@@ -3,7 +3,7 @@
   "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
-    "command": "npx -y ccstatusline@latest",
+    "command": "bunx -y ccstatusline@latest",
     "padding": 0
   },
   "alwaysThinkingEnabled": true
