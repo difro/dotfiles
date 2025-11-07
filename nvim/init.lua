@@ -444,16 +444,14 @@ local plugins = {
     },
     build = "make tiktoken", -- Only on MacOS or Linux
     opts = {
-      model = 'o3-mini',
+      model = 'gpt-4.1',
 
       prompts = {
         ExplainKorean = {
           prompt = "Explain this code in Korean",
-          mapping = '<leader>cce',
         },
         ReviewKorean = {
           prompt = "Review the selected code in Korean",
-          mapping = '<leader>ccr',
         },
       },
 
@@ -521,6 +519,41 @@ local plugins = {
   {
     "difro/nvim-lspimport",
     branch = "nvim11",
+  },
+
+  {
+    "coder/claudecode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    config = true,
+    keys = {
+      { "<leader>cc", nil, desc = "AI/Claude Code" },
+      { "<leader>ccc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+      { "<leader>ccf", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+      -- { "<C-,>", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude", mode = { "n", "x" } },
+      { "<leader>ccr", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+      { "<leader>ccC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+      { "<leader>ccm", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+      { "<leader>ccb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+      { "<leader>ccs", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+      {
+        "<leader>ccs",
+        "<cmd>ClaudeCodeTreeAdd<cr>",
+        desc = "Add file",
+        ft = { "NvimTree", "neo-tree", "oil", "minifiles", "netrw" },
+      },
+      -- Diff management
+      { "<leader>cca", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+      { "<leader>ccd", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+    },
+    opts = {
+      focus_after_send = true,
+
+      terminal = {
+        split_side = "left",
+        split_width_percentage = 0.4,
+        -- provider = "none",
+      },
+    },
   },
 }
 
@@ -980,6 +1013,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
     pcall(vim.cmd.SunglassesDisable)
   end,
 })
+
+if vim.fn.has('nvim') == 1 then
+  vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
+end
 
 -- vim.diagnostic.config({
 --   -- Use the default configuration

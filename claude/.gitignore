@@ -16,3 +16,5 @@ statsig/
 
 # Project-specific directories
 projects/
+
+*.lock
