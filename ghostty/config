@@ -40,6 +40,9 @@ keybind = ctrl+[=text:\x1b
 # send cmd-p as opt-p (for tmux ignores cmd-p)
 keybind = "cmd+p=text:\x1bp"
 
+keybind = alt+left=unbind
+keybind = alt+right=unbind
+
 # Toggle background opacity between 0.85 and 1
 keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d"
 # quick-terminal-position = center
