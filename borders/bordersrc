@@ -9,8 +9,9 @@ options=(
 	# hidpi=off
 	hidpi=on
 	# active_color=0xffe2e2e3
-	active_color=0xffffffff
+	#active_color=0xffffffff
 	# active_color="glow(0xffffffff)"
+	active_color="glow(0xffff0000)"
 	# inactive_color=0xff414550
 	inactive_color=0x00000000
 )
