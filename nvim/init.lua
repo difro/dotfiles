@@ -1019,7 +1019,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 if vim.fn.has('nvim') == 1 then
-  -- vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
+  vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
   vim.keymap.set('t', '“', '<C-\\><C-n>')
 end
 
