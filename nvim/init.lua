@@ -249,6 +249,10 @@ local plugins = {
       -- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<M-p>', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
       vim.keymap.set('n', '<D-p>', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
+
+      -- macOS Option+p outputs π character, map it directly
+      vim.keymap.set('n', 'π', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files (Option+p)' })
+
       vim.keymap.set('n', '<leader>o', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set('n', '<leader>O', require('telescope.builtin').find_files, { desc = '[O]pen Files' })
       vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
@@ -1015,7 +1019,8 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 if vim.fn.has('nvim') == 1 then
-  vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
+  -- vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
+  vim.keymap.set('t', '“', '<C-\\><C-n>')
 end
 
 -- vim.diagnostic.config({
