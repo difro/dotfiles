@@ -18,6 +18,7 @@
     pkgs.cadaver
     pkgs.curl
     pkgs.delta
+    pkgs.dust
     pkgs.eza
     pkgs.fzf
     pkgs.gh
