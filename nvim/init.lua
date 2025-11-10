@@ -333,6 +333,9 @@ local plugins = {
     keys = {
       { '<leader>tt', function() vim.cmd.NvimTreeFindFileToggle() end, desc = 'Toggle nvimTree' },
     },
+    config = function()
+      require('nvim-tree').setup {}
+    end,
   },
 
   {
