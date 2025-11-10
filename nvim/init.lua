@@ -555,7 +555,7 @@ local plugins = {
       terminal = {
         split_side = "left",
         split_width_percentage = 0.4,
-        -- provider = "none",
+        provider = "none",
       },
     },
   },
