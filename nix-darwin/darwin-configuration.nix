@@ -26,7 +26,6 @@
     ];
     brews = [
       "borders"
-      "podman"
     ];
     casks = [
       "aerospace"
@@ -43,7 +42,6 @@
       "input-source-pro"
       "itsycal"
       "jordanbaird-ice"
-      "podman-desktop"
       "scroll-reverser"
       "stats"
       "ticktick"
