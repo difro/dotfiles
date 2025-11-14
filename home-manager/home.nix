@@ -16,6 +16,8 @@
     pkgs.btop
     pkgs.bun
     pkgs.cadaver
+    pkgs.claude-code
+    pkgs.cursor-cli
     pkgs.curl
     pkgs.delta
     pkgs.dust
@@ -31,15 +33,12 @@
     pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs_24
+    pkgs.qwen-code
     pkgs.ripgrep
     pkgs.tig
     pkgs.tmux
     pkgs.uv
     pkgs.zoxide
-
-    aiToolsPkgs.claude-code
-    aiToolsPkgs.cursor-agent
-    aiToolsPkgs.qwen-code
   ];
 
   nixpkgs.config.allowUnfree = true; # Allow unfree packages
