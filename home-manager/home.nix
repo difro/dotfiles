@@ -30,6 +30,7 @@
     pkgs.lazygit
     pkgs.man-db
     pkgs.man-pages
+    pkgs.natscli
     pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs_24
