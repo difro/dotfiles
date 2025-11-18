@@ -688,22 +688,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
     nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
     nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-    function formatAndOrganizeImports()
-      vim.lsp.buf.format({ async = vim.bo.filetype ~= "python" })
-      if vim.bo.filetype == "python" then
-        vim.lsp.buf.code_action({
-          context = {
-            only = { "source.organizeImports.ruff" },
-          },
-          apply = true,
-        })
-      end
-    end
+    -- Format on save configuration per filetype
+    local format_config = {
+      python = {
+        pattern = "*.py",
+        check_vscode_settings = true,
+        actions = {
+          { kind = "format" },
+          { kind = "source.fixAll", wait = 100 },
+          { kind = "source.organizeImports.ruff" },
+          { kind = "lspimport" },
+        },
+      },
+    }
 
-    -- use ruff
-    local augroup = vim.api.nvim_create_augroup("PyFormatOnSave", { clear = true })
-
-    local function should_format(bufnr)
+    -- Check if formatting should be enabled based on .vscode/settings.json
+    local function should_format_vscode(bufnr, filetype)
       local path = vim.api.nvim_buf_get_name(bufnr)
       if path == "" then return false end
 
@@ -717,29 +717,81 @@ vim.api.nvim_create_autocmd("LspAttach", {
       local ok, cfg = pcall(vim.fn.json_decode, table.concat(vim.fn.readfile(settings), "\n"))
       if not ok then return false end
 
-      local py = cfg["[python]"]
-      return py and py["editor.formatOnSave"] == true
+      local lang_config = cfg["[" .. filetype .. "]"]
+      return lang_config and lang_config["editor.formatOnSave"] == true
     end
 
+    -- Execute format actions for a buffer
+    local function execute_format_actions(bufnr, actions)
+      for _, action in ipairs(actions) do
+        if action.kind == "format" then
+          vim.lsp.buf.format({ bufnr = bufnr, async = false })
+        elseif action.kind == "lspimport" then
+          require("lspimport").import()
+        else
+          vim.lsp.buf.code_action({
+            bufnr = bufnr,
+            context = { only = { action.kind } },
+            apply = true,
+          })
+        end
+
+        if action.wait then
+          vim.wait(action.wait)
+        end
+      end
+    end
+
+    -- Create autocmds for each configured filetype
+    local augroup = vim.api.nvim_create_augroup("FormatOnSave", { clear = true })
+    for _, config in pairs(format_config) do
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        pattern = config.pattern,
+        callback = function(event)
+          local filetype = vim.bo[event.buf].filetype
+
+          -- Check vscode settings if required
+          if config.check_vscode_settings and not should_format_vscode(event.buf, filetype) then
+            return
+          end
+
+          execute_format_actions(event.buf, config.actions)
+        end,
+      })
+    end
+
+    -- Go specific format on save (requires different handling)
     vim.api.nvim_create_autocmd("BufWritePre", {
       group = augroup,
-      pattern = "*.py",
-      callback = function(event)
-        if not should_format(event.buf) then return end
+      pattern = "*.go",
+      callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
 
-        vim.lsp.buf.format({ bufnr = event.buf, async = false })
-        vim.lsp.buf.code_action({
-          bufnr = event.buf,
-          context = { only = { "source.fixAll" } },
-          apply = true,
-        })
-        vim.wait(100)
-        vim.lsp.buf.code_action({
-          bufnr = event.buf,
-          context = { only = { "source.organizeImports.ruff" } },
-          apply = true,
-        })
-        require("lspimport").import()
+        if not client then
+          vim.lsp.buf.format({ async = false })
+          return
+        end
+
+        -- Organize imports using buf_request_sync for synchronous execution
+        local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
+        params.context = { only = { "source.organizeImports" } }
+        local result = vim.lsp.buf_request_sync(bufnr, "textDocument/codeAction", params, 1000)
+
+        if result then
+          for cid, res in pairs(result) do
+            for _, r in pairs(res.result or {}) do
+              if r.edit then
+                local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                vim.lsp.util.apply_workspace_edit(r.edit, enc)
+              end
+            end
+          end
+        end
+
+        -- Format after organizing imports
+        vim.lsp.buf.format({ async = false })
       end,
     })
 
@@ -759,30 +811,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     --vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     --  vim.lsp.buf.format()
     --end, { desc = 'Format current buffer with LSP' })
-  end,
-})
-
--- auto goimport && gofmt
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  callback = function()
-    local client = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })[1]
-    if not client then
-      vim.lsp.buf.format({ async = false })
-      return
-    end
-    local params = vim.lsp.util.make_range_params(nil, client.offset_encoding)
-    params.context = { only = { "source.organizeImports" } }
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
-        end
-      end
-    end
-    vim.lsp.buf.format({ async = false })
   end,
 })
 
