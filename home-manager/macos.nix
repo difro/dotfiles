@@ -8,9 +8,8 @@
   # Packages only for macOS
   home.packages = [
     pkgs.bash
+    pkgs.gemini-cli
     pkgs.go
     pkgs.ffmpeg
-
-    aiToolsPkgs.gemini-cli
   ];
 }
