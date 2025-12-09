@@ -8,6 +8,7 @@
   # Packages only for macOS
   home.packages = [
     pkgs.bash
+    pkgs.cargo
     pkgs.gemini-cli
     pkgs.go
     pkgs.ffmpeg
