@@ -41,7 +41,7 @@
       "heynote"
       "input-source-pro"
       "itsycal"
-      "jordanbaird-ice"
+      "jordanbaird-ice@beta"
       "scroll-reverser"
       "stats"
       "ticktick"
