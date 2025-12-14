@@ -75,9 +75,9 @@ shorten_path() {
 
 get_git_branch() {
     # Check if the current directory is in a git repository
-    if git rev-parse --git-dir > /dev/null 2>&1; then
+    if git -c core.useBuiltinFSMonitor=false rev-parse --git-dir > /dev/null 2>&1; then
         # Echo the branch name
-        echo -n "[$(git branch --show-current)]"
+        echo -n "[$(git -c core.useBuiltinFSMonitor=false branch --show-current)]"
     fi
 }
 
