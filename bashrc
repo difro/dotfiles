@@ -89,6 +89,7 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
 alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
 alias cc=claude
+alias claude-danger='claude --dangerously-skip-permissions'
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
