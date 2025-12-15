@@ -43,6 +43,15 @@ keybind = "cmd+p=text:\x1bp"
 keybind = alt+left=unbind
 keybind = alt+right=unbind
 
+# for tmux pane layout switching
+keybind = cmd+digit_1=esc:1
+keybind = cmd+digit_2=esc:2
+keybind = cmd+digit_3=esc:3
+keybind = cmd+digit_4=esc:4
+keybind = cmd+digit_5=esc:5
+keybind = cmd+digit_6=esc:6
+keybind = cmd+digit_7=esc:7
+
 # Toggle background opacity between 0.85 and 1
 keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d"
 quick-terminal-position = center
