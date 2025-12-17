@@ -441,32 +441,9 @@ local plugins = {
   {
     "github/copilot.vim",
     lazy = false,
+    -- tag = 'v1.56.0',
   },
 
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-    },
-    build = "make tiktoken", -- Only on MacOS or Linux
-    opts = {
-      model = 'gpt-4.1',
-
-      prompts = {
-        ExplainKorean = {
-          prompt = "Explain this code in Korean",
-        },
-        ReviewKorean = {
-          prompt = "Review the selected code in Korean",
-        },
-      },
-
-      window = {
-        layout = 'vertical',
-      },
-    },
-  },
 
   {
     'nvim-telescope/telescope-ui-select.nvim',
@@ -557,8 +534,16 @@ local plugins = {
 
       terminal = {
         split_side = "left",
-        split_width_percentage = 0.4,
+        split_width_percentage = 0.3,
         provider = "none",
+        -- provider = "snacks",
+      },
+
+      diff_opts = {
+        auto_close_on_accept = true,
+        vertical_split = true,
+        open_in_current_tab = true,
+        keep_terminal_focus = true, -- If true, moves focus back to terminal after diff opens
       },
     },
   },
@@ -1051,7 +1036,13 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 if vim.fn.has('nvim') == 1 then
   vim.keymap.set('t', '<M-[>', '<C-\\><C-n>')
-  vim.keymap.set('t', '“', '<C-\\><C-n>')
+  vim.keymap.set('t', '"', '<C-\\><C-n>')
+
+  -- Terminal mode window navigation
+  vim.keymap.set('t', '<C-w>h', '<C-\\><C-n><C-w>h')
+  vim.keymap.set('t', '<C-w>j', '<C-\\><C-n><C-w>j')
+  vim.keymap.set('t', '<C-w>k', '<C-\\><C-n><C-w>k')
+  vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 end
 
 -- vim.diagnostic.config({
