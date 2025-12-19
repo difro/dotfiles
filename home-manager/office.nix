@@ -7,6 +7,7 @@
   # Packages only for office
   home.packages = [
   #  pkgs.nodejs
+    pkgs.claude-code
     pkgs.glibcLocalesUtf8 # For locale support
   ];
 

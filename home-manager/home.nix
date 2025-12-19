@@ -16,8 +16,6 @@
     pkgs.btop
     pkgs.bun
     pkgs.cadaver
-    pkgs.claude-code
-    pkgs.cursor-cli
     pkgs.curl
     pkgs.delta
     pkgs.dust
