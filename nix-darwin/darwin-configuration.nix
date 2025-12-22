@@ -34,6 +34,7 @@
       "brave-browser"
       "calibre"
       "choosy"
+      "claude-code"
       "container"
       "font-comic-mono"
       "font-d2coding"
