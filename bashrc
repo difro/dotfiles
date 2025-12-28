@@ -182,6 +182,11 @@ home-manager-update() {
     fi
     cd ~/.config/home-manager && nix flake update && home-manager switch --flake ".#$1" && cd -
 }
+
+nix-cache-clear() {
+    rm -rf ~/.cache/nix/flake-registry.json ~/.cache/nix/fetcher-cache-v2
+    echo "Nix flake cache cleared"
+}
 alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
 
 nix-darwin-update() {
