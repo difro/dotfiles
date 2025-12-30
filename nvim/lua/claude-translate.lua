@@ -64,7 +64,7 @@ local function translate_selection(opts)
 
   -- Build command - use shell for proper expansion
   local cmd = string.format(
-    'cat %s | claude --model %s -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
+    'cat %s | claude --model %s --no-session-persistence -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
     vim.fn.shellescape(input_file),
     model
   )
