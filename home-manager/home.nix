@@ -32,7 +32,7 @@
     pkgs.neofetch
     pkgs.neovim
     pkgs.nodejs_24
-    pkgs.qwen-code
+    # pkgs.qwen-code  # TODO: nixpkgs upstream npmDepsHash 문제로 임시 비활성화
     pkgs.ripgrep
     pkgs.tig
     pkgs.tmux
