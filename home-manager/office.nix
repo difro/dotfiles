@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, aiToolsPkgs, ... }:
 
 {
   home.username = "irteam";
@@ -6,9 +6,10 @@
 
   # Packages only for office
   home.packages = [
-  #  pkgs.nodejs
-    pkgs.claude-code
+    # pkgs.nodejs
+    # pkgs.claude-code
     pkgs.glibcLocalesUtf8 # For locale support
+    aiToolsPkgs.claude-code
   ];
 
   # To remove locale warning when exiting vim

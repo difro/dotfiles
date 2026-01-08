@@ -12,5 +12,7 @@
     pkgs.gemini-cli
     pkgs.go
     pkgs.ffmpeg
+    pkgs.neofetch
+    pkgs.tig
   ];
 }
