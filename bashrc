@@ -180,6 +180,7 @@ home-manager-update() {
         echo "Usage: home-manager-update <macbook|office>"
         return 1
     fi
+    [[ $(ulimit -n) -lt 65536 ]] && ulimit -n 65536
     cd ~/.config/home-manager && nix flake update && home-manager switch --flake ".#$1" && cd -
 }
 
