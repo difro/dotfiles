@@ -35,6 +35,7 @@
     # pkgs.qwen-code  # TODO: nixpkgs upstream npmDepsHash 문제로 임시 비활성화
     pkgs.ripgrep
     pkgs.tmux
+    pkgs.ty
     pkgs.uv
     pkgs.zoxide
   ];
