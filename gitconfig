@@ -129,3 +129,5 @@
 
 [credential "https://oss.navercorp.com"]
 	provider = github
+[credential "https://huggingface.co"]
+	provider = generic

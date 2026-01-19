@@ -7,12 +7,12 @@
 
   # Packages only for macOS
   home.packages = [
-    pkgs.bash
+    # pkgs.bash
     pkgs.cargo
-    pkgs.gemini-cli
-    pkgs.go
+    # pkgs.gemini-cli
+    # pkgs.go
     pkgs.ffmpeg
-    pkgs.neofetch
-    pkgs.tig
+    # pkgs.neofetch
+    # pkgs.tig
   ];
 }

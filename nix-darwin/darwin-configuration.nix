@@ -23,6 +23,7 @@
     taps = [
     	"FelixKratz/formulae" # for jankyborders
         "nikitabobko/tap" # for aerospace
+        "steipete/tap" # for codexbar
     ];
     brews = [
       "borders"
@@ -35,6 +36,7 @@
       "calibre"
       "choosy"
       "claude-code"
+      "codexbar"
       "container"
       "font-comic-mono"
       "font-d2coding"
