@@ -28,6 +28,7 @@
     brews = [
       "bash"
       "borders"
+      "go"
     ];
     casks = [
       "aerospace"
