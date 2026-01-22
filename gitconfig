@@ -56,6 +56,7 @@
 
 	# use delta pager side-by-side
 	diffside = -c core.pager=delta -c delta.side-by-side=true -c delta.max-line-length=0 -c delta.wrap-max-lines=unlimited diff
+	diffdelta = -c core.pager=delta -c delta.side-by-side=false -c delta.max-line-length=0 -c delta.wrap-max-lines=unlimited diff
 
 	# original
 	difforig = -c core.pager=less diff
