@@ -26,6 +26,7 @@
         "steipete/tap" # for codexbar
     ];
     brews = [
+      "bash"
       "borders"
     ];
     casks = [
@@ -44,7 +45,7 @@
       "heynote"
       "input-source-pro"
       "itsycal"
-      "jordanbaird-ice@beta"
+      # "jordanbaird-ice@beta" using this instead https://github.com/jordanbaird/Ice/issues/711#issuecomment-3717627917
       "scroll-reverser"
       "stats"
       "ticktick"
