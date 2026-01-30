@@ -47,6 +47,7 @@
       "input-source-pro"
       "itsycal"
       # "jordanbaird-ice@beta" using this instead https://github.com/jordanbaird/Ice/issues/711#issuecomment-3717627917
+      "llamabarn"
       "scroll-reverser"
       "stats"
       "ticktick"
