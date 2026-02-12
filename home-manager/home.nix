@@ -22,6 +22,7 @@
     pkgs.eza
     pkgs.fzf
     pkgs.gh
+    pkgs.gh-dash
     pkgs.git
     pkgs.htop
     pkgs.jq

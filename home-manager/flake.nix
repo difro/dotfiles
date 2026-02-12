@@ -8,7 +8,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # pinned to claude-code 2.1.29 (2.1.31 has input freeze bug in non-git dirs)
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    # nix-ai-tools.url = "github:numtide/nix-ai-tools/e3df43cfb0e8";
 
     home-manager = {
       url = "github:nix-community/home-manager";

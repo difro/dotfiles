@@ -89,7 +89,7 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
 alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
 c() { claude --dangerously-skip-permissions -p "$*" --model haiku; }
-alias cc=claude
+alias cc='cd "$TMPDIR" && claude'
 alias claude-danger='claude --dangerously-skip-permissions'
 copus() { claude --dangerously-skip-permissions -p "$*" --model opus; }
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."

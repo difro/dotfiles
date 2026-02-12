@@ -9,6 +9,11 @@
         "rawValue": true
       },
       {
+        "id": "757ddcb5-586a-4278-8055-b3f4a8533ebc",
+        "type": "version",
+        "rawValue": false
+      },
+      {
         "id": "1",
         "type": "flex-separator",
         "color": "cyan"
@@ -29,11 +34,11 @@
       {
         "id": "f9c41572-50c6-447b-8b4f-226b3036da48",
         "type": "current-working-dir",
+        "color": "",
         "rawValue": true,
         "metadata": {
           "fishStyle": "true"
-        },
-        "color": ""
+        }
       },
       {
         "id": "9cc7718e-868b-4b05-90c4-be052291db00",
