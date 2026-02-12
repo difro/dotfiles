@@ -108,6 +108,14 @@ alias vi='nvim'
 alias vi_nofmt='vim --cmd "let g:go_fmt_autosave = 0"'
 alias xml_pp='xmllint --format -'
 
+brewdump() {
+    {
+        brew tap | sed 's/^/tap "/' | sed 's/$/"/'
+        brew leaves | sed 's/^/brew "/' | sed 's/$/"/'
+        brew list --cask | sed 's/^/cask "/' | sed 's/$/"/'
+    }
+}
+
 #-------------------------------------------------------------------------------
 # KEYBINDINGS
 #-------------------------------------------------------------------------------

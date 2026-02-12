@@ -55,16 +55,18 @@ keybind = cmd+digit_7=esc:7
 # Toggle background opacity between 0.85 and 1
 keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d"
 quick-terminal-position = center
-# quick-terminal-position = left
+# quick-terminal-position = right
 quick-terminal-autohide = false
 quick-terminal-animation-duration = 0.2
-quick-terminal-size = 50%,50%
+quick-terminal-size = 80%,80%
 
 macos-titlebar-style = tabs
 # macos-titlebar-style = transparent
 # macos-titlebar-style = hidden
 # macos-titlebar-style = native
 window-decoration = true
+
+window-save-state = never
 
 window-title-font-family = "D2Coding"
 
