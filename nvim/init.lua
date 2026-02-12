@@ -1016,14 +1016,9 @@ local hostname = io.popen("hostname -s"):read("*l")
 local config_filename = hostname .. ".lua"
 local config_path = vim.fn.stdpath('config') .. '/' .. config_filename
 
-local function load_config(path)
-    local ok, err = pcall(dofile, path)
-    if not ok then
-        print("Error loading config: " .. err)
-    end
+if vim.uv.fs_stat(config_path) then
+    dofile(config_path)
 end
-
-load_config(config_path)
 
 -- Set default colorscheme
 vim.api.nvim_create_autocmd('VimEnter', {
