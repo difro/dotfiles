@@ -132,3 +132,5 @@
 	provider = github
 [credential "https://huggingface.co"]
 	provider = generic
+[credential]
+	helper = store
