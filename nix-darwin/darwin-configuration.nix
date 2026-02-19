@@ -47,6 +47,7 @@
       "input-source-pro"
       "itsycal"
       # "jordanbaird-ice@beta" using this instead https://github.com/jordanbaird/Ice/issues/711#issuecomment-3717627917
+      "karabiner-elements"
       "llamabarn"
       "scroll-reverser"
       "stats"
