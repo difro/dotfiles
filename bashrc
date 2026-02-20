@@ -88,10 +88,10 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 #-------------------------------------------------------------------------------
 alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
 alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
-c() { claude --dangerously-skip-permissions -p "$*" --model haiku; }
+c() { MAX_THINKING_TOKENS=0 claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model haiku; }
 alias cc='cd "$TMPDIR" && claude'
 alias claude-danger='claude --dangerously-skip-permissions'
-copus() { claude --dangerously-skip-permissions -p "$*" --model opus; }
+copus() { claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model opus; }
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
