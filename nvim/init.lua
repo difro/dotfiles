@@ -535,8 +535,8 @@ local plugins = {
       terminal = {
         split_side = "left",
         split_width_percentage = 0.3,
-        -- provider = "none",
-        provider = "snacks",
+        provider = "none",
+        -- provider = "snacks",
       },
 
       diff_opts = {
