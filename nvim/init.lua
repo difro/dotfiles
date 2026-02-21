@@ -533,10 +533,7 @@ local plugins = {
       focus_after_send = true,
 
       terminal = {
-        split_side = "left",
-        split_width_percentage = 0.3,
-        provider = "none",
-        -- provider = "snacks",
+        provider = require("claude-tmux-provider"),
       },
 
       diff_opts = {
