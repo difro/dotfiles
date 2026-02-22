@@ -537,10 +537,9 @@ local plugins = {
       },
 
       diff_opts = {
-        auto_close_on_accept = true,
-        vertical_split = true,
-        open_in_current_tab = true,
-        keep_terminal_focus = true, -- If true, moves focus back to terminal after diff opens
+        layout = "vertical",
+        open_in_new_tab = true,
+        keep_terminal_focus = true,
       },
     },
   },
