@@ -52,11 +52,31 @@ WHITE="\[\033[1;37m\]"
 RED="\[\033[1;31m\]"
 
 shorten_path() {
-    # Replace the home directory with ~
-    local path home_real
-    path="${PWD/#$HOME/~}"
-    home_real="$(readlink -f "$HOME" 2>/dev/null || printf '%s' "$HOME")"
-    path="${path/#$home_real/~}"
+    # Replace the home directory with ~ (handles logical/physical path mismatch)
+    local path home_path home_real pwd_real
+    path="$PWD"
+    home_path="$HOME"
+    home_real="$(cd "$home_path" 2>/dev/null && pwd -P)"
+    pwd_real="$(pwd -P 2>/dev/null)"
+
+    if [[ "$path" == "$home_path" ]]; then
+        path="~"
+    elif [[ "$path" == "$home_path/"* ]]; then
+        path="~/${path#"$home_path/"}"
+    elif [ -n "$home_real" ] && [[ "$path" == "$home_real" ]]; then
+        path="~"
+    elif [ -n "$home_real" ] && [[ "$path" == "$home_real/"* ]]; then
+        path="~/${path#"$home_real/"}"
+    elif [ -n "$home_real" ] && [ -n "$pwd_real" ] && [[ "$pwd_real" == "$home_real" ]]; then
+        path="~"
+    elif [ -n "$home_real" ] && [ -n "$pwd_real" ] && [[ "$pwd_real" == "$home_real/"* ]]; then
+        path="~/${pwd_real#"$home_real/"}"
+    fi
+
+    if [ "$path" = "/" ]; then
+        echo -n "/"
+        return
+    fi
 
     local IFS="/"
     local -a parts
