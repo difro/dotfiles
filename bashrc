@@ -53,15 +53,18 @@ RED="\[\033[1;31m\]"
 
 shorten_path() {
     # Replace the home directory with ~
-    local path="${PWD/#$HOME/~}"
-    path="${path/#$(readlink -f $HOME)/~}"
+    local path home_real
+    path="${PWD/#$HOME/~}"
+    home_real="$(readlink -f "$HOME" 2>/dev/null || printf '%s' "$HOME")"
+    path="${path/#$home_real/~}"
 
     local IFS="/"
-    local parts=($path)
+    local -a parts
+    read -r -a parts <<< "$path"
     local new_path=""
     local len=${#parts[@]}
 
-    for (( i=0; i<$len; i++ )); do
+    for (( i=0; i<len; i++ )); do
         if [[ $i == $((len-1)) ]]; then
             # If it's the last element, add the full name
             new_path+="${parts[$i]}"
@@ -98,7 +101,7 @@ alias grep="grep --exclude-dir vendor --color=auto"
 alias less='less -r'
 alias ls='ls --color=auto --show-control-chars'
 alias p='perl'
-alias pythonserver='/usr/bin/python -m SimpleHTTPServer'
+alias pythonserver='python3 -m http.server'
 alias sova="source .venv/bin/activate"
 alias tmux='tmux -2'
 alias urldecode="perl -MCGI::Util=unescape -e'while(<>){chop;print unescape(\$_).\"\\n\";}'"
@@ -133,20 +136,34 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
     if [[ "$(arch)" == "i386" ]]; then
         BREWPATH=/usr/local/bin/brew
     fi
-    if [ -f $($BREWPATH --prefix)/etc/bash_completion ]; then
-        . $($BREWPATH --prefix)/etc/bash_completion
+    if [ ! -x "$BREWPATH" ] && command -v brew >/dev/null 2>&1; then
+        BREWPATH="$(command -v brew)"
+    fi
+    if [ -x "$BREWPATH" ]; then
+        BREW_PREFIX="$("$BREWPATH" --prefix)"
+        if [ -f "$BREW_PREFIX/etc/bash_completion" ]; then
+            # shellcheck source=/dev/null
+            . "$BREW_PREFIX/etc/bash_completion"
+        fi
     fi
 else
-    if [ -f $HOME/.bash-completion/bash_completion ]; then
-        . $HOME/.bash-completion/bash_completion
+    if [ -f "$HOME/.bash-completion/bash_completion" ]; then
+        # shellcheck source=/dev/null
+        . "$HOME/.bash-completion/bash_completion"
     fi
 fi
 
-# FZF
-[ -f ~/.fzf/shell/key-bindings.bash ] && source ~/.fzf/shell/key-bindings.bash
-[ -f ~/.fzf/shell/completion.bash ] && source ~/.fzf/shell/completion.bash
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[ -f ~/.nix-profile/share/fzf/key-bindings.bash ] && source ~/.nix-profile/share/fzf/key-bindings.bash
+# FZF (load exactly one source to avoid duplicate key bindings/completion)
+if [ -f "$HOME/.fzf.bash" ]; then
+    # shellcheck source=/dev/null
+    source "$HOME/.fzf.bash"
+elif [ -f "$HOME/.fzf/shell/key-bindings.bash" ] || [ -f "$HOME/.fzf/shell/completion.bash" ]; then
+    [ -f "$HOME/.fzf/shell/key-bindings.bash" ] && source "$HOME/.fzf/shell/key-bindings.bash"
+    [ -f "$HOME/.fzf/shell/completion.bash" ] && source "$HOME/.fzf/shell/completion.bash"
+else
+    [ -f "$HOME/.nix-profile/share/fzf/key-bindings.bash" ] && source "$HOME/.nix-profile/share/fzf/key-bindings.bash"
+    [ -f "$HOME/.nix-profile/share/fzf/completion.bash" ] && source "$HOME/.nix-profile/share/fzf/completion.bash"
+fi
 
 # Cargo
 if [[ -f "$HOME/.cargo/env" ]]; then
@@ -170,11 +187,18 @@ fi
 #-------------------------------------------------------------------------------
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     # GNU Coreutils
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    if [ -d "/usr/local/opt/coreutils/libexec/gnubin" ]; then
+        export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+        export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    elif [ -d "/opt/homebrew/opt/coreutils/libexec/gnubin" ]; then
+        export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+        export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
+    fi
 
     # Homebrew
-    eval $($BREWPATH shellenv)
+    if [ -n "$BREWPATH" ] && [ -x "$BREWPATH" ]; then
+        eval "$("$BREWPATH" shellenv)"
+    fi
 
     # ls alias for macOS
     # alias ls='/bin/ls -G'
@@ -189,7 +213,10 @@ home-manager-update() {
         return 1
     fi
     [[ $(ulimit -n) -lt 65536 ]] && ulimit -n 65536
-    cd ~/.config/home-manager && nix flake update && home-manager switch --flake ".#$1" && cd -
+    (
+        cd ~/.config/home-manager || exit 1
+        nix flake update && home-manager switch --flake ".#$1"
+    )
 }
 
 nix-cache-clear() {
@@ -199,7 +226,10 @@ nix-cache-clear() {
 alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
 
 nix-darwin-update() {
-    cd ~/.config/nix-darwin && nix flake update && sudo nix run nix-darwin -- switch --flake .#mac || cd -
+    (
+        cd ~/.config/nix-darwin || exit 1
+        nix flake update && sudo nix run nix-darwin -- switch --flake .#mac
+    )
 }
 
 #-------------------------------------------------------------------------------
