@@ -36,8 +36,8 @@ export HISTFILESIZE=10000000               # big big history
 export SHELL_SESSION_HISTORY=0
 shopt -s histappend                       # append to history, don't overwrite it
 
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# Keep cross-session sync while avoiding full reload each prompt
+export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 #-------------------------------------------------------------------------------
 # SHELL PROMPT
