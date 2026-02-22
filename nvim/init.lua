@@ -508,7 +508,18 @@ local plugins = {
   {
     "coder/claudecode.nvim",
     dependencies = { "folke/snacks.nvim" },
-    config = true,
+    config = function(_, opts)
+      require("claudecode").setup(opts)
+      vim.api.nvim_create_autocmd("QuitPre", {
+        callback = function()
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_valid(buf) and vim.b[buf].claudecode_diff_tab_name then
+              vim.bo[buf].modified = false
+            end
+          end
+        end,
+      })
+    end,
     keys = {
       { "<leader>cc", nil, desc = "AI/Claude Code" },
       { "<leader>ccc", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
