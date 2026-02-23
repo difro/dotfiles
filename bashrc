@@ -14,7 +14,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LESSCHARSET='utf-8'
 export FTP_PASSIVE=1
-export CDPATH=.:~:~/src
+# export CDPATH=.:~:~/src
 export MANPAGER='nvim +Man!'
 
 export PATH=$HOME/.nix-profile/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
