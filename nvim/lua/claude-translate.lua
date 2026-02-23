@@ -1,6 +1,18 @@
 -- Claude Translate: Translate text using Claude CLI
 local M = {}
 
+local config = {
+  thinking = false,
+}
+
+-- Build env prefix for claude command
+local function env_prefix()
+  if config.thinking then
+    return ""
+  end
+  return "MAX_THINKING_TOKENS=0 "
+end
+
 -- Translate selected text and show in floating window
 local function translate_selection(opts)
   opts = opts or {}
@@ -64,8 +76,9 @@ local function translate_selection(opts)
 
   -- Build command - use shell for proper expansion
   local cmd = string.format(
-    'cat %s | claude --model %s --no-session-persistence -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
+    'cat %s | %sclaude --model %s --no-session-persistence -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
     vim.fn.shellescape(input_file),
+    env_prefix(),
     model
   )
 
@@ -171,8 +184,9 @@ local function translate_buffer(opts)
 
   -- Build claude command - use shell for proper piping
   local cmd = string.format(
-    'cat %s | claude --model %s -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
+    'cat %s | %sclaude --model %s -p "Translate the following text to Korean. Output ONLY the translated text, nothing else:"',
     vim.fn.shellescape(input_file),
+    env_prefix(),
     model
   )
 
@@ -252,6 +266,7 @@ end
 -- Setup function
 function M.setup(opts)
   opts = opts or {}
+  config = vim.tbl_deep_extend("force", config, opts)
 
   -- Register which-key group
   local ok, wk = pcall(require, "which-key")
