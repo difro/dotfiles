@@ -46,9 +46,23 @@ function M.open(cmd_string, env_table, effective_config, focus)
     cwd_flag = "-c " .. vim.fn.shellescape(effective_config.cwd)
   end
 
+  -- If inside nix-user-chroot, wrap command so the new tmux pane re-enters
+  -- the chroot (tmux server forks outside the user namespace).
+  -- Source ~/.bashrc.nix (→ .bashrc → .bashrc.<host>) for full profile.
+  -- PS1 is set so .bashrc's non-interactive guard doesn't early-return.
+  local shell_prefix = "sh -c"
+  if vim.fn.isdirectory("/nix/store") == 1 then
+    local nix_chroot = vim.fn.exepath("nix-user-chroot")
+    if nix_chroot ~= "" then
+      local nix_dir = vim.env.HOME .. "/.nix"
+      shell_prefix = nix_chroot .. " " .. vim.fn.shellescape(nix_dir) .. " bash -c"
+      full_cmd = "export PS1=x; source ~/.bashrc.nix; " .. full_cmd
+    end
+  end
+
   -- Split horizontally before current pane (left), capture new pane ID
   local result = vim.trim(vim.fn.system(
-    "tmux split-window -hb " .. cwd_flag .. " -P -F '#{pane_id}' -- sh -c " .. vim.fn.shellescape(full_cmd)
+    "tmux split-window -hb " .. cwd_flag .. " -P -F '#{pane_id}' -- " .. shell_prefix .. " " .. vim.fn.shellescape(full_cmd)
   ))
   state.pane_id = result:gsub("%%", "")
 
