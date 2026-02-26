@@ -417,6 +417,11 @@ local plugins = {
     "nvim-treesitter/nvim-treesitter-context",
     opts = {
       enable = true,
+      max_lines = 0,
+      line_numbers = false,
+      trim_scope = "inner",
+      multiline_threshold = 1,
+      exclude_filetypes = { "markdown" },
     },
   },
 
@@ -552,6 +557,39 @@ local plugins = {
         open_in_new_tab = true,
         keep_terminal_focus = true,
       },
+    },
+  },
+
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    opts = {
+      preview = {
+        enable = false,
+        icon_provider = "mini",
+        splitview_winopts = {
+          split = "right",
+        },
+        callbacks = {
+          on_splitview_open = function(_, _, win)
+            local src_win = vim.api.nvim_get_current_win()
+            vim.wo[win].scrollbind = true
+            vim.wo[src_win].scrollbind = true
+          end,
+        },
+      },
+      markdown = {
+        code_blocks = {
+          style = "block",
+          min_width = 60,
+          pad_amount = 5,
+          pad_char = " ",
+        },
+      },
+    },
+    keys = {
+      { "<leader>mp", "<cmd>Markview Toggle<cr>", desc = "[M]arkdown [P]review toggle" },
+      { "<leader>mv", "<cmd>Markview splitToggle<cr>", desc = "[M]arkdown split[V]iew toggle" },
     },
   },
 }
