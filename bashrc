@@ -112,7 +112,7 @@ export PS1="$GRAY($YELLOW\u$GRAY@$CYAN\h$GRAY)--($LIGHT_CYAN\$(shorten_path)$GRA
 alias base64decode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::decode_base64(\$_)}'"
 alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode_base64(\$_)}'"
 c() { MAX_THINKING_TOKENS=0 claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model haiku; }
-alias cc='cd "$TMPDIR" && claude'
+# alias cc='cd "$TMPDIR" && claude'
 alias claude-danger='claude --dangerously-skip-permissions'
 copus() { claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model opus; }
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
@@ -197,10 +197,10 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 # eza
-if command -v eza >/dev/null 2>&1; then
-    alias ls='eza --color=auto --time-style relative'
-    export EZA_CONFIG_DIR=~/.config/eza
-fi
+# if command -v eza >/dev/null 2>&1; then
+#     alias ls='eza --color=auto --time-style relative'
+#     export EZA_CONFIG_DIR=~/.config/eza
+# fi
 
 #-------------------------------------------------------------------------------
 # OS-SPECIFIC CONFIGURATION
