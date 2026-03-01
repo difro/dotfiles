@@ -119,7 +119,7 @@ alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
 alias less='less -r'
-alias ls='ls --color=auto --show-control-chars'
+alias ls='ls --color=auto'
 alias p='perl'
 alias pythonserver='python3 -m http.server'
 alias sova="source .venv/bin/activate"
@@ -197,10 +197,10 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 # eza
-# if command -v eza >/dev/null 2>&1; then
-#     alias ls='eza --color=auto --time-style relative'
-#     export EZA_CONFIG_DIR=~/.config/eza
-# fi
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --no-git --no-quotes --color=auto'
+    export EZA_CONFIG_DIR=~/.config/eza
+fi
 
 #-------------------------------------------------------------------------------
 # OS-SPECIFIC CONFIGURATION
