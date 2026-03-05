@@ -561,6 +561,15 @@ local plugins = {
   },
 
   {
+    "LionyxML/gitlineage.nvim",
+    config = function()
+      require("gitlineage").setup({
+        keymap = "<leader>gl",
+      })
+    end,
+  },
+
+  {
     "OXY2DEV/markview.nvim",
     lazy = false,
     opts = {
