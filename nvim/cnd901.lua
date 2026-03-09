@@ -1,0 +1,11 @@
+-- require('gen').setup({
+--   -- host = "ollama-reranking.srv.aisuite.navercorp.com",
+--   -- model = "default:latest",
+--   host = "ollama-api-reranking.srv.aisuite.navercorp.com",
+--   model = "gemma3:27b-it-q8_0",
+--   port = "80",
+--
+--   -- host = "cnd903.nfra.io",
+--   -- port = "11434",
+--   -- model = "qwen2.5-coder:32b",
+-- })
