@@ -37,6 +37,7 @@
     pkgs.ripgrep
     pkgs.tmux
     pkgs.ty
+    pkgs.zellij
     pkgs.uv
     pkgs.zoxide
   ];
