@@ -52,8 +52,11 @@ keybind = cmd+digit_5=esc:5
 keybind = cmd+digit_6=esc:6
 keybind = cmd+digit_7=esc:7
 
-# Toggle background opacity between 0.85 and 1
-keybind = "cmd+shift+b=text:~/.dotfiles/ghostty/toggle_background_opacity.sh\x0d"
+keybind = cmd+shift+b=toggle_background_opacity
+
+keybind = unconsumed:page_down=scroll_page_lines:28
+keybind = unconsumed:page_up=scroll_page_lines:-28
+
 quick-terminal-position = center
 # quick-terminal-position = right
 quick-terminal-autohide = false
@@ -77,12 +80,16 @@ macos-non-native-fullscreen = true
 confirm-close-surface = false
 
 shell-integration = bash
+shell-integration-features = no-cursor
 
 cursor-opacity = 0.8
 cursor-text = black
+cursor-style = block
+
+foreground = #ffffff
 
 undo-timeout = 300s
 
 # include per-host config
-config-file = ?local.config
+# config-file = ?local.config
 keybind = shift+enter=text:\x1b\r
