@@ -164,9 +164,7 @@ local plugins = {
     opts = {
       options = {
         icons_enabled = true,
-        --theme = 'onedark',
-        --theme = 'papercolor_dark',
-        theme = 'seoul256',
+        theme = 'auto',
         --component_separators = '|',
         --section_separators = '',
         component_separators = { left = '', right = ''},
