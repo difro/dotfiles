@@ -119,7 +119,6 @@ alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
 alias less='less -r'
-alias ls='ls --color=auto'
 alias p='perl'
 alias pythonserver='python3 -m http.server'
 alias sova="source .venv/bin/activate"
@@ -200,6 +199,8 @@ fi
 if command -v eza >/dev/null 2>&1; then
     alias ls='eza --no-git --no-quotes --color=auto'
     export EZA_CONFIG_DIR=~/.config/eza
+else
+    alias ls='ls --color=auto'
 fi
 
 #-------------------------------------------------------------------------------
