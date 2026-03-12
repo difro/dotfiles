@@ -9,6 +9,10 @@
         "rawValue": true
       },
       {
+        "id": "fca95204-68ec-4114-adb0-70d1cf32890c",
+        "type": "thinking-effort"
+      },
+      {
         "id": "757ddcb5-586a-4278-8055-b3f4a8533ebc",
         "type": "version",
         "rawValue": false
