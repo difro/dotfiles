@@ -11,6 +11,7 @@
     pkgs.asciinema-agg
     pkgs.claude-code
     pkgs.glibcLocalesUtf8 # For locale support
+    pkgs.ripgrep
     # aiToolsPkgs.claude-code
   ];
 

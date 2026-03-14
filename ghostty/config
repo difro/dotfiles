@@ -29,9 +29,8 @@ theme = "Catppuccin Mocha"
 
 # background-opacity = 0.95
 background-opacity = 0.85
-# background-opacity = 0.9
 # background-blur-radius = 3
-background-blur = 5
+background-blur = 10
 
 keybind = global:opt+grave_accent=toggle_quick_terminal
 keybind = global:cmd+ctrl+grave_accent=toggle_quick_terminal
