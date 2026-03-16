@@ -13,6 +13,7 @@
     pkgs.glibcLocalesUtf8 # For locale support
     pkgs.ripgrep
     # aiToolsPkgs.claude-code
+    aiToolsPkgs.qwen-code
   ];
 
   # To remove locale warning when exiting vim
