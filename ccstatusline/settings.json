@@ -11,7 +11,8 @@
       {
         "id": "fca95204-68ec-4114-adb0-70d1cf32890c",
         "type": "thinking-effort",
-        "color": "magenta"
+        "color": "magenta",
+        "rawValue": true
       },
       {
         "id": "1",
@@ -19,20 +20,21 @@
         "color": "cyan"
       },
       {
-        "id": "2546aca3-eb22-48e9-a037-5a5669e9f950",
-        "type": "context-bar"
+        "id": "41ce6808-278c-40b1-be69-efd9f3cf2b6f",
+        "type": "context-percentage",
+        "rawValue": true
       },
       {
         "id": "f4471e71-c0a2-46fd-8026-7b51dd4f5037",
         "type": "session-cost",
-        "rawValue": true,
-        "color": "brightBlack"
+        "color": "brightBlack",
+        "rawValue": true
       },
       {
         "id": "757ddcb5-586a-4278-8055-b3f4a8533ebc",
         "type": "version",
-        "rawValue": false,
-        "color": "magenta"
+        "color": "magenta",
+        "rawValue": false
       }
     ],
     [
