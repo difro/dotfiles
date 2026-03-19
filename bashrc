@@ -17,7 +17,7 @@ export FTP_PASSIVE=1
 # export CDPATH=.:~:~/src
 export MANPAGER='nvim +Man!'
 
-export PATH=$HOME/.nix-profile/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+export PATH=$HOME/.dotfiles/bin:$HOME/.nix-profile/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
 
 # For xterm titles
 export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007"'
