@@ -14,12 +14,6 @@
 
 [credential "https://github.com"]
 	username = difro
-	helper = 
-	helper = !gh auth git-credential
-
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !gh auth git-credential
 
 [color]
 	diff = true
@@ -124,10 +118,6 @@
 	line-numbers = true
 	side-by-side = false
 
-[include]
-	path = ~/.gitconfig.local
-	path = ~/.gitconfig.themes
-
 [credential "https://oss.navercorp.com"]
 	provider = github
 [credential "https://huggingface.co"]
@@ -136,3 +126,7 @@
 	helper = store
 [http "https://oss.navercorp.com"]
 	sslVerify = false
+
+[include]
+	path = ~/.gitconfig.local
+	path = ~/.gitconfig.themes
