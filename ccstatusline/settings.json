@@ -25,6 +25,11 @@
         "rawValue": true
       },
       {
+        "id": "361f8b52-6571-4d28-acbf-8944f8fd045e",
+        "type": "context-length",
+        "rawValue": true
+      },
+      {
         "id": "f4471e71-c0a2-46fd-8026-7b51dd4f5037",
         "type": "session-cost",
         "color": "brightBlack",
