@@ -1,3 +1,0 @@
-[submodule "bash-completion"]
-	path = bash-completion
-	url = https://github.com/scop/bash-completion
