@@ -273,31 +273,25 @@ outer.right =      2
 if.app-id="com.kakao.KakaoTalkMac"
 run= [
   "layout floating",
-  # "move-node-to-workspace 5",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="com.naver.ncs"
 run= [
   "layout floating",
-  # "move-node-to-workspace 5",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="jp.naver.line.mac"
 run= [
   "layout floating",
-  # "move-node-to-workspace 5",
-]
-[[on-window-detected]]
-if.app-id="com.todoist.mac.Todoist"
-run= [
-  "layout floating",
-  # "move-node-to-workspace 5",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="com.TickTick.task.mac"
 run= [
   "layout floating",
-  # "move-node-to-workspace 5",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="net.pulsesecure.Pulse-Secure"
@@ -308,13 +302,18 @@ run= [
 if.app-id="com.bitwarden.desktop"
 run= [
   "layout floating",
-  # "move-node-to-workspace 5",
+  "move-node-to-workspace 5",
 ]
 [[on-window-detected]]
 if.app-id="us.zoom.xos"
 run= [
   "layout floating",
   # "move-node-to-workspace 5",
+]
+[[on-window-detected]]
+if.app-id="com.openai.chat"
+run= [
+  "layout floating",
 ]
 [[on-window-detected]]
 if.app-id="com.brave.Browser.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
