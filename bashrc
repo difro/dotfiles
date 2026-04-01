@@ -142,7 +142,7 @@ brewdump() {
 }
 
 alias brewup='brew bundle --file=~/.dotfiles/Brewfile'
-alias dotfiles_update='cd ~/.dotfiles && git pull --ff-only && git submodule update --remote --merge'
+alias dotfiles_update='cd ~/.dotfiles && git pull --ff-only && git submodule update --remote --merge && cd -'
 
 #-------------------------------------------------------------------------------
 # KEYBINDINGS
