@@ -1,12 +1,42 @@
--- Workaround: Neovim 0.12 treesitter.get_range() crashes on nil nodes during
--- injection query parsing. Patch it to return a zero range instead of crashing.
--- TODO: remove after upstream fix (https://github.com/neovim/neovim/issues/XXXXX)
+-- Workaround: Neovim 0.12 can hand treesitter a broken injection node while
+-- computing ranges for highlighting. Return a zero range instead of letting
+-- the decoration provider crash on `node:range(...)`.
 local _ts_get_range = vim.treesitter.get_range
+local function ts_zero_range()
+  return { 0, 0, 0, 0, 0, 0 }
+end
+
 vim.treesitter.get_range = function(node, source, metadata)
   if not node then
-    return { 0, 0, 0, 0, 0, 0 }
+    return ts_zero_range()
   end
-  return _ts_get_range(node, source, metadata)
+
+  local ok, range = pcall(_ts_get_range, node, source, metadata)
+  if ok then
+    return range
+  end
+
+  return ts_zero_range()
+end
+
+-- Compatibility shim for plugins still using deprecated codelens helpers on
+-- Neovim 0.12+. Route them to the new enable() API to avoid warnings.
+do
+  local codelens = vim.lsp.codelens
+  local enable = codelens.enable
+
+  codelens.refresh = function(opts)
+    enable(true, { bufnr = opts and opts.bufnr })
+  end
+
+  codelens.clear = function(client_id, bufnr)
+    if bufnr ~= nil then
+      enable(false, { bufnr = bufnr })
+      return
+    end
+
+    enable(false, { client_id = client_id })
+  end
 end
 
 -- Set <space> as the leader key
