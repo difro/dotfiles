@@ -74,24 +74,6 @@ local plugins = {
     },
   },
 
-  {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-cmdline',
-      'hrsh7th/cmp-buffer',
-      -- Adds a number of user-friendly snippets
-      'rafamadriz/friendly-snippets',
-    },
-  },
 
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
@@ -271,9 +253,6 @@ local plugins = {
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
     build = ':TSUpdate',
     config = function()
       require'nvim-treesitter.configs'.setup {
@@ -647,7 +626,7 @@ vim.o.updatetime = 100
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,popup,fuzzy'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -685,15 +664,9 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+-- Diagnostic keymaps ([d, ]d are default since 0.11)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-vim.diagnostic.config{
-  float={border="single"}
-}
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -701,12 +674,9 @@ vim.diagnostic.config{
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local bufnr = args.buf
-    -- NOTE: Remember that lua is a real programming language, and as such it is possible
-    -- to define small helper and utility functions so you don't have to repeat yourself
-    -- many times.
-    --
-    -- In this case, we create a function that lets us more easily define mappings specific
-    -- for LSP related items. It sets the mode, buffer and description for us each time.
+
+    -- Enable built-in LSP completion with auto-trigger
+    vim.lsp.completion.enable(true, args.data.client_id, bufnr, { autotrigger = true })
     local nmap = function(keys, func, desc)
       if desc then
         desc = 'LSP: ' .. desc
@@ -804,7 +774,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       pattern = "*.go",
       callback = function()
         local bufnr = vim.api.nvim_get_current_buf()
-        local client = vim.lsp.get_active_clients({ bufnr = bufnr })[1]
+        local client = vim.lsp.get_clients({ bufnr = bufnr })[1]
 
         if not client then
           vim.lsp.buf.format({ async = false })
@@ -851,10 +821,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
 require('mason').setup()
-require('mason-lspconfig').setup()
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -888,124 +855,40 @@ local servers = {
   },
 }
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
---
+
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
---
+
   handlers = {
     function(server_name)
-      local opts = {
-        capabilities = capabilities,
-        -- settings = servers[server_name],
-      }
-
-      vim.lsp.config[server_name] = opts
+      vim.lsp.config(server_name, {
+        settings = servers[server_name],
+      })
       vim.lsp.enable(server_name)
     end,
   },
 }
 
--- [[ Configure nvim-cmp ]]
--- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+-- [[ Built-in completion keymaps ]]
+-- <C-n>/<C-p> navigate, <C-y> confirms (native), <C-e> dismisses (native)
+vim.keymap.set('i', '<CR>', function()
+  return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>'
+end, { expr = true })
 
-cmp.setup {
-  --[[ experimental = {
-    ghost_text = true,
-  }, ]]
+-- Snippet navigation (vim.snippet built-in)
+vim.keymap.set({ 'i', 's' }, '<C-l>', function()
+  if vim.snippet.active({ direction = 1 }) then
+    vim.snippet.jump(1)
+  end
+end, { desc = 'Next snippet placeholder' })
 
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    -- ['<C-n>'] = cmp.mapping.select_next_item( { behavior = cmp.SelectBehavior.Select } ),
-    -- ['<C-p>'] = cmp.mapping.select_prev_item( { behavior = cmp.SelectBehavior.Select } ),
-    -- ['<C-e>'] = cmp.mapping.abort(),
-    -- ["<C-b>"] = cmp.mapping(cmp.mapping.complete({
-    --   reason = cmp.ContextReason.Auto,
-    -- }), {"i", "c"}),
-
-    -- Navigate between snippet placeholder
-    ['<C-n>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<C-p>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-
-    -- Scroll up and down in the completion documentation
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    ['<CR>'] = cmp.mapping.confirm {
-     behavior = cmp.ConfirmBehavior.Replace,
-     select = true,
-    },
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-    { name = 'path' },
-  },
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  completion = {
-    completeopt = 'menu,menuone,noselect',
-  },
-  preselect = cmp.PreselectMode.None,
-}
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-  }
-})
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline({
-    -- Use default nvim history scrolling
-    ["<C-n>"] = {
-      c = false,
-    },
-    ["<C-p>"] = {
-      c = false,
-    },
-  }),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    {
-      name = 'cmdline',
-      option = {
-        ignore_cmds = { 'Man', '!' }
-      }
-    }
-  })
-})
+vim.keymap.set({ 'i', 's' }, '<C-h>', function()
+  if vim.snippet.active({ direction = -1 }) then
+    vim.snippet.jump(-1)
+  end
+end, { desc = 'Previous snippet placeholder' })
 
 -- Always jump to the last known cursor position
 local preserve_cursor_group = vim.api.nvim_create_augroup('PreserveCursorPosition', { clear = true })
@@ -1022,6 +905,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
 -- Add border to floating windows (hover, signature help, etc.)
 vim.o.winborder = "rounded"
+vim.o.pumborder = "rounded"
 
 -- Update Pkgs
 vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
@@ -1035,15 +919,6 @@ vim.keymap.set('n', '<leader>um', vim.cmd.Mason, { desc = '[Update] Mason' })
 --   end,
 -- })
 
--- initialize global var to false -> nvim-cmp turned off per default
-vim.g.cmptoggle = true
-
-cmp.setup {
-  enabled = function()
-    return vim.g.cmptoggle
-  end
-}
-vim.keymap.set("n", "<leader>tc", "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", { desc = "toggle nvim-cmp" })
 
 --
 -- vim.keymap.set({ 'n' }, '<C-s>', function()       require('lsp_signature').toggle_float_win()
