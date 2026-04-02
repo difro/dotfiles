@@ -1,3 +1,14 @@
+-- Workaround: Neovim 0.12 treesitter.get_range() crashes on nil nodes during
+-- injection query parsing. Patch it to return a zero range instead of crashing.
+-- TODO: remove after upstream fix (https://github.com/neovim/neovim/issues/XXXXX)
+local _ts_get_range = vim.treesitter.get_range
+vim.treesitter.get_range = function(node, source, metadata)
+  if not node then
+    return { 0, 0, 0, 0, 0, 0 }
+  end
+  return _ts_get_range(node, source, metadata)
+end
+
 -- Set <space> as the leader key
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
