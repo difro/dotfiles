@@ -291,7 +291,7 @@ local plugins = {
           end,
         },
         matchup = {
-          enable = true,              -- mandatory, false will disable the whole extension
+          enable = false,             -- disabled: treesitter API incompatible with 0.12
         },
         prefer_git = true,
       }
