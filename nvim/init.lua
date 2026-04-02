@@ -387,17 +387,18 @@ local plugins = {
     },
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    opts = {
-      enable = true,
-      max_lines = 0,
-      line_numbers = false,
-      trim_scope = "inner",
-      multiline_threshold = 1,
-      exclude_filetypes = { "markdown" },
-    },
-  },
+  -- TODO: re-enable after upstream fix for nvim 0.12 treesitter.get_range() nil node crash
+  -- {
+  --   "nvim-treesitter/nvim-treesitter-context",
+  --   opts = {
+  --     enable = true,
+  --     max_lines = 0,
+  --     line_numbers = false,
+  --     trim_scope = "inner",
+  --     multiline_threshold = 1,
+  --     exclude_filetypes = { "markdown" },
+  --   },
+  -- },
 
 
   {
