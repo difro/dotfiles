@@ -1020,10 +1020,8 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
--- Add border to 'K' hover
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
+-- Add border to floating windows (hover, signature help, etc.)
+vim.o.winborder = "rounded"
 
 -- Update Pkgs
 vim.keymap.set('n', '<leader>ul', require("lazy").sync, { desc = '[Update] Lazy' })
