@@ -290,9 +290,6 @@ local plugins = {
             return true
           end,
         },
-        matchup = {
-          enable = false,             -- disabled: treesitter API incompatible with 0.12
-        },
         prefer_git = true,
       }
     end,
@@ -402,12 +399,6 @@ local plugins = {
     },
   },
 
-  {
-    "andymass/vim-matchup",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
-    end
-  },
 
   {
     "folke/lazydev.nvim",
