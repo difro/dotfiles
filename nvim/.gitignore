@@ -1,6 +1,7 @@
 tags
 test.sh
 .luarc.json
+nvim.log
 nvim
 plugin
 lazy-lock.json
