@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Ghostty: Ctrl+A → switch to English + send Ctrl+A",
+                        "description": "Ghostty: switch to English before Vim control keys",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -23,6 +23,44 @@
                                     { "select_input_source": { "language": "en" } },
                                     {
                                         "key_code": "a",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.mitchellh\\.ghostty$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": { "key_code": "escape" },
+                                "to": [
+                                    { "select_input_source": { "language": "en" } },
+                                    { "key_code": "escape" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.mitchellh\\.ghostty$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "select_input_source": { "language": "en" } },
+                                    {
+                                        "key_code": "open_bracket",
                                         "modifiers": ["control"]
                                     }
                                 ],
