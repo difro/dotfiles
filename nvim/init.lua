@@ -660,6 +660,8 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect,popup,fuzzy'
+vim.o.wildmode = 'noselect:lastused,full'
+vim.o.wildoptions = 'fuzzy,pum,tagfile'
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -696,6 +698,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+local cmdline_completion_group = vim.api.nvim_create_augroup('CmdlineCompletion', { clear = true })
+vim.api.nvim_create_autocmd('CmdlineChanged', {
+  group = cmdline_completion_group,
+  pattern = { ':', '/', '?' },
+  callback = function()
+    vim.fn.wildtrigger()
+  end,
+})
+
+vim.keymap.set('c', '<Up>', function()
+  return vim.fn.wildmenumode() == 1 and '<C-E><Up>' or '<Up>'
+end, { expr = true })
+
+vim.keymap.set('c', '<Down>', function()
+  return vim.fn.wildmenumode() == 1 and '<C-E><Down>' or '<Down>'
+end, { expr = true })
 
 -- Diagnostic keymaps ([d, ]d are default since 0.11)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
