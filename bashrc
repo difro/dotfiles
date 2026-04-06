@@ -252,6 +252,10 @@ nix-cache-clear() {
 }
 alias home-manager-diff="nix profile diff-closures --profile ~/.local/state/nix/profiles/home-manager"
 
+home-manager-gc() {
+    home-manager expire-generations "-1 days" && nix-collect-garbage --delete-older-than 1d
+}
+
 nix-darwin-update() {
     (
         cd ~/.config/nix-darwin || exit 1
