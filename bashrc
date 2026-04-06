@@ -142,7 +142,21 @@ brewdump() {
 }
 
 alias brewup='brew bundle --file=~/.dotfiles/Brewfile'
-alias dotfiles_update='cd ~/.dotfiles && git pull --ff-only && git submodule update --remote --merge && cd -'
+dotfiles-update() {
+    local dir msg
+    for dir in "$HOME/.dotfiles/base" "$HOME/.dotfiles"; do
+        git -C "$dir" add -u
+        if ! git -C "$dir" diff --cached --quiet; then
+            msg="$(git -C "$dir" diff --cached | \
+                MAX_THINKING_TOKENS=0 claude --dangerously-skip-permissions \
+                --no-session-persistence --model haiku \
+                -p 'One-line commit message for this diff. Output ONLY the message.')"
+            git -C "$dir" commit -m "${msg:-Update dotfiles}" || return 1
+        fi
+        git -C "$dir" pull --rebase origin master || return 1
+        git -C "$dir" push origin master || return 1
+    done
+}
 
 #-------------------------------------------------------------------------------
 # KEYBINDINGS
