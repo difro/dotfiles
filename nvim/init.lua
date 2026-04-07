@@ -717,8 +717,18 @@ vim.keymap.set('c', '<Down>', function()
 end, { expr = true })
 
 -- Diagnostic keymaps ([d, ]d are default since 0.11)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>e', function()
+  vim.diagnostic.open_float({ source = true })
+end, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>td', function()
+  local cfg = vim.diagnostic.config()
+  if cfg.virtual_lines then
+    vim.diagnostic.config({ virtual_lines = false })
+  else
+    vim.diagnostic.config({ virtual_lines = { current_line = true } })
+  end
+end, { desc = 'Toggle diagnostic virtual lines' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -1017,16 +1027,16 @@ if vim.fn.has('nvim') == 1 then
   vim.keymap.set('t', '<C-w>l', '<C-\\><C-n><C-w>l')
 end
 
--- vim.diagnostic.config({
---   -- Use the default configuration
---   virtual_lines = true
---
---   -- Alternatively, customize specific options
---   -- virtual_lines = {
---   --  -- Only show virtual line diagnostics for the current cursor line
---   --  current_line = true,
---   -- },
--- })
+vim.diagnostic.config({
+  -- Use the default configuration
+  -- virtual_lines = true
+
+  -- Alternatively, customize specific options
+  virtual_lines = {
+   -- Only show virtual line diagnostics for the current cursor line
+   current_line = true,
+  },
+})
 --
 -- Load Claude Translate plugin
 require('claude-translate').setup()
