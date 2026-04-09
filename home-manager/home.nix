@@ -19,6 +19,7 @@
     pkgs.delta
     pkgs.dust
     pkgs.eza
+    pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.gh-dash
@@ -26,6 +27,7 @@
     pkgs.htop
     pkgs.jq
     pkgs.lazygit
+    pkgs.luajitPackages.tree-sitter-cli
     pkgs.man-db
     pkgs.man-pages
     pkgs.natscli
