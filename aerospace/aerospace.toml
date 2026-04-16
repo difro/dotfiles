@@ -315,6 +315,11 @@ run= [
   # "layout floating",
   # "move-node-to-workspace 5",
 ]
+[[on-window-detected]]
+if.app-id="com.google.GeminiMacOS"
+run= [
+  "layout floating",
+]
 
 # [[on-window-detected]]
 # if.app-id = "com.mitchellh.ghostty"
