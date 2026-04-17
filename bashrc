@@ -114,9 +114,10 @@ alias base64encode="perl -mMIME::Base64 -e 'while(<>){print MIME::Base64::encode
 
 c() { MAX_THINKING_TOKENS=0 claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model haiku; }
 copus() { claude --dangerously-skip-permissions --no-session-persistence -p "$*" --model opus; }
-alias claude='claude --effort max'
-alias claude-danger='claude --dangerously-skip-permissions --effort max'
-alias claude-grafana='claude --dangerously-skip-permissions --effort max "/grafana-ops"'
+alias cc='claude --effort xhigh'
+alias ccd='claude --dangerously-skip-permissions --effort xhigh'
+alias ccm='claude --effort max'
+alias ccdm='claude --dangerously-skip-permissions --effort max'
 
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
