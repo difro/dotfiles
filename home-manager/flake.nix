@@ -11,6 +11,7 @@
     # pinned to claude-code 2.1.29 (2.1.31 has input freeze bug in non-git dirs)
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
     # nix-ai-tools.url = "github:numtide/nix-ai-tools/e3df43cfb0e8";
+    claude-code-bin.url = "path:./pkgs/claude-code-bin";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -18,9 +19,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-ai-tools, home-manager }:
+  outputs = { self, nixpkgs, nix-ai-tools, claude-code-bin, home-manager }:
   let
     aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
+    pkgsFor = system: import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [ claude-code-bin.overlays.default ];
+    };
   in
   {
     # Configuration for your cnd901 machine
@@ -29,7 +35,7 @@
         system = "x86_64-linux"; 
       in 
       {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = pkgsFor system;
         extraSpecialArgs = { 
          aiToolsPkgs = aiToolsPkgsFor system;
         };
@@ -43,7 +49,7 @@
         system = "aarch64-darwin";
       in 
       {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = pkgsFor system;
         extraSpecialArgs = { 
          aiToolsPkgs = aiToolsPkgsFor system;
         };

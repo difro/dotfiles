@@ -15,6 +15,7 @@
     pkgs.bat
     pkgs.btop
     pkgs.bun
+    pkgs.claude-code-bin
     pkgs.curl
     pkgs.delta
     pkgs.dust

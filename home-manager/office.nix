@@ -9,7 +9,7 @@
     # pkgs.nodejs
     pkgs.asciinema
     pkgs.asciinema-agg
-    pkgs.claude-code-bin
+    # pkgs.claude-code-bin
     pkgs.glibcLocalesUtf8 # For locale support
     # aiToolsPkgs.claude-code
     aiToolsPkgs.qwen-code
