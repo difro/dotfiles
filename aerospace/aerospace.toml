@@ -310,6 +310,11 @@ run= [
   "layout floating",
 ]
 [[on-window-detected]]
+if.app-id="com.openai.codex"
+run= [
+  "layout floating",
+]
+[[on-window-detected]]
 if.app-id="com.brave.Browser.app.cinhimbnkkaeohfgghhklpknlkffjgod" # Youtube Music
 run= [
   # "layout floating",
