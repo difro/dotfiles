@@ -84,7 +84,7 @@ chmod +x "$cleanup_file"
 pane_cmd=$(
   cat <<EOF
 set +o history 2>/dev/null || true
-HISTFILE=/dev/null $(printf "%q" "$assistant_cmd") "\$(cat $(printf "%q" "$input_file"))"
+HISTFILE=/dev/null $(printf "%q" "$assistant_cmd") --dangerously-skip-permissions --effort max "\$(cat $(printf "%q" "$input_file"))"
 $(printf "%q" "$cleanup_file")
 tmux kill-pane -t "\${TMUX_PANE:-}" >/dev/null 2>&1 || tmux kill-pane >/dev/null 2>&1 || true
 EOF
