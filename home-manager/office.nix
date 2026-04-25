@@ -7,12 +7,13 @@
   # Packages only for office
   home.packages = [
     # pkgs.nodejs
-    pkgs.asciinema
-    pkgs.asciinema-agg
+    # pkgs.asciinema
+    # pkgs.asciinema-agg
     # pkgs.claude-code-bin
     pkgs.glibcLocalesUtf8 # For locale support
     # aiToolsPkgs.claude-code
-    aiToolsPkgs.qwen-code
+    aiToolsPkgs.codex
+    # aiToolsPkgs.qwen-code
   ];
 
   # To remove locale warning when exiting vim
