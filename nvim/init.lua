@@ -580,35 +580,14 @@ local plugins = {
   },
 
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
+    ft = "markdown",
     opts = {
-      preview = {
-        enable = false,
-        icon_provider = "mini",
-        splitview_winopts = {
-          split = "right",
-        },
-        callbacks = {
-          on_splitview_open = function(_, _, win)
-            local src_win = vim.api.nvim_get_current_win()
-            vim.wo[win].scrollbind = true
-            vim.wo[src_win].scrollbind = true
-          end,
-        },
-      },
-      markdown = {
-        code_blocks = {
-          style = "block",
-          min_width = 60,
-          pad_amount = 5,
-          pad_char = " ",
-        },
-      },
+      enabled = false,
     },
     keys = {
-      { "<leader>mp", "<cmd>Markview Toggle<cr>", desc = "[M]arkdown [P]review toggle" },
-      { "<leader>mv", "<cmd>Markview splitToggle<cr>", desc = "[M]arkdown split[V]iew toggle" },
+      { "<leader>mp", "<cmd>RenderMarkdown toggle<cr>", desc = "[M]arkdown [P]review toggle" },
     },
   },
 }

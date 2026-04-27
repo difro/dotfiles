@@ -10,7 +10,9 @@
     # pkgs.asciinema
     # pkgs.asciinema-agg
     # pkgs.claude-code-bin
+    pkgs.bfs
     pkgs.glibcLocalesUtf8 # For locale support
+    pkgs.ugrep
     # aiToolsPkgs.claude-code
     aiToolsPkgs.codex
     # aiToolsPkgs.qwen-code
