@@ -119,6 +119,12 @@ alias ccd='claude --dangerously-skip-permissions --effort xhigh'
 alias ccm='claude --effort max'
 alias ccdm='claude --dangerously-skip-permissions --effort max'
 
+alias cx='codex -c model_reasoning_effort="xhigh"'
+alias cxd='codex --dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="xhigh"'
+# Codex has no "max" effort; xhigh is the closest equivalent.
+alias cxm='codex -c model_reasoning_effort="xhigh"'
+alias cxdm='codex --dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="xhigh"'
+
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
