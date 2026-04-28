@@ -21,5 +21,7 @@
   # To remove locale warning when exiting vim
   home.sessionVariables = {
     LOCALE_ARCHIVE = "${pkgs.glibcLocalesUtf8}/lib/locale/locale-archive";
+    LC_ALL = "en_US.UTF-8";
+    LANG = "en_US.UTF-8";
   };
 }
