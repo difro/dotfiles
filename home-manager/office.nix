@@ -13,8 +13,7 @@
     pkgs.bfs
     pkgs.glibcLocalesUtf8 # For locale support
     pkgs.ugrep
-    # aiToolsPkgs.claude-code
-    aiToolsPkgs.codex
+    pkgs.codex
     # aiToolsPkgs.qwen-code
   ];
 
