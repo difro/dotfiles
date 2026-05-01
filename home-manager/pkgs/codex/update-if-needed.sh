@@ -4,9 +4,20 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_NIX="$SCRIPT_DIR/package.nix"
 
+github_api() {
+  if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    curl -fsSL \
+      -H "Authorization: Bearer $GITHUB_TOKEN" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      "$1"
+  else
+    curl -fsSL "$1"
+  fi
+}
+
 LOCAL_VERSION="$(sed -n 's/^[[:space:]]*version = "\(.*\)";$/\1/p' "$PACKAGE_NIX")"
 REMOTE_VERSION="$(
-  curl -fsSL https://api.github.com/repos/openai/codex/releases/latest |
+  github_api https://api.github.com/repos/openai/codex/releases/latest |
     jq -r '.tag_name | sub("^rust-v"; "")'
 )"
 

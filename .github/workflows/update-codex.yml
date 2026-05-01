@@ -36,6 +36,8 @@ jobs:
 
       - name: Update package if needed
         id: update
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           ./home-manager/pkgs/codex/update-if-needed.sh
 

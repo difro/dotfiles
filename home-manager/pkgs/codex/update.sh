@@ -9,8 +9,19 @@ PACKAGE_NIX="$SCRIPT_DIR/package.nix"
 LIBRUSTY_V8_NIX="$SCRIPT_DIR/librusty_v8.nix"
 FAKE_HASH="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
 
+github_api() {
+  if [[ -n "${GITHUB_TOKEN:-}" ]]; then
+    curl -fsSL \
+      -H "Authorization: Bearer $GITHUB_TOKEN" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      "$1"
+  else
+    curl -fsSL "$1"
+  fi
+}
+
 latest_version() {
-  curl -fsSL https://api.github.com/repos/openai/codex/releases/latest |
+  github_api https://api.github.com/repos/openai/codex/releases/latest |
     jq -r '.tag_name | sub("^rust-v"; "")'
 }
 
