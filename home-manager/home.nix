@@ -28,6 +28,19 @@ let
     })
   else
     pkgs.opencode;
+
+  # Same glibc 2.42 rtld assertion affects hunk (also Bun-compiled). Repoint
+  # its interpreter to glibc 2.40 from nixpkgs-stable.
+  hunk = if pkgs.stdenv.hostPlatform.isLinux then
+    pkgs.hunk.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        ${pkgs.patchelf}/bin/patchelf \
+          --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
+          $out/bin/hunk
+      '';
+    })
+  else
+    pkgs.hunk;
 in
 {
 
@@ -53,7 +66,7 @@ in
     pkgs.gh-dash
     pkgs.git
     pkgs.htop
-    pkgs.hunk
+    hunk
     pkgs.jq
     pkgs.lazygit
     pkgs.luajitPackages.tree-sitter-cli
