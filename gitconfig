@@ -124,9 +124,13 @@
 	provider = generic
 [credential]
 	helper = store
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
 [http "https://oss.navercorp.com"]
 	sslVerify = false
 
 [include]
 	path = ~/.gitconfig.local
 	path = ~/.gitconfig.themes
+[credential "https://dev.azure.com"]
+	useHttpPath = true
