@@ -55,6 +55,9 @@
 	# original
 	difforig = -c core.pager=less diff
 
+	# hunk
+	diffhunk = -c core.pager='hunk pager' diff
+
 	# git switch master(or main)
 	sm = !git switch $(git branch -l main master --format '%(refname:short)')
 
