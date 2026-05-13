@@ -53,6 +53,7 @@ in
     pkgs.gh-dash
     pkgs.git
     pkgs.htop
+    pkgs.hunk
     pkgs.jq
     pkgs.lazygit
     pkgs.luajitPackages.tree-sitter-cli
