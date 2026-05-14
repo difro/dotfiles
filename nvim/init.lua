@@ -557,6 +557,7 @@ local plugins = {
     },
     opts = {
       focus_after_send = true,
+      terminal_cmd = "claude --dangerously-skip-permissions",
 
       terminal = {
         provider = require("claude-tmux-provider"),
