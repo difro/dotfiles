@@ -127,8 +127,7 @@
 	provider = generic
 [credential]
 	helper = store
-	helper = 
-	helper = /usr/local/share/gcm-core/git-credential-manager
+	helper =
 [http "https://oss.navercorp.com"]
 	sslVerify = false
 
