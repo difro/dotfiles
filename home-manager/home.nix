@@ -65,6 +65,7 @@ in
     pkgs.gh
     pkgs.gh-dash
     pkgs.git
+    pkgs.golangci-lint
     pkgs.htop
     hunk
     pkgs.jq
