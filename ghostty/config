@@ -41,6 +41,7 @@ keybind = "cmd+p=text:\x1bp"
 
 keybind = alt+left=unbind
 keybind = alt+right=unbind
+keybind = ctrl+tab=unbind
 keybind = opt+shift+tab=next_tab
 
 # for tmux pane layout switching
