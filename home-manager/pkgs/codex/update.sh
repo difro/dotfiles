@@ -49,7 +49,6 @@ V8_VERSION="$(
       in_package && name == "v8" && $1 == "version" {
         gsub(/"/, "", $3);
         print $3;
-        exit
       }
     '
 )"
