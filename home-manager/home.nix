@@ -12,22 +12,22 @@ let
   # host platform before installPhase, and nixpkgs' postInstall runs
   # `opencode completion` for shell completions — both need the patched
   # interpreter, so disable the smoke test and patchelf before postInstall.
-  opencode = if pkgs.stdenv.hostPlatform.isLinux then
-    pkgs.opencode.overrideAttrs (old: {
-      preBuild = (old.preBuild or "") + ''
-        substituteInPlace packages/opencode/script/build.ts \
-          --replace-fail \
-            'if (item.os === process.platform && item.arch === process.arch && !item.abi) {' \
-            'if (false) {'
-      '';
-      postInstall = ''
-        ${pkgs.patchelf}/bin/patchelf \
-          --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
-          $out/bin/.opencode-wrapped
-      '' + (old.postInstall or "");
-    })
-  else
-    pkgs.opencode;
+  # opencode = if pkgs.stdenv.hostPlatform.isLinux then
+  #   pkgs.opencode.overrideAttrs (old: {
+  #     preBuild = (old.preBuild or "") + ''
+  #       substituteInPlace packages/opencode/script/build.ts \
+  #         --replace-fail \
+  #           'if (item.os === process.platform && item.arch === process.arch && !item.abi) {' \
+  #           'if (false) {'
+  #     '';
+  #     postInstall = ''
+  #       ${pkgs.patchelf}/bin/patchelf \
+  #         --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
+  #         $out/bin/.opencode-wrapped
+  #     '' + (old.postInstall or "");
+  #   })
+  # else
+  #   pkgs.opencode;
 
   # Same glibc 2.42 rtld assertion affects hunk (also Bun-compiled). Repoint
   # its interpreter to glibc 2.40 from nixpkgs-stable.
@@ -76,7 +76,7 @@ in
     pkgs.natscli
     pkgs.neovim
     pkgs.nodejs_24
-    opencode
+    # opencode
     pkgs.ripgrep
     pkgs.tmux
     pkgs.ty
