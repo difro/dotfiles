@@ -130,6 +130,7 @@ alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
 alias less='less -r'
 alias p='perl'
+alias python='python3'
 alias pythonserver='python3 -m http.server'
 alias sova="source .venv/bin/activate"
 alias tmux='tmux -2'
