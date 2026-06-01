@@ -119,11 +119,32 @@ alias ccd='claude --dangerously-skip-permissions --effort xhigh'
 alias ccm='claude --effort max'
 alias ccdm='claude --dangerously-skip-permissions --effort max'
 
-alias cx='codex --profile shared -c model_reasoning_effort="xhigh"'
-alias cxd='codex --profile shared --dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="xhigh"'
+_codex_shared() {
+    local profile_flag
+    if command codex --help 2>&1 | grep -q -- '--profile-v2'; then
+        profile_flag='--profile-v2'
+    else
+        profile_flag='--profile'
+    fi
+    command codex "$profile_flag" shared -c 'model_reasoning_effort="xhigh"' "$@"
+}
+
+cx() {
+    _codex_shared "$@"
+}
+
+cxd() {
+    _codex_shared --dangerously-bypass-approvals-and-sandbox "$@"
+}
+
 # Codex has no "max" effort; xhigh is the closest equivalent.
-alias cxm='codex --profile shared -c model_reasoning_effort="xhigh"'
-alias cxdm='codex --profile shared --dangerously-bypass-approvals-and-sandbox -c model_reasoning_effort="xhigh"'
+cxm() {
+    _codex_shared "$@"
+}
+
+cxdm() {
+    _codex_shared --dangerously-bypass-approvals-and-sandbox "$@"
+}
 
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
