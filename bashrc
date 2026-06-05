@@ -173,16 +173,6 @@ brewdump() {
 alias brewup='brew bundle --file=~/.dotfiles/Brewfile'
 dotfiles-update() {
     local dir msg
-    codex exec \
-        --ignore-user-config \
-        --model gpt-5.4-mini \
-        -c 'model_reasoning_effort="low"' \
-        -c 'approval_policy="never"' \
-        --sandbox workspace-write \
-        --ephemeral \
-        --cd "$HOME/.dotfiles" \
-        - < "$HOME/.dotfiles/codex/prompts/clean-shared-config.md" || return 1
-
     for dir in "$HOME/.dotfiles/base" "$HOME/.dotfiles"; do
         git -C "$dir" add -u
         if ! git -C "$dir" diff --cached --quiet; then
