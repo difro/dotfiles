@@ -57,9 +57,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace $cargoDepsCopy/*/webrtc-sys-*/build.rs \
       --replace-fail "cargo:rustc-link-lib=static=webrtc" "cargo:rustc-link-lib=dylib=webrtc"
 
-    substituteInPlace Cargo.toml \
-      --replace-fail 'lto = "fat"' "" \
-      --replace-fail 'codegen-units = 1' ""
+    sed -i \
+      -e '/^[[:space:]]*lto = /d' \
+      -e '/^[[:space:]]*codegen-units = /d' \
+      Cargo.toml
   '';
 
   nativeBuildInputs = [
