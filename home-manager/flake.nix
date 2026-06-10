@@ -13,6 +13,8 @@
     # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    # claude-code-bin.url = "path:./pkgs/claude-code-bin";
+    # codex.url = "path:./pkgs/codex";
     hunk = {
       url = "github:modem-dev/hunk";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,13 +26,24 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nix-ai-tools, hunk, home-manager }:
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-stable,
+    nix-ai-tools,
+    # claude-code-bin,
+    # codex,
+    hunk,
+    home-manager,
+  }:
   let
     aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
     pkgsFor = system: import nixpkgs {
       inherit system;
       config.allowUnfree = true;
       overlays = [
+        # claude-code-bin.overlays.default
+        # codex.overlays.default
         (_final: _prev: {
           hunk = hunk.packages.${system}.hunk;
         })
