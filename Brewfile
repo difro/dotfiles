@@ -25,7 +25,6 @@ brew "mole"
 brew "pkgconf"
 brew "shellcheck"
 brew "sox"
-brew "summarize"
 brew "websocat"
 
 # Casks
@@ -53,5 +52,4 @@ cask "karabiner-elements"
 cask "scroll-reverser"
 cask "stats"
 cask "ticktick"
-cask "vibetunnel"
 cask "zoom"
