@@ -177,9 +177,9 @@ dotfiles-update() {
         git -C "$dir" add -u
         if ! git -C "$dir" diff --cached --quiet; then
             msg="$(git -C "$dir" diff --cached | \
-                MAX_THINKING_TOKENS=0 claude --dangerously-skip-permissions \
-                --no-session-persistence --model haiku \
-                -p 'One-line commit message for this diff. Output ONLY the message.')"
+                _codex_shared --ask-for-approval never --sandbox read-only \
+                exec --ephemeral --color never \
+                'One-line commit message for this diff. Output ONLY the message.')"
             git -C "$dir" commit -m "${msg:-Update dotfiles}" || return 1
         fi
         git -C "$dir" pull --rebase origin master || return 1
