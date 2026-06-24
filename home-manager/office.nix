@@ -15,6 +15,7 @@
     pkgs.ugrep
     pkgs.codex
     # aiToolsPkgs.qwen-code
+    aiToolsPkgs.antigravity-cli
   ];
 
   # To remove locale warning when exiting vim
