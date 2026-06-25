@@ -17,7 +17,46 @@ export FTP_PASSIVE=1
 # export CDPATH=.:~:~/src
 export MANPAGER='nvim +Man!'
 
-export PATH=$HOME/.dotfiles/bin:$HOME/.nix-profile/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$PATH:/usr/local/go/bin
+path_remove() {
+    local dir entry new_path
+    dir="$1"
+    [ -n "$dir" ] || return
+
+    local IFS=:
+    for entry in $PATH; do
+        [ "$entry" = "$dir" ] && continue
+        new_path="${new_path:+$new_path:}$entry"
+    done
+    PATH="$new_path"
+}
+
+path_prepend() {
+    local dir i
+
+    for (( i=$#; i>=1; i-- )); do
+        dir="${!i}"
+        [ -n "$dir" ] || continue
+        path_remove "$dir"
+        PATH="$dir${PATH:+:$PATH}"
+    done
+
+    export PATH
+}
+
+path_append() {
+    local dir
+
+    for dir in "$@"; do
+        [ -n "$dir" ] || continue
+        path_remove "$dir"
+        PATH="${PATH:+$PATH:}$dir"
+    done
+
+    export PATH
+}
+
+path_prepend "$HOME/.dotfiles/bin" "$HOME/.nix-profile/bin" "$HOME/.local/bin" "$HOME/bin" "$GOPATH/bin"
+path_append "/usr/local/go/bin"
 
 # For xterm titles
 export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}: ${PWD/$HOME/~}\007"'
@@ -258,10 +297,10 @@ fi
 if [[ "$OSTYPE" =~ ^darwin ]]; then
     # GNU Coreutils
     if [ -d "/usr/local/opt/coreutils/libexec/gnubin" ]; then
-        export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+        path_prepend "/usr/local/opt/coreutils/libexec/gnubin"
         export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     elif [ -d "/opt/homebrew/opt/coreutils/libexec/gnubin" ]; then
-        export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+        path_prepend "/opt/homebrew/opt/coreutils/libexec/gnubin"
         export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
     fi
 
