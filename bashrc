@@ -324,7 +324,7 @@ home-manager-update() {
     [[ $(ulimit -n) -lt 65536 ]] && ulimit -n 65536
     (
         cd ~/.config/home-manager || exit 1
-        nix flake update && home-manager switch --flake ".#$1"
+        rm -rf /homeless-shelter && nix flake update && rm -rf /homeless-shelter && home-manager switch --flake ".#$1"
     )
 }
 
