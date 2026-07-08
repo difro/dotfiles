@@ -158,31 +158,21 @@ alias ccd='claude --dangerously-skip-permissions --effort xhigh'
 alias ccm='claude --effort max'
 alias ccdm='claude --dangerously-skip-permissions --effort max'
 
-_codex_shared() {
-    local profile_flag
-    if command codex --help 2>&1 | grep -q -- '--profile-v2'; then
-        profile_flag='--profile-v2'
-    else
-        profile_flag='--profile'
-    fi
-    command codex "$profile_flag" shared -c 'model_reasoning_effort="xhigh"' "$@"
-}
-
 cx() {
-    _codex_shared "$@"
+    command codex --profile shared -c 'model_reasoning_effort="xhigh"' "$@"
 }
 
 cxd() {
-    _codex_shared --dangerously-bypass-approvals-and-sandbox "$@"
+    command codex --profile shared -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox "$@"
 }
 
 # Codex has no "max" effort; xhigh is the closest equivalent.
 cxm() {
-    _codex_shared "$@"
+    command codex --profile shared -c 'model_reasoning_effort="xhigh"' "$@"
 }
 
 cxdm() {
-    _codex_shared --dangerously-bypass-approvals-and-sandbox "$@"
+    command codex --profile shared -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox "$@"
 }
 
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
@@ -210,21 +200,6 @@ brewdump() {
 }
 
 alias brewup='brew bundle --file=~/.dotfiles/Brewfile'
-dotfiles-update() {
-    local dir msg
-    for dir in "$HOME/.dotfiles/base" "$HOME/.dotfiles"; do
-        git -C "$dir" add -u
-        if ! git -C "$dir" diff --cached --quiet; then
-            msg="$(git -C "$dir" diff --cached | \
-                _codex_shared --ask-for-approval never --sandbox read-only \
-                exec --ephemeral --color never \
-                'One-line commit message for this diff. Output ONLY the message.')"
-            git -C "$dir" commit -m "${msg:-Update dotfiles}" || return 1
-        fi
-        git -C "$dir" pull --rebase origin master || return 1
-        git -C "$dir" push origin master || return 1
-    done
-}
 
 #-------------------------------------------------------------------------------
 # KEYBINDINGS
