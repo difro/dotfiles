@@ -67,6 +67,18 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "F16: launch Codex",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "f16" },
+                                "to": [
+                                    { "shell_command": "open -a \"Codex\"" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
