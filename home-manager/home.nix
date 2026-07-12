@@ -2,7 +2,7 @@
 # { pkgs, masterPkgs, aiToolsPkgs, ... }:
 { pkgs, aiToolsPkgs, pkgsStable, ... }:
 
-let
+{
   # On Linux, repoint the Bun-compiled opencode binary to an older glibc's
   # dynamic linker. glibc 2.42's rtld_setup_main_map rejects Bun's non-spec
   # PT_LOAD ordering with an `_dl_rtld_map.l_libname` assertion; glibc 2.40
@@ -29,21 +29,6 @@ let
   # else
   #   pkgs.opencode;
 
-  # Same glibc 2.42 rtld assertion affects hunk (also Bun-compiled). Repoint
-  # its interpreter to glibc 2.40 from nixpkgs-stable.
-  hunk = if pkgs.stdenv.hostPlatform.isLinux then
-    pkgs.hunk.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''
-        ${pkgs.patchelf}/bin/patchelf \
-          --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
-          $out/bin/hunk
-      '';
-    })
-  else
-    pkgs.hunk;
-in
-{
-
   # This is a mandatory setting.
   home.stateVersion = "24.05";
 
@@ -67,7 +52,6 @@ in
     pkgs.git
     pkgs.golangci-lint
     pkgs.htop
-    hunk
     pkgs.jq
     pkgs.lazygit
     pkgs.luajitPackages.tree-sitter-cli

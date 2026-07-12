@@ -15,10 +15,6 @@
     nix-ai-tools.url = "github:numtide/nix-ai-tools";
     claude-code-bin.url = "path:./pkgs/claude-code-bin";
     codex.url = "path:./pkgs/codex";
-    hunk = {
-      url = "github:modem-dev/hunk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -33,7 +29,6 @@
     nix-ai-tools,
     claude-code-bin,
     codex,
-    hunk,
     home-manager,
   }:
   let
@@ -44,9 +39,6 @@
       overlays = [
         claude-code-bin.overlays.default
         codex.overlays.default
-        (_final: _prev: {
-          hunk = hunk.packages.${system}.hunk;
-        })
       ];
     };
     pkgsStableFor = system: import nixpkgs-stable {
