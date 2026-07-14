@@ -166,13 +166,13 @@ cxd() {
     command codex --profile shared -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox "$@"
 }
 
-# Codex has no "max" effort; xhigh is the closest equivalent.
+# Codex has no "max" effort; max is the closest equivalent.
 cxm() {
-    command codex --profile shared -c 'model_reasoning_effort="xhigh"' "$@"
+    command codex --profile shared -c 'model_reasoning_effort="max"' "$@"
 }
 
 cxdm() {
-    command codex --profile shared -c 'model_reasoning_effort="xhigh"' --dangerously-bypass-approvals-and-sandbox "$@"
+    command codex --profile shared -c 'model_reasoning_effort="max"' --dangerously-bypass-approvals-and-sandbox "$@"
 }
 
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
