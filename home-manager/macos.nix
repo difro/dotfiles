@@ -1,5 +1,9 @@
 # ~/nix-config/macos.nix
-{ pkgs, aiToolsPkgs, ... }:
+{
+  pkgs,
+  # aiToolsPkgs,
+  ...
+}:
 
 {
   home.username = "jihoonc";

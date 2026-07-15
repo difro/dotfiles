@@ -12,7 +12,7 @@
     # nixpkgs-unstable ships glibc 2.42 whose stricter rtld_setup_main_map
     # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nix-ai-tools.url = "github:numtide/nix-ai-tools";
+    # nix-ai-tools.url = "github:numtide/nix-ai-tools";
     claude-code-bin.url = "path:./pkgs/claude-code-bin";
     codex.url = "path:./pkgs/codex";
 
@@ -26,13 +26,13 @@
     self,
     nixpkgs,
     nixpkgs-stable,
-    nix-ai-tools,
+    # nix-ai-tools,
     claude-code-bin,
     codex,
     home-manager,
   }:
   let
-    aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
+    # aiToolsPkgsFor = system: nix-ai-tools.packages.${system};
     pkgsFor = system: import nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -55,7 +55,7 @@
       {
         pkgs = pkgsFor system;
         extraSpecialArgs = {
-          aiToolsPkgs = aiToolsPkgsFor system;
+          # aiToolsPkgs = aiToolsPkgsFor system;
           pkgsStable = pkgsStableFor system;
         };
         modules = [ ./home.nix ./office.nix ];
@@ -70,7 +70,7 @@
       {
         pkgs = pkgsFor system;
         extraSpecialArgs = {
-          aiToolsPkgs = aiToolsPkgsFor system;
+          # aiToolsPkgs = aiToolsPkgsFor system;
           pkgsStable = pkgsStableFor system;
         };
         modules = [ ./home.nix ./macos.nix ];

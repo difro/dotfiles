@@ -1,6 +1,11 @@
 # ~/nix-config/home.nix
 # { pkgs, masterPkgs, aiToolsPkgs, ... }:
-{ pkgs, aiToolsPkgs, pkgsStable, ... }:
+{
+  pkgs,
+  # aiToolsPkgs,
+  pkgsStable,
+  ...
+}:
 
 {
   # On Linux, repoint the Bun-compiled opencode binary to an older glibc's

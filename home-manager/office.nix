@@ -1,4 +1,8 @@
-{ pkgs, aiToolsPkgs, ... }:
+{
+  pkgs,
+  # aiToolsPkgs,
+  ...
+}:
 
 {
   home.username = "irteam";
@@ -15,7 +19,7 @@
     pkgs.ugrep
     pkgs.codex
     # aiToolsPkgs.qwen-code
-    aiToolsPkgs.antigravity-cli
+    # aiToolsPkgs.antigravity-cli
   ];
 
   # To remove locale warning when exiting vim
