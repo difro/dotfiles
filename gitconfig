@@ -126,7 +126,6 @@
 [credential "https://huggingface.co"]
 	provider = generic
 [credential]
-	helper =
 	helper = store
 [http "https://oss.navercorp.com"]
 	sslVerify = false
@@ -134,5 +133,3 @@
 [include]
 	path = ~/.gitconfig.local
 	path = ~/.gitconfig.themes
-[credential "https://dev.azure.com"]
-	useHttpPath = true
