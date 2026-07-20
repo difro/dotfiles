@@ -13,7 +13,10 @@
     # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     # nix-ai-tools.url = "github:numtide/nix-ai-tools";
-    claude-code-bin.url = "path:./pkgs/claude-code-bin";
+    claude-code-bin = {
+      url = "path:./pkgs/claude-code-bin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     codex.url = "path:./pkgs/codex";
 
     home-manager = {
