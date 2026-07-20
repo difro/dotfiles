@@ -7,7 +7,7 @@
   ...
 }:
 
-{
+let
   # On Linux, repoint the Bun-compiled opencode binary to an older glibc's
   # dynamic linker. glibc 2.42's rtld_setup_main_map rejects Bun's non-spec
   # PT_LOAD ordering with an `_dl_rtld_map.l_libname` assertion; glibc 2.40
@@ -17,22 +17,24 @@
   # host platform before installPhase, and nixpkgs' postInstall runs
   # `opencode completion` for shell completions — both need the patched
   # interpreter, so disable the smoke test and patchelf before postInstall.
-  # opencode = if pkgs.stdenv.hostPlatform.isLinux then
-  #   pkgs.opencode.overrideAttrs (old: {
-  #     preBuild = (old.preBuild or "") + ''
-  #       substituteInPlace packages/opencode/script/build.ts \
-  #         --replace-fail \
-  #           'if (item.os === process.platform && item.arch === process.arch && !item.abi) {' \
-  #           'if (false) {'
-  #     '';
-  #     postInstall = ''
-  #       ${pkgs.patchelf}/bin/patchelf \
-  #         --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
-  #         $out/bin/.opencode-wrapped
-  #     '' + (old.postInstall or "");
-  #   })
-  # else
-  #   pkgs.opencode;
+  opencode = if pkgs.stdenv.hostPlatform.isLinux then
+    pkgs.opencode.overrideAttrs (old: {
+      preBuild = (old.preBuild or "") + ''
+        substituteInPlace packages/opencode/script/build.ts \
+          --replace-fail \
+            'if (item.os === process.platform && item.arch === process.arch && !item.abi) {' \
+            'if (false) {'
+      '';
+      postInstall = ''
+        ${pkgs.patchelf}/bin/patchelf \
+          --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
+          $out/bin/.opencode-wrapped
+      '' + (old.postInstall or "");
+    })
+  else
+    pkgs.opencode;
+in
+{
 
   # This is a mandatory setting.
   home.stateVersion = "24.05";
@@ -65,7 +67,7 @@
     pkgs.natscli
     pkgs.neovim
     pkgs.nodejs_24
-    # opencode
+    opencode
     pkgs.ripgrep
     pkgs.tmux
     pkgs.ty
