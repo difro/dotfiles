@@ -336,3 +336,5 @@ if [ -n "$CURSOR_AGENT" ]; then
     export PS1="$ "
     unalias ls
 fi
+
+source /home1/irteam/naver/work/jihoonc/.config/n3r/completion.bash  # n3r completion
