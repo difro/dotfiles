@@ -5,6 +5,7 @@
 #   brew bundle dump --force --file=Brewfile       # Regenerate from current
 
 # Taps
+tap "channprj/tap" # for kmsg
 tap "FelixKratz/formulae" # for jankyborders
 tap "nikitabobko/tap" # for aerospace
 tap "steipete/tap" # for codexbar
@@ -16,16 +17,14 @@ brew "bash"
 brew "borders"
 brew "cadaver"
 brew "cmake"
+brew "container"
 brew "go"
 brew "hf"
 brew "imagemagick"
-brew "imagesnap"
-brew "jadx"
+brew "kmsg"
 brew "mole"
-brew "pkgconf"
+brew "pnpm"
 brew "shellcheck"
-brew "sox"
-brew "websocat"
 
 # Casks
 cask "aerospace"
@@ -35,7 +34,6 @@ cask "brave-browser"
 cask "calibre"
 cask "choosy"
 cask "claude"
-# cask "claude-code"
 cask "codex"
 cask "codexbar"
 cask "container"
@@ -46,7 +44,7 @@ cask "heynote"
 cask "hop"
 cask "input-source-pro"
 cask "itsycal"
-cask "thaw"
+cask "thaw" # ice replacement
 cask "karabiner-elements"
 cask "scroll-reverser"
 cask "stats"
