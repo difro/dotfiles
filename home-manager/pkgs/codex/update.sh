@@ -110,3 +110,11 @@ CARGO_HASH="$CARGO_HASH" perl -0pi -e '
 ' "$PACKAGE_NIX"
 
 printf 'updated codex to %s\n' "$VERSION"
+
+# Fully build the updated package so that upstream source changes that break
+# the recipe (e.g. a patched file disappearing) are caught here instead of on
+# the machines that pull the update.
+printf 'verifying codex %s build\n' "$VERSION"
+nix build --no-write-lock-file "$SCRIPT_DIR#codex" --no-link
+
+printf 'verified codex %s build\n' "$VERSION"

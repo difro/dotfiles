@@ -8,3 +8,11 @@ VERSION="$(curl -fsSL "$BASE_URL/latest")"
 curl -fsSL "$BASE_URL/$VERSION/manifest.json" --output "$SCRIPT_DIR/manifest.json"
 
 printf 'updated manifest.json to %s\n' "$VERSION"
+
+# Fully build the updated package so that manifest or upstream layout changes
+# that break the recipe are caught here instead of on the machines that pull
+# the update.
+printf 'verifying claude-code %s build\n' "$VERSION"
+nix build --no-write-lock-file "$SCRIPT_DIR#claude-code" --no-link
+
+printf 'verified claude-code %s build\n' "$VERSION"

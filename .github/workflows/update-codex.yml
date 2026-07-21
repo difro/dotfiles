@@ -22,7 +22,9 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # update.sh fully builds the package for verification, which compiles the
+    # whole codex-rs workspace on cold caches.
+    timeout-minutes: 120
 
     steps:
       - name: Check out repository
