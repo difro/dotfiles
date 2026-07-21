@@ -14,7 +14,7 @@
   librusty_v8 ? callPackage ./librusty_v8.nix {
     inherit (callPackage ./fetchers.nix { }) fetchLibrustyV8;
   },
-  livekit-libwebrtc,
+  lld,
   makeBinaryWrapper,
   nix-update-script,
   pkg-config,
@@ -38,8 +38,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-t9IMRK9R+Z67ThEcgBI0HQU0E4aJHcOjKp22RFclh9U=";
 
-  # Match upstream's release build (codex only) and drop the expensive
-  # release profile tweaks that dominate cold build time in nixpkgs.
+  __structuredAttrs = true;
+
+  # Local deviation from nixpkgs: build only codex-cli (nixpkgs also builds
+  # the codex-code-mode-host V8 companion for out-of-process code mode) and
+  # drop the expensive release profile tweaks that dominate cold build time.
   cargoBuildFlags = [
     "--package"
     "codex-cli"
@@ -50,13 +53,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postPatch = ''
-    # webrtc-sys asks rustc to link libwebrtc statically by default,
-    # but nixpkgs provides libwebrtc as a shared library.
-    # use LK_CUSTOM_WEBRTC to point to the packaged library and adjust linking
-    # to use the shared library instead
-    substituteInPlace $cargoDepsCopy/*/webrtc-sys-*/build.rs \
-      --replace-fail "cargo:rustc-link-lib=static=webrtc" "cargo:rustc-link-lib=dylib=webrtc"
-
     sed -i \
       -e '/^[[:space:]]*lto = /d' \
       -e '/^[[:space:]]*codegen-units = /d' \
@@ -86,7 +82,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # character-conversion warning-as-error disabled.
   env = {
     LIBCLANG_PATH = "${lib.getLib libclang}/lib";
-    LK_CUSTOM_WEBRTC = lib.getDev livekit-libwebrtc;
     NIX_CFLAGS_COMPILE = toString (
       lib.optionals stdenv.cc.isGNU [
         "-Wno-error=stringop-overflow"
@@ -96,6 +91,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ]
     );
     RUSTY_V8_ARCHIVE = librusty_v8;
+  }
+  // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+    # Link with lld on Darwin. nixpkgs' classic open-source ld64 fails to insert
+    # ARM64 branch thunks for this binary, producing `b(l) ARM64 branch out of range`.
+    NIX_CFLAGS_LINK = "-fuse-ld=${lib.getExe' lld "ld64.lld"}";
   };
 
   # NOTE: part of the test suite requires access to networking, local shells,
