@@ -24,7 +24,6 @@
     pkgs.dust
     pkgs.eza
     pkgs.fd
-    pkgs.ffmpeg
     pkgs.fzf
     pkgs.gh
     pkgs.git
