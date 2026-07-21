@@ -1,17 +1,17 @@
 {
   "nodes": {
-    "claude-code-bin": {
+    "claude-code": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "path": "./pkgs/claude-code-bin",
+        "path": "./pkgs/claude-code",
         "type": "path"
       },
       "original": {
-        "path": "./pkgs/claude-code-bin",
+        "path": "./pkgs/claude-code",
         "type": "path"
       },
       "parent": []
@@ -100,7 +100,7 @@
     },
     "root": {
       "inputs": {
-        "claude-code-bin": "claude-code-bin",
+        "claude-code": "claude-code",
         "codex": "codex",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs_2",

@@ -13,7 +13,7 @@
     # pkgs.nodejs
     # pkgs.asciinema
     # pkgs.asciinema-agg
-    # pkgs.claude-code-bin
+    # pkgs.claude-code
     pkgs.bat
     pkgs.bfs
     pkgs.btop

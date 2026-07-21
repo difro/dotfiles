@@ -13,8 +13,8 @@
     # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     # nix-ai-tools.url = "github:numtide/nix-ai-tools";
-    claude-code-bin = {
-      url = "path:./pkgs/claude-code-bin";
+    claude-code = {
+      url = "path:./pkgs/claude-code";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     codex.url = "path:./pkgs/codex";
@@ -30,7 +30,7 @@
     nixpkgs,
     nixpkgs-stable,
     # nix-ai-tools,
-    claude-code-bin,
+    claude-code,
     codex,
     home-manager,
   }:
@@ -40,7 +40,7 @@
       inherit system;
       config.allowUnfree = true;
       overlays = [
-        claude-code-bin.overlays.default
+        claude-code.overlays.default
         codex.overlays.default
       ];
     };
