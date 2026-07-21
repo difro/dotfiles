@@ -7,6 +7,7 @@
 # Taps
 tap "channprj/tap" # for kmsg
 tap "FelixKratz/formulae" # for jankyborders
+tap "nats-io/nats-tools" # for nats
 tap "nikitabobko/tap" # for aerospace
 tap "steipete/tap" # for codexbar
 
@@ -14,17 +15,43 @@ tap "steipete/tap" # for codexbar
 brew "apktool"
 brew "asitop"
 brew "bash"
+brew "bat"
 brew "borders"
+brew "btop"
+brew "bun"
 brew "cadaver"
 brew "cmake"
 brew "container"
+brew "curl"
+brew "dust"
+brew "eza"
+brew "fd"
+brew "ffmpeg"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-delta"
 brew "go"
+brew "golangci-lint"
 brew "hf"
+brew "htop"
 brew "imagemagick"
+brew "jq"
 brew "kmsg"
+brew "lazygit"
 brew "mole"
+brew "nats"
+brew "neovim"
+brew "node@24"
 brew "pnpm"
+brew "ripgrep"
 brew "shellcheck"
+brew "tmux"
+brew "tree-sitter-cli"
+brew "ty"
+brew "uv"
+brew "zellij"
+brew "zoxide"
 
 # Casks
 cask "aerospace"

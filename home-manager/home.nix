@@ -42,38 +42,12 @@ in
   # Let Home Manager install and manager itself.
   programs.home-manager.enable = true;
 
-  # List of packages you want on ALL your systems
+  # Packages intentionally kept in Nix on all systems
   home.packages = [
-    pkgs.bat
-    pkgs.btop
-    pkgs.bun
     pkgs.claude-code-bin
-    pkgs.curl
-    pkgs.delta
-    pkgs.dust
-    pkgs.eza
-    pkgs.fd
-    pkgs.fzf
-    pkgs.gh
     pkgs.gh-dash
-    pkgs.git
-    pkgs.golangci-lint
-    pkgs.htop
-    pkgs.jq
-    pkgs.lazygit
-    pkgs.luajitPackages.tree-sitter-cli
-    pkgs.man-db
     pkgs.man-pages
-    pkgs.natscli
-    pkgs.neovim
-    pkgs.nodejs_24
     opencode
-    pkgs.ripgrep
-    pkgs.tmux
-    pkgs.ty
-    pkgs.zellij
-    pkgs.uv
-    pkgs.zoxide
   ];
 
   nixpkgs.config.allowUnfree = true; # Allow unfree packages

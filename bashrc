@@ -55,7 +55,18 @@ path_append() {
     export PATH
 }
 
-path_prepend "$HOME/.dotfiles/bin" "$HOME/.nix-profile/bin" "$HOME/.local/bin" "$HOME/bin" "$GOPATH/bin"
+path_prepend_args=("$HOME/.dotfiles/bin")
+if [[ "$OSTYPE" == darwin* ]]; then
+    path_prepend_args+=(
+        "/opt/homebrew/bin"
+        "/opt/homebrew/sbin"
+        "/opt/homebrew/opt/curl/bin"
+        "/opt/homebrew/opt/node@24/bin"
+    )
+fi
+path_prepend_args+=("$HOME/.nix-profile/bin" "$HOME/.local/bin" "$HOME/bin" "$GOPATH/bin")
+path_prepend "${path_prepend_args[@]}"
+unset path_prepend_args
 path_append "/usr/local/go/bin"
 
 # For xterm titles
@@ -236,7 +247,10 @@ else
 fi
 
 # FZF (load exactly one source to avoid duplicate key bindings/completion)
-if [ -f "$HOME/.fzf.bash" ]; then
+if [[ "$OSTYPE" == darwin* ]] && [ -d "/opt/homebrew/opt/fzf/shell" ]; then
+    [ -f "/opt/homebrew/opt/fzf/shell/key-bindings.bash" ] && source "/opt/homebrew/opt/fzf/shell/key-bindings.bash"
+    [ -f "/opt/homebrew/opt/fzf/shell/completion.bash" ] && source "/opt/homebrew/opt/fzf/shell/completion.bash"
+elif [ -f "$HOME/.fzf.bash" ]; then
     # shellcheck source=/dev/null
     source "$HOME/.fzf.bash"
 elif [ -f "$HOME/.fzf/shell/key-bindings.bash" ] || [ -f "$HOME/.fzf/shell/completion.bash" ]; then
