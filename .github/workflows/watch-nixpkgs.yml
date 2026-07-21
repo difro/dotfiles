@@ -1,0 +1,73 @@
+name: Watch nixpkgs Recipes
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "7 5 * * 1"
+      timezone: "Asia/Seoul"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: watch-nixpkgs
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Compare vendored recipes against nixpkgs master
+        id: compare
+        run: |
+          declare -A upstream=(
+            [codex]="pkgs/by-name/co/codex/package.nix"
+            [claude-code]="pkgs/by-name/cl/claude-code/package.nix"
+          )
+
+          changed=()
+          : > /tmp/report.md
+          for pkg in codex claude-code; do
+            snapshot="home-manager/pkgs/$pkg/nixpkgs-upstream.nix"
+            curl -fsSL "https://raw.githubusercontent.com/NixOS/nixpkgs/master/${upstream[$pkg]}" \
+              -o /tmp/upstream.nix
+            if ! diff -u "$snapshot" /tmp/upstream.nix > /tmp/diff.txt; then
+              changed+=("$pkg")
+              {
+                printf '## %s\n\n' "$pkg"
+                printf 'nixpkgs master recipe for `%s` changed since the last snapshot.\n' "$pkg"
+                printf 'Review the diff and port anything relevant into `home-manager/pkgs/%s/package.nix`.\n\n' "$pkg"
+                printf '```diff\n'
+                cat /tmp/diff.txt
+                printf '```\n\n'
+              } >> /tmp/report.md
+              cp /tmp/upstream.nix "$snapshot"
+            fi
+          done
+
+          if [ "${#changed[@]}" -eq 0 ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "packages=${changed[*]}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit refreshed snapshots and open issue
+        if: steps.compare.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add home-manager/pkgs/*/nixpkgs-upstream.nix
+          git commit -m "Refresh nixpkgs recipe snapshots: ${{ steps.compare.outputs.packages }}"
+          git push origin HEAD:master
+          gh issue create \
+            --title "nixpkgs recipe changed: ${{ steps.compare.outputs.packages }}" \
+            --body-file /tmp/report.md

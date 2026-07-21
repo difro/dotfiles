@@ -21,8 +21,10 @@ Anthropic가 배포하는 Claude Code 바이너리를 nix flake로 패키징한 
 - `flake.nix`: 패키지, app, overlay 출력
 - `package.nix`: `claude-code` 패키지 정의
 - `manifest.json`: 현재 고정된 Claude Code 바이너리 버전과 플랫폼별 checksum
-- `update.sh`: upstream 최신 `manifest.json`을 그대로 가져옴
+- `update.sh`: upstream 최신 `manifest.json`을 가져온 뒤 `nix build`로 패키지가 실제로 빌드되는지 검증
 - `update-if-needed.sh`: 현재 버전과 upstream `latest`를 비교하고 다를 때만 `update.sh` 실행
+- `nixpkgs-upstream.nix`: nixpkgs master `claude-code` 레시피의 스냅샷 (수정 금지).
+  `watch-nixpkgs.yml` 워크플로우가 매주 nixpkgs master와 비교해서 달라지면 이슈를 만들고 스냅샷을 갱신함
 
 ## 요구사항
 
@@ -185,11 +187,7 @@ updating manifest.json to 2.1.115
 updated manifest.json to 2.1.115
 ```
 
-업데이트 후에는 보통 아래까지 같이 실행하면 됩니다.
-
-```bash
-nix build .#claude-code
-```
+`update.sh`는 마지막에 `nix build`로 검증 빌드까지 수행하므로, 깨진 업데이트는 여기서 실패합니다.
 
 ## 참고
 
