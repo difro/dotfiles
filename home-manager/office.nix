@@ -10,14 +10,11 @@
 
   # Packages only for office
   home.packages = [
-    # pkgs.nodejs
-    # pkgs.asciinema
-    # pkgs.asciinema-agg
-    # pkgs.claude-code
     pkgs.bat
     pkgs.bfs
     pkgs.btop
     pkgs.bun
+    pkgs.claude-code
     pkgs.codex
     pkgs.curl
     pkgs.delta

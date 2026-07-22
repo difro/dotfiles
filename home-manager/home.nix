@@ -44,7 +44,6 @@ in
 
   # Packages intentionally kept in Nix on all systems
   home.packages = [
-    pkgs.claude-code
     pkgs.gh-dash
     pkgs.man-pages
     opencode
