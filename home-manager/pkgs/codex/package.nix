@@ -40,23 +40,25 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   __structuredAttrs = true;
 
-  # Local deviation from nixpkgs: build only codex-cli (nixpkgs also builds
-  # the codex-code-mode-host V8 companion for out-of-process code mode) and
-  # drop the expensive release profile tweaks that dominate cold build time.
+  # Match upstream's release build for the codex binary, plus its
+  # codex-code-mode-host runtime companion for out-of-process V8 execution.
   cargoBuildFlags = [
     "--package"
     "codex-cli"
+    "--package"
+    "codex-code-mode-host"
   ];
   cargoCheckFlags = [
     "--package"
     "codex-cli"
+    "--package"
+    "codex-code-mode-host"
   ];
 
   postPatch = ''
-    sed -i \
-      -e '/^[[:space:]]*lto = /d' \
-      -e '/^[[:space:]]*codegen-units = /d' \
-      Cargo.toml
+    substituteInPlace Cargo.toml \
+      --replace-fail 'lto = "thin"' "" \
+      --replace-fail 'codegen-units = 4' ""
   '';
 
   nativeBuildInputs = [

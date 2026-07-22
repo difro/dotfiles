@@ -69,7 +69,6 @@ prefetch_v8_hash() {
 if [[ "$CURRENT_V8_VERSION" != "$V8_VERSION" ]]; then
   X86_64_LINUX_HASH="$(prefetch_v8_hash x86_64-unknown-linux-gnu)"
   AARCH64_LINUX_HASH="$(prefetch_v8_hash aarch64-unknown-linux-gnu)"
-  X86_64_DARWIN_HASH="$(prefetch_v8_hash x86_64-apple-darwin)"
   AARCH64_DARWIN_HASH="$(prefetch_v8_hash aarch64-apple-darwin)"
 
   {
@@ -80,7 +79,6 @@ if [[ "$CURRENT_V8_VERSION" != "$V8_VERSION" ]]; then
     printf '  shas = {\n'
     printf '    x86_64-linux = "%s";\n' "$X86_64_LINUX_HASH"
     printf '    aarch64-linux = "%s";\n' "$AARCH64_LINUX_HASH"
-    printf '    x86_64-darwin = "%s";\n' "$X86_64_DARWIN_HASH"
     printf '    aarch64-darwin = "%s";\n' "$AARCH64_DARWIN_HASH"
     printf '  };\n'
     printf '}\n'
