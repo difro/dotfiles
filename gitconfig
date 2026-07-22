@@ -46,7 +46,7 @@
 
 	# delete merged branch
 	dbr = !git branch --remote --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v release| grep -v dev | xargs -n 1 git branch -dr
-	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | xargs -n 1 git branch -d
+	db = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v main | grep -v dev | grep -v release | xargs -n 1 git branch -d
 
 	# use delta pager side-by-side
 	diffside = -c core.pager=delta -c delta.side-by-side=true -c delta.max-line-length=0 -c delta.wrap-max-lines=unlimited diff
