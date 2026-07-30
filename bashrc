@@ -186,6 +186,8 @@ cxdm() {
     command codex --profile shared -c 'model_reasoning_effort="max"' --dangerously-bypass-approvals-and-sandbox "$@"
 }
 
+alias ocdm='opencode --auto'
+
 alias unicodedecode="sed 's/.*/\"&\"/' | jq -r ."
 alias curlheader='curl -s -D - -o /dev/null'
 alias grep="grep --exclude-dir vendor --color=auto"
