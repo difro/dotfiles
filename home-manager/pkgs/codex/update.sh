@@ -59,17 +59,25 @@ if [[ -z "$V8_VERSION" ]]; then
   exit 1
 fi
 
-prefetch_v8_hash() {
-  local target="$1"
-  nix-prefetch-url "https://github.com/denoland/rusty_v8/releases/download/v$V8_VERSION/librusty_v8_release_$target.a.gz" |
+# Keep this profile in sync with fetchers.nix; the archive and the src binding
+# must come from the same one.
+V8_PROFILE="ptrcomp_sandbox_release"
+V8_RELEASE_URL="https://github.com/openai/codex/releases/download/rusty-v8-v$V8_VERSION"
+
+prefetch_hash() {
+  nix-prefetch-url "$1" |
     tail -n 1 |
     xargs nix hash convert --hash-algo sha256 --to sri
 }
 
 if [[ "$CURRENT_V8_VERSION" != "$V8_VERSION" ]]; then
-  X86_64_LINUX_HASH="$(prefetch_v8_hash x86_64-unknown-linux-gnu)"
-  AARCH64_LINUX_HASH="$(prefetch_v8_hash aarch64-unknown-linux-gnu)"
-  AARCH64_DARWIN_HASH="$(prefetch_v8_hash aarch64-apple-darwin)"
+  X86_64_LINUX_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_x86_64-unknown-linux-gnu.a.gz")"
+  AARCH64_LINUX_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_aarch64-unknown-linux-gnu.a.gz")"
+  AARCH64_DARWIN_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_aarch64-apple-darwin.a.gz")"
+
+  X86_64_LINUX_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_x86_64-unknown-linux-gnu.rs")"
+  AARCH64_LINUX_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_aarch64-unknown-linux-gnu.rs")"
+  AARCH64_DARWIN_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_aarch64-apple-darwin.rs")"
 
   {
     printf '# auto-generated file -- DO NOT EDIT!\n'
@@ -80,6 +88,11 @@ if [[ "$CURRENT_V8_VERSION" != "$V8_VERSION" ]]; then
     printf '    x86_64-linux = "%s";\n' "$X86_64_LINUX_HASH"
     printf '    aarch64-linux = "%s";\n' "$AARCH64_LINUX_HASH"
     printf '    aarch64-darwin = "%s";\n' "$AARCH64_DARWIN_HASH"
+    printf '  };\n'
+    printf '  bindingShas = {\n'
+    printf '    x86_64-linux = "%s";\n' "$X86_64_LINUX_BINDING_HASH"
+    printf '    aarch64-linux = "%s";\n' "$AARCH64_LINUX_BINDING_HASH"
+    printf '    aarch64-darwin = "%s";\n' "$AARCH64_DARWIN_BINDING_HASH"
     printf '  };\n'
     printf '}\n'
   } > "$LIBRUSTY_V8_NIX"

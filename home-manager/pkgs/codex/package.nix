@@ -25,18 +25,18 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.146.1";
+  version = "0.147.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${finalAttrs.version}";
-    hash = "sha256-aXK/hUz61STkD8xcVqvBzP1RYDu+kw7v1ufVZHyzN84=";
+    hash = "sha256-NKeOxp9vLcx7tpghqhpS3ocPqUDP2PircNwkJNpHBPo=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-N9jbH/cgAyu2QxneSnpkdaF0MgV3ZtDmN9q6rr9u+hE=";
+  cargoHash = "sha256-MJuM2QLxvL+r/Gw8QXLjtsLS25QGVCqcqU5GJssSoQ4=";
 
   __structuredAttrs = true;
 
@@ -93,6 +93,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ]
     );
     RUSTY_V8_ARCHIVE = librusty_v8;
+    RUSTY_V8_SRC_BINDING_PATH = librusty_v8.srcBinding;
   }
   // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     # Link with lld on Darwin. nixpkgs' classic open-source ld64 fails to insert

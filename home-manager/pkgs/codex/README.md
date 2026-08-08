@@ -8,7 +8,7 @@ OpenAI Codex CLI의 공식 nixpkgs `codex` 패키지 정의를 로컬 flake로 �
 
 - `flake.nix`: 패키지, app, overlay 출력
 - `package.nix`: nixpkgs `codex` 패키지 정의
-- `fetchers.nix`, `librusty_v8.nix`: nixpkgs `codex` 패키지가 쓰는 V8 archive fetcher
+- `fetchers.nix`, `librusty_v8.nix`: V8 prebuilt archive와 src binding fetcher
 - `update.sh`: 최신 stable release로 `package.nix`의 version/source hash/cargo hash 갱신 후
   `nix build`로 패키지가 실제로 빌드되는지 검증
 - `update-if-needed.sh`: 현재 버전과 upstream 최신 stable release를 비교하고 다를 때만 업데이트
@@ -20,10 +20,11 @@ OpenAI Codex CLI의 공식 nixpkgs `codex` 패키지 정의를 로컬 flake로 �
 레시피는 nixpkgs master를 그대로 따르고, version/source hash/cargo hash만 upstream 최신
 release를 앞서갑니다. 의도적 차이를 새로 만들면 이 섹션에 기록하세요.
 
-현재 임시 차이: 0.145.0에서 upstream이 webrtc/livekit 의존성을 제거해서 관련 패치
-(`webrtc-sys` substituteInPlace, `livekit-libwebrtc`, `LK_CUSTOM_WEBRTC`)를 nixpkgs보다
-먼저 걷어냈습니다. nixpkgs가 0.145.0 이상으로 올라오면 스냅샷 diff로 확인 후 이 문단을
-지우면 됩니다.
+현재 차이: rusty_v8 prebuilt를 denoland/rusty_v8 release가 아니라 openai/codex의
+`rusty-v8-v<version>` release에서 받고, `RUSTY_V8_SRC_BINDING_PATH`도 같이 넘깁니다.
+0.147.0의 `code-mode-runtime`이 v8 crate의 `v8_enable_sandbox` feature를 켜는데,
+denoland는 그 조합(`ptrcomp_sandbox_release`)의 prebuilt를 배포하지 않습니다.
+nixpkgs가 같은 문제를 해결하면 스냅샷 diff로 확인 후 그쪽 방식에 맞추면 됩니다.
 
 ## 직접 사용
 
