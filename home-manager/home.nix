@@ -13,18 +13,10 @@ let
   # PT_LOAD ordering with an `_dl_rtld_map.l_libname` assertion; glibc 2.40
   # (from nixpkgs-stable) still accepts it.
   #
-  # Upstream's build.ts runs `opencode --version` as a smoke test on the
-  # host platform before installPhase, and nixpkgs' postInstall runs
-  # `opencode completion` for shell completions — both need the patched
-  # interpreter, so disable the smoke test and patchelf before postInstall.
+  # nixpkgs' postInstall runs `opencode completion` for shell completions, so
+  # patchelf has to run before it.
   opencode = if pkgs.stdenv.hostPlatform.isLinux then
     pkgs.opencode.overrideAttrs (old: {
-      preBuild = (old.preBuild or "") + ''
-        substituteInPlace packages/opencode/script/build.ts \
-          --replace-fail \
-            'if (item.os === process.platform && item.arch === process.arch && !item.abi) {' \
-            'if (false) {'
-      '';
       postInstall = ''
         ${pkgs.patchelf}/bin/patchelf \
           --set-interpreter ${pkgsStable.glibc}/lib/ld-linux-x86-64.so.2 \
