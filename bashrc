@@ -84,6 +84,9 @@ export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
 export HISTSIZE=10000000                   # big big history
 export HISTFILESIZE=10000000               # big big history
 export SHELL_SESSION_HISTORY=0
+# /etc/profile.d/sh.local sets this for login shells only; set it here so
+# every shell writes #epoch lines and the file stays consistently dated.
+export HISTTIMEFORMAT='%F %T '
 shopt -s histappend                       # append to history, don't overwrite it
 
 # Keep cross-session sync while avoiding full reload each prompt
