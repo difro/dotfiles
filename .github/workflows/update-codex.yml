@@ -29,6 +29,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          # Full history so the rebase below has a merge base with origin/master.
+          fetch-depth: 0
 
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -59,4 +62,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix
           git commit -m "Update codex to ${{ steps.update.outputs.version }}"
-          git push origin HEAD:master
+          # master can move ahead while this job runs, so a plain push gets
+          # rejected. Rebase and retry instead of failing the run.
+          for attempt in 1 2 3; do
+            if git push origin HEAD:master; then
+              break
+            fi
+            if [ "$attempt" = 3 ]; then
+              exit 1
+            fi
+            git pull --rebase origin master
+          done
