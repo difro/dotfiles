@@ -8,6 +8,11 @@
   home.username = "irteam";
   home.homeDirectory = "/home1/irteam/work/jihoonc";
 
+  # nixos-render-docs (the manual's manpage builder) uses Python multiprocessing;
+  # inside nix-user-chroot the build dir path is long enough that its forkserver
+  # socket can exceed the AF_UNIX 107-byte limit.
+  manual.manpages.enable = false;
+
   # Packages only for office
   home.packages = [
     pkgs.bat
