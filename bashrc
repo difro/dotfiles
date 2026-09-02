@@ -363,3 +363,5 @@ if [ -n "$CURSOR_AGENT" ]; then
     export PS1="$ "
     unalias ls
 fi
+
+stty discard undef
