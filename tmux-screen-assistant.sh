@@ -27,12 +27,14 @@ if [[ "$pane_height" =~ ^[0-9]+$ && "$pane_width" =~ ^[0-9]+$ && "$height_weight
   fi
 fi
 
-assistant_cmd=""
-if command -v claudecode >/dev/null 2>&1; then
-  assistant_cmd="$(command -v claudecode)"
-elif command -v claude >/dev/null 2>&1; then
-  assistant_cmd="$(command -v claude)"
+# The tmux server runs outside the nix-user-chroot, so PATH there resolves the
+# outdated host claude. Resolve and run the assistant inside the chroot instead.
+assistant_shell=(bash)
+if [[ ! -e /nix/store && -x "$HOME/bin/nix-user-chroot" && -d "$HOME/.nix" ]]; then
+  assistant_shell=("$HOME/bin/nix-user-chroot" "$HOME/.nix" bash -l)
 fi
+
+assistant_cmd="$("${assistant_shell[@]}" -c 'command -v claudecode || command -v claude' 2>/dev/null || true)"
 
 if [[ -z "$assistant_cmd" ]]; then
   tmux display-message "screen assistant: claudecode/claude command not found"
@@ -42,7 +44,7 @@ fi
 tmp_root="${TMPDIR:?TMPDIR is not set}"
 capture_file="$(mktemp "${tmp_root%/}/tmux-screen-capture.XXXXXX.txt")"
 input_file="$(mktemp "${tmp_root%/}/tmux-screen-input.XXXXXX.txt")"
-cleanup_file="${tmp_root%/}/tmux-screen-cleanup-${RANDOM}-$$.sh"
+run_file="${tmp_root%/}/tmux-screen-run-${RANDOM}-$$.sh"
 capture_mode="${TMUX_SCREEN_ASSISTANT_CAPTURE_MODE:-visible}"
 capture_desc=""
 
@@ -75,20 +77,13 @@ PROMPT
 printf "\n--- Captured tmux pane output ---\n" >>"$input_file"
 cat "$capture_file" >>"$input_file"
 
-cat >"$cleanup_file" <<EOF
+cat >"$run_file" <<EOF
 #!/usr/bin/env bash
-rm -f $(printf "%q" "$capture_file") $(printf "%q" "$input_file") $(printf "%q" "$cleanup_file")
-EOF
-chmod +x "$cleanup_file"
-
-pane_cmd=$(
-  cat <<EOF
-set +o history 2>/dev/null || true
-HISTFILE=/dev/null $(printf "%q" "$assistant_cmd") --dangerously-skip-permissions --effort max "\$(cat $(printf "%q" "$input_file"))"
-$(printf "%q" "$cleanup_file")
+$(printf "%q" "$assistant_cmd") --dangerously-skip-permissions --effort max "\$(cat $(printf "%q" "$input_file"))"
+rm -f $(printf "%q" "$capture_file") $(printf "%q" "$input_file") $(printf "%q" "$run_file")
 tmux kill-pane -t "\${TMUX_PANE:-}" >/dev/null 2>&1 || tmux kill-pane >/dev/null 2>&1 || true
 EOF
-)
+chmod +x "$run_file"
 
-tmux split-window "$split_flag" -c "$source_path" "$pane_cmd"
+tmux split-window "$split_flag" -c "$source_path" "$(printf '%q ' "${assistant_shell[@]}" "$run_file")"
 tmux display-message "screen assistant: captured ${capture_desc}, opened ${split_desc} pane (${pane_width}x${pane_height}, h-weight=${height_weight})"
