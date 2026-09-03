@@ -2,15 +2,16 @@
 
 Anthropic가 배포하는 Claude Code 바이너리를 nix flake로 패키징한 저장소입니다.
 
-현재 구성은 nixpkgs의 `claude-code` 패키징 방식을 따르되, 로컬 `manifest.json`을 직접 관리해서 `nixos-unstable`보다 더 빠르게 최신 바이너리 버전을 따라갈 수 있게 되어 있습니다.
+현재 구성은 nixpkgs의 `claude-code` 패키징 방식을 따르되, 로컬 `manifest.zst.json`을 직접 관리해서 `nixos-unstable`보다 더 빠르게 최신 바이너리 버전을 따라갈 수 있게 되어 있습니다.
 
 ## 이 저장소가 가져오는 것
 
 이 저장소는 `npm` 패키지를 빌드하지 않습니다. Claude가 배포하는 공식 Claude Code 바이너리를 직접 내려받아 Nix 패키지로 감쌉니다.
 
 - 바이너리 소스: `package.nix`의 공식 Claude Code release URL
-- 버전 고정 방식: `manifest.json`
-- 무결성 검증: `manifest.json`의 플랫폼별 SHA256 checksum
+- 버전 고정 방식: `manifest.zst.json`
+- 무결성 검증: `manifest.zst.json`의 플랫폼별 SHA256 checksum
+- 바이너리는 zstd로 압축된 `claude.zst`를 받아 설치 단계에서 `unzstd`로 풉니다
 
 즉, 이 저장소는 nixpkgs의 `claude-code` 패키징 방식을 따르는 로컬 overlay flake입니다.
 
@@ -20,8 +21,8 @@ Anthropic가 배포하는 Claude Code 바이너리를 nix flake로 패키징한 
 
 - `flake.nix`: 패키지, app, overlay 출력
 - `package.nix`: `claude-code` 패키지 정의
-- `manifest.json`: 현재 고정된 Claude Code 바이너리 버전과 플랫폼별 checksum
-- `update.sh`: upstream 최신 `manifest.json`을 가져온 뒤 `nix build`로 패키지가 실제로 빌드되는지 검증
+- `manifest.zst.json`: 현재 고정된 Claude Code 바이너리 버전과 플랫폼별 checksum
+- `update.sh`: upstream 최신 `manifest.zst.json`을 가져온 뒤 `nix build`로 패키지가 실제로 빌드되는지 검증
 - `update-if-needed.sh`: 현재 버전과 upstream `latest`를 비교하고 다를 때만 `update.sh` 실행
 - `nixpkgs-upstream.nix`: nixpkgs master `claude-code` 레시피의 스냅샷 (수정 금지).
   `watch-nixpkgs.yml` 워크플로우가 매주 nixpkgs master와 비교해서 달라지면 이슈를 만들고 스냅샷을 갱신함
@@ -183,14 +184,14 @@ already up to date
 ```text
 local version:  2.1.114
 remote version: 2.1.115
-updating manifest.json to 2.1.115
-updated manifest.json to 2.1.115
+updating manifest.zst.json to 2.1.115
+updated manifest.zst.json to 2.1.115
 ```
 
 `update.sh`는 마지막에 `nix build`로 검증 빌드까지 수행하므로, 깨진 업데이트는 여기서 실패합니다.
 
 ## 참고
 
-- 이 flake는 `manifest.json`에 버전을 고정하므로 재현성이 유지됩니다.
+- 이 flake는 `manifest.zst.json`에 버전을 고정하므로 재현성이 유지됩니다.
 - `latest`를 flake 평가 시점에 직접 참조하지 않습니다.
-- `manifest.json`에는 `musl`/`win32` 항목도 들어 있지만, 패키지 메타는 nixpkgs 원본과 맞춰 Darwin/Linux glibc 대상만 노출합니다.
+- `manifest.zst.json`에는 `musl`/`win32` 항목도 들어 있지만, 패키지 메타는 nixpkgs 원본과 맞춰 Darwin/Linux glibc 대상만 노출합니다.
