@@ -6,7 +6,6 @@ export LANG=C
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_NIX="$SCRIPT_DIR/package.nix"
-LIBRUSTY_V8_NIX="$SCRIPT_DIR/librusty_v8.nix"
 FAKE_HASH="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
 
 github_api() {
@@ -27,7 +26,6 @@ latest_version() {
 
 VERSION="${1:-$(latest_version)}"
 TAG="rust-v$VERSION"
-CARGO_LOCK_URL="https://raw.githubusercontent.com/openai/codex/$TAG/codex-rs/Cargo.lock"
 
 SOURCE_HASH="$(
   nix-prefetch-url --unpack "https://github.com/openai/codex/archive/refs/tags/$TAG.tar.gz" |
@@ -41,62 +39,7 @@ VERSION="$VERSION" SOURCE_HASH="$SOURCE_HASH" FAKE_HASH="$FAKE_HASH" perl -0pi -
   s/cargoHash = "sha256-[^"]+";/cargoHash = "$ENV{FAKE_HASH}";/;
 ' "$PACKAGE_NIX"
 
-V8_VERSION="$(
-  curl -fsSL "$CARGO_LOCK_URL" |
-    awk '
-      $0 == "[[package]]" { in_package = 1; name = ""; version = ""; next }
-      in_package && $1 == "name" && $3 == "\"v8\"" { name = "v8"; next }
-      in_package && name == "v8" && $1 == "version" {
-        gsub(/"/, "", $3);
-        print $3;
-      }
-    '
-)"
-CURRENT_V8_VERSION="$(sed -n 's/^[[:space:]]*version = "\(.*\)";$/\1/p' "$LIBRUSTY_V8_NIX")"
-
-if [[ -z "$V8_VERSION" ]]; then
-  printf 'failed to read v8 version from %s\n' "$CARGO_LOCK_URL" >&2
-  exit 1
-fi
-
-# Keep this profile in sync with fetchers.nix; the archive and the src binding
-# must come from the same one.
-V8_PROFILE="ptrcomp_sandbox_release"
-V8_RELEASE_URL="https://github.com/openai/codex/releases/download/rusty-v8-v$V8_VERSION"
-
-prefetch_hash() {
-  nix-prefetch-url "$1" |
-    tail -n 1 |
-    xargs nix hash convert --hash-algo sha256 --to sri
-}
-
-if [[ "$CURRENT_V8_VERSION" != "$V8_VERSION" ]]; then
-  X86_64_LINUX_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_x86_64-unknown-linux-gnu.a.gz")"
-  AARCH64_LINUX_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_aarch64-unknown-linux-gnu.a.gz")"
-  AARCH64_DARWIN_HASH="$(prefetch_hash "$V8_RELEASE_URL/librusty_v8_${V8_PROFILE}_aarch64-apple-darwin.a.gz")"
-
-  X86_64_LINUX_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_x86_64-unknown-linux-gnu.rs")"
-  AARCH64_LINUX_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_aarch64-unknown-linux-gnu.rs")"
-  AARCH64_DARWIN_BINDING_HASH="$(prefetch_hash "$V8_RELEASE_URL/src_binding_${V8_PROFILE}_aarch64-apple-darwin.rs")"
-
-  {
-    printf '# auto-generated file -- DO NOT EDIT!\n'
-    printf '{ fetchLibrustyV8 }:\n\n'
-    printf 'fetchLibrustyV8 {\n'
-    printf '  version = "%s";\n' "$V8_VERSION"
-    printf '  shas = {\n'
-    printf '    x86_64-linux = "%s";\n' "$X86_64_LINUX_HASH"
-    printf '    aarch64-linux = "%s";\n' "$AARCH64_LINUX_HASH"
-    printf '    aarch64-darwin = "%s";\n' "$AARCH64_DARWIN_HASH"
-    printf '  };\n'
-    printf '  bindingShas = {\n'
-    printf '    x86_64-linux = "%s";\n' "$X86_64_LINUX_BINDING_HASH"
-    printf '    aarch64-linux = "%s";\n' "$AARCH64_LINUX_BINDING_HASH"
-    printf '    aarch64-darwin = "%s";\n' "$AARCH64_DARWIN_BINDING_HASH"
-    printf '  };\n'
-    printf '}\n'
-  } > "$LIBRUSTY_V8_NIX"
-fi
+"$SCRIPT_DIR/update-librusty.sh" "$VERSION"
 
 set +e
 BUILD_OUTPUT="$(nix build --no-write-lock-file "$SCRIPT_DIR#codex" --no-link 2>&1)"

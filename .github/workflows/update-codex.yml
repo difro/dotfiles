@@ -46,7 +46,7 @@ jobs:
         run: |
           ./home-manager/pkgs/codex/update-if-needed.sh
 
-          if git diff --quiet -- home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix; then
+          if git diff --quiet -- home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix home-manager/pkgs/codex/librusty_v8_src_binding.nix; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -60,7 +60,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix
+          git add home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix home-manager/pkgs/codex/librusty_v8_src_binding.nix
           git commit -m "Update codex to ${{ steps.update.outputs.version }}"
           # master can move ahead while this job runs, so a plain push gets
           # rejected. Rebase and retry instead of failing the run.
