@@ -347,6 +347,10 @@ if [ -f "$HOME/.bashrc.secrets" ]; then
     source "$HOME/.bashrc.secrets"
 fi
 
+# opencode.json은 {env:BRUNO_API_ENDPOINT}, {env:BRUNO_MODEL}을 읽는다. 비어 있으면 Bruno에 직접 붙는다.
+export BRUNO_API_ENDPOINT="${BRUNO_API_ENDPOINT:-https://bruno.maas.navercorp.com/v1}"
+export BRUNO_MODEL="${BRUNO_MODEL:-deepseek-ai/deepseek-v4.1-flash}"
+
 #-------------------------------------------------------------------------------
 # LOCAL/HOSTNAME-SPECIFIC OVERRIDES
 #-------------------------------------------------------------------------------
