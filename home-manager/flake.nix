@@ -8,10 +8,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # Pinned older nixpkgs (glibc 2.40) used to patch opencode's interpreter:
-    # nixpkgs-unstable ships glibc 2.42 whose stricter rtld_setup_main_map
-    # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     # nix-ai-tools.url = "github:numtide/nix-ai-tools";
     claude-code = {
       url = "path:./pkgs/claude-code";
@@ -28,7 +24,6 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
     # nix-ai-tools,
     claude-code,
     codex,
@@ -44,10 +39,6 @@
         codex.overlays.default
       ];
     };
-    pkgsStableFor = system: import nixpkgs-stable {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in
   {
     # Configuration for your cnd901 machine
@@ -59,7 +50,6 @@
         pkgs = pkgsFor system;
         extraSpecialArgs = {
           # aiToolsPkgs = aiToolsPkgsFor system;
-          pkgsStable = pkgsStableFor system;
         };
         modules = [ ./home.nix ./office.nix ];
       }
@@ -74,7 +64,6 @@
         pkgs = pkgsFor system;
         extraSpecialArgs = {
           # aiToolsPkgs = aiToolsPkgsFor system;
-          pkgsStable = pkgsStableFor system;
         };
         modules = [ ./home.nix ./macos.nix ];
       }
