@@ -23,7 +23,9 @@ OpenAI Codex CLI의 공식 nixpkgs `codex` 패키지 정의를 로컬 flake로 �
 `package.nix`와 파일 구성은 nixpkgs master를 그대로 따르고, version/source hash/cargo hash만
 upstream 최신 release를 앞서갑니다. 의도적 차이를 새로 만들면 이 섹션에 기록하세요.
 
-현재 차이는 `fetchers.nix`의 다운로드 출처 하나입니다.
+현재 차이는 두 가지입니다.
+
+첫째, `fetchers.nix`의 다운로드 출처입니다.
 
 - nixpkgs: denoland/rusty_v8 release의 `release` 프로파일 (sandbox, pointer compression 없음)
 - 여기: openai/codex의 `rusty-v8-v<version>` release의 `ptrcomp_sandbox_release` 프로파일
@@ -34,6 +36,11 @@ codex의 `code-mode-runtime`이 v8 crate의 `v8_enable_sandbox` feature를 켜�
 컴파일된 Rust 코드가 sandbox 없이 빌드된 V8에 링크되는 조합이라 upstream codex CI가 쓰는
 구성과 다릅니다. 여기서는 codex의 `setup-rusty-v8` action과 같은 아티팩트를 씁니다.
 openai release에는 riscv64 아티팩트가 없어서 nixpkgs의 riscv64-linux hash도 넣지 않습니다.
+
+둘째, `package.nix`의 `postPatch`가 `chatgpt/src/lib.rs`에 `#![recursion_limit = "256"]`를 넣습니다.
+0.156.0의 `codex-chatgpt`는 nixpkgs의 rustc 1.98에서 기본 query depth를 넘어 컴파일에 실패합니다.
+upstream은 rustc 1.95로 빌드해서 이 에러를 겪지 않고, 문제가 된 crate에만 limit을 올려 왔습니다
+(openai/codex#43316). upstream이나 nixpkgs가 같은 처리를 하면 이 줄을 뺍니다.
 
 ## 직접 사용
 

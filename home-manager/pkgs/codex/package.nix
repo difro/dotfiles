@@ -63,6 +63,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     substituteInPlace Cargo.toml \
       --replace-fail 'lto = "thin"' "" \
       --replace-fail 'codegen-units = 4' ""
+
+    # codex-chatgpt exceeds rustc 1.98's default query depth; upstream builds
+    # with 1.95 and has not raised this crate's limit (openai/codex#43316).
+    sed -i '1i #![recursion_limit = "256"]' chatgpt/src/lib.rs
   '';
 
   nativeBuildInputs = [
