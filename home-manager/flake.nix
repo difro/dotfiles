@@ -12,11 +12,6 @@
     # nixpkgs-unstable ships glibc 2.42 whose stricter rtld_setup_main_map
     # check rejects Bun-compiled binaries (extra PT_LOAD out of vaddr order).
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
-    # Pinned nixpkgs that still has Bun 1.3.13, used to build opencode:
-    # opencode 1.18.30 has a latent circular import (opencode#48819), and Bun
-    # 1.4's bundler orders module evaluation so that a layer dependency ends up
-    # undefined, which kills every prompt in SystemPrompt.environment.
-    nixpkgs-bun.url = "github:NixOS/nixpkgs/1927682e0d808b4a695910f76562b11e2ddecab4";
     # nix-ai-tools.url = "github:numtide/nix-ai-tools";
     claude-code = {
       url = "path:./pkgs/claude-code";
@@ -34,7 +29,6 @@
     self,
     nixpkgs,
     nixpkgs-stable,
-    nixpkgs-bun,
     # nix-ai-tools,
     claude-code,
     codex,
@@ -54,10 +48,6 @@
       inherit system;
       config.allowUnfree = true;
     };
-    pkgsBunFor = system: import nixpkgs-bun {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in
   {
     # Configuration for your cnd901 machine
@@ -70,7 +60,6 @@
         extraSpecialArgs = {
           # aiToolsPkgs = aiToolsPkgsFor system;
           pkgsStable = pkgsStableFor system;
-          pkgsBun = pkgsBunFor system;
         };
         modules = [ ./home.nix ./office.nix ];
       }
@@ -86,7 +75,6 @@
         extraSpecialArgs = {
           # aiToolsPkgs = aiToolsPkgsFor system;
           pkgsStable = pkgsStableFor system;
-          pkgsBun = pkgsBunFor system;
         };
         modules = [ ./home.nix ./macos.nix ];
       }
