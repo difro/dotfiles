@@ -73,3 +73,7 @@ home.packages = [ pkgs.codex ];
 
 업데이트 스크립트는 GitHub latest release의 `rust-vX.Y.Z` 태그를 읽고, source hash와 Cargo vendor hash를 다시 계산합니다.
 v8 crate 버전이 바뀌었으면 `update-librusty.sh`가 rusty_v8 hash도 다시 받습니다.
+
+`update-if-needed.sh`의 `PIN_REASON`이 비어 있지 않으면 업데이트하지 않습니다.
+지금은 0.156의 Linux sandbox가 nix-user-chroot의 `/nix` 구성에서 모든 명령을 거부해서
+(openai/codex#47455) 0.155.1에 고정했습니다. 고쳐진 release가 나오면 `PIN_REASON`을 비우세요.

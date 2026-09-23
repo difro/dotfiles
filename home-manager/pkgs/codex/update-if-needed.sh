@@ -3,6 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_NIX="$SCRIPT_DIR/package.nix"
+# Non-empty holds codex at the version in package.nix. Clear it once a release
+# fixes the issue.
+PIN_REASON="0.156's Linux sandbox rejects nix-user-chroot's /nix layout (openai/codex#47455)"
 
 github_api() {
   if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -28,6 +31,11 @@ fi
 
 printf 'local version:  %s\n' "$LOCAL_VERSION"
 printf 'remote version: %s\n' "$REMOTE_VERSION"
+
+if [[ -n "$PIN_REASON" ]]; then
+  printf 'pinned: %s\n' "$PIN_REASON"
+  exit 0
+fi
 
 if [[ "$LOCAL_VERSION" == "$REMOTE_VERSION" ]]; then
   printf 'already up to date\n'
