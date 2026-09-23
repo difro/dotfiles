@@ -11,7 +11,7 @@ OpenAI Codex CLI의 공식 nixpkgs `codex` 패키지 정의를 로컬 flake로 �
 - `fetchers.nix`: rusty_v8 prebuilt archive와 src binding fetcher
 - `librusty_v8.nix`, `librusty_v8_src_binding.nix`: 현재 고정된 rusty_v8 버전과 플랫폼별 hash (자동 생성)
 - `update.sh`: 최신 stable release로 `package.nix`의 version/source hash/cargo hash 갱신 후
-  `nix build`로 패키지가 실제로 빌드되는지 검증
+  `nix build`로 패키지가 실제로 빌드되는지 검증. 빌드는 상위 Home Manager flake가 고정한 nixpkgs로 함
 - `update-librusty.sh`: 해당 codex 버전의 `Cargo.lock`에서 v8 crate 버전을 읽어
   `librusty_v8*.nix` 두 파일을 다시 생성. `update.sh`가 호출함
 - `update-if-needed.sh`: 현재 버전과 upstream 최신 stable release를 비교하고 다를 때만 업데이트

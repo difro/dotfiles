@@ -7,6 +7,9 @@ export LANG=C
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_NIX="$SCRIPT_DIR/package.nix"
 FAKE_HASH="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+# Build with the nixpkgs the home-manager flake locks. This flake's own lock is
+# never updated, so its rustc can accept code that the machines' rustc rejects.
+HM_NIXPKGS="$(jq -r '.nodes[.nodes.root.inputs.nixpkgs].locked | "github:\(.owner)/\(.repo)/\(.rev)"' "$SCRIPT_DIR/../../flake.lock")"
 
 github_api() {
   if [[ -n "${GITHUB_TOKEN:-}" ]]; then
@@ -42,7 +45,7 @@ VERSION="$VERSION" SOURCE_HASH="$SOURCE_HASH" FAKE_HASH="$FAKE_HASH" perl -0pi -
 "$SCRIPT_DIR/update-librusty.sh" "$VERSION"
 
 set +e
-BUILD_OUTPUT="$(nix build --no-write-lock-file "$SCRIPT_DIR#codex" --no-link 2>&1)"
+BUILD_OUTPUT="$(nix build --no-write-lock-file "$SCRIPT_DIR#codex" --override-input nixpkgs "$HM_NIXPKGS" --no-link 2>&1)"
 BUILD_STATUS=$?
 set -e
 
@@ -69,6 +72,6 @@ printf 'updated codex to %s\n' "$VERSION"
 # the recipe (e.g. a patched file disappearing) are caught here instead of on
 # the machines that pull the update.
 printf 'verifying codex %s build\n' "$VERSION"
-nix build --no-write-lock-file "$SCRIPT_DIR#codex" --no-link
+nix build --no-write-lock-file "$SCRIPT_DIR#codex" --override-input nixpkgs "$HM_NIXPKGS" --no-link
 
 printf 'verified codex %s build\n' "$VERSION"
