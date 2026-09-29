@@ -341,6 +341,11 @@ if.app-id="com.f5networks.EdgeClient"
 run= [
   "layout floating",
 ]
+[[on-window-detected]]
+if.app-id="com.stonerl.Thaw"
+run= [
+  "layout floating",
+]
 
 # [[on-window-detected]]
 # if.app-id = "com.mitchellh.ghostty"
