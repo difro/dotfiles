@@ -126,6 +126,8 @@
 [credential "https://huggingface.co"]
 	provider = generic
 [credential]
+	; reset helpers inherited from system gitconfig (e.g. Homebrew git ships osxkeychain)
+	helper =
 	helper = store
 [http "https://oss.navercorp.com"]
 	sslVerify = false
