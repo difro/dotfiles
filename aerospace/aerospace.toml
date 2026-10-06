@@ -262,11 +262,19 @@ outer.right =      2
     shift-down = ['volume set 0', 'mode main']
 
 [workspace-to-monitor-force-assignment]
-    5 = [ 'secondary' ]
-    6 = [ 'secondary' ]
-    # 7 = [ 'U2720Q', 'secondary' ]
-    # 8 = [ '16mr70', 'secondary' ]
-    # 9 = [ '16mr70', 'secondary' ]
+    1 = [ 'main' ]
+    2 = [ 'main' ]
+    3 = [ 'main' ]
+    4 = [ 'main' ]
+    # Both Dells report the same name (macOS only adds a "(1)"/"(2)" suffix that can
+    # swap on reconnect), so the USB-C one is matched by position: it sits to the
+    # right of the main (HDMI) Dell, making it monitor 3 in left-to-right order.
+    # 'secondary' only resolves with exactly two monitors; it is the fallback for that case.
+    5 = [ 'built-in' ]
+    6 = [ 'built-in' ]
+    7 = [ 'built-in' ]
+    8 = [ 3, 'secondary' ]
+    9 = [ 3, 'secondary' ]
 
 
 [[on-window-detected]]
