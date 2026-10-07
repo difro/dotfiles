@@ -29,18 +29,18 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.155.1";
+  version = "0.160.1";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${finalAttrs.version}";
-    hash = "sha256-iFW66odceRNBsVG5bD9SdcQGxhpm/QIZwYjGCrfMXiI=";
+    hash = "sha256-9oXMysQ+v4txGIhPsgh45xAAqWYglZjhdS50uxMPHz4=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-6IAX/SFSSgSKKFxKsUXoZ9nNQaHJ+EjZ5a4bJwyDdF0=";
+  cargoHash = "sha256-DMRbIOynO0wGXjBxaXZJNKorD9YQv3fAoRTZ4iZEIE4=";
 
   __structuredAttrs = true;
 
@@ -59,14 +59,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "codex-code-mode-host"
   ];
 
+  patches = [
+    # https://github.com/openai/codex/issues/48195
+    ./no-daemon_auto_start.patch
+    # https://github.com/openai/codex/issues/47455
+    ./skip-covered-daemon-socket-aliases.patch
+  ];
+
   postPatch = ''
     substituteInPlace Cargo.toml \
       --replace-fail 'lto = "thin"' "" \
       --replace-fail 'codegen-units = 4' ""
 
-    # codex-chatgpt exceeds rustc 1.98's default query depth; upstream builds
-    # with 1.95 and has not raised this crate's limit (openai/codex#43316).
-    sed -i '1i #![recursion_limit = "256"]' chatgpt/src/lib.rs
+    sed -i '1i#![recursion_limit = "256"]' chatgpt/src/lib.rs
   '';
 
   nativeBuildInputs = [

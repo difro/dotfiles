@@ -9,6 +9,8 @@ OpenAI Codex CLI의 공식 nixpkgs `codex` 패키지 정의를 로컬 flake로 �
 - `flake.nix`: 패키지, app, overlay 출력
 - `package.nix`: nixpkgs `codex` 패키지 정의
 - `fetchers.nix`: rusty_v8 prebuilt archive와 src binding fetcher
+- `no-daemon_auto_start.patch`: nixpkgs의 같은 이름 패치 복사본. `daemon_auto_start` 기본값을 끔
+- `skip-covered-daemon-socket-aliases.patch`: nix-user-chroot에서 sandbox가 실패하는 문제를 고치는 패치 (아래 "nixpkgs와의 차이" 참고)
 - `librusty_v8.nix`, `librusty_v8_src_binding.nix`: 현재 고정된 rusty_v8 버전과 플랫폼별 hash (자동 생성)
 - `update.sh`: 최신 stable release로 `package.nix`의 version/source hash/cargo hash 갱신 후
   `nix build`로 패키지가 실제로 빌드되는지 검증. 빌드는 상위 Home Manager flake가 고정한 nixpkgs로 함
@@ -37,10 +39,12 @@ codex의 `code-mode-runtime`이 v8 crate의 `v8_enable_sandbox` feature를 켜�
 구성과 다릅니다. 여기서는 codex의 `setup-rusty-v8` action과 같은 아티팩트를 씁니다.
 openai release에는 riscv64 아티팩트가 없어서 nixpkgs의 riscv64-linux hash도 넣지 않습니다.
 
-둘째, `package.nix`의 `postPatch`가 `chatgpt/src/lib.rs`에 `#![recursion_limit = "256"]`를 넣습니다.
-0.156.0의 `codex-chatgpt`는 nixpkgs의 rustc 1.98에서 기본 query depth를 넘어 컴파일에 실패합니다.
-upstream은 rustc 1.95로 빌드해서 이 에러를 겪지 않고, 문제가 된 crate에만 limit을 올려 왔습니다
-(openai/codex#43316). upstream이나 nixpkgs가 같은 처리를 하면 이 줄을 뺍니다.
+둘째, `patches`에 `skip-covered-daemon-socket-aliases.patch`를 더 넣습니다.
+0.156부터 Linux sandbox는 app-server socket 디렉터리의 alias를 mountinfo에서 찾아 bwrap으로 가리는데,
+다른 mount에 덮여 경로로 닿지 않는 mount도 alias로 셉니다. nix-user-chroot 2.x는 `pivot_root`로 옮긴
+host 루트를 `/nix`에 남기고 store bind로 덮기 때문에, bwrap이 `/nix/tmp/codex-daemon-<uid>`를 만들지
+못해 sandbox 안의 모든 명령이 실패합니다(openai/codex#47455, #48758). 패치는 덮인 mount의 alias를
+건너뜁니다. upstream이 고치면 뺍니다.
 
 ## 직접 사용
 
@@ -75,5 +79,5 @@ home.packages = [ pkgs.codex ];
 v8 crate 버전이 바뀌었으면 `update-librusty.sh`가 rusty_v8 hash도 다시 받습니다.
 
 `update-if-needed.sh`의 `PIN_REASON`이 비어 있지 않으면 업데이트하지 않습니다.
-지금은 0.156의 Linux sandbox가 nix-user-chroot의 `/nix` 구성에서 모든 명령을 거부해서
-(openai/codex#47455) 0.155.1에 고정했습니다. 고쳐진 release가 나오면 `PIN_REASON`을 비우세요.
+`update.sh`의 검증 빌드는 `patches`까지 적용하므로, 새 release에 패치가 붙지 않으면 업데이트가 실패합니다.
+upstream이 sandbox를 고쳐서 그렇다면 패치를 빼고, 아니면 패치를 새 버전에 맞춥니다.

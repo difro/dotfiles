@@ -3,9 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PACKAGE_NIX="$SCRIPT_DIR/package.nix"
-# Non-empty holds codex at the version in package.nix. Clear it once a release
-# fixes the issue.
-PIN_REASON="0.156's Linux sandbox rejects nix-user-chroot's /nix layout (openai/codex#47455)"
+# Non-empty holds codex at the version in package.nix.
+PIN_REASON=""
 
 github_api() {
   if [[ -n "${GITHUB_TOKEN:-}" ]]; then

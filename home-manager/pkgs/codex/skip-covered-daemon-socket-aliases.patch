@@ -1,0 +1,268 @@
+From 38e1f74b94f21bcb1dafddd1ac3beed6bbe0365d Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 7 Oct 2026 16:12:35 +0900
+Subject: [PATCH] Skip daemon socket aliases hidden by a stacked mount
+
+The app-server socket isolation check scans /proc/self/mountinfo for mounts
+that expose the socket directory, but it never verified that such a mount is
+still reachable at its destination. A mount covered by another mount, stacked
+either on it or on one of its ancestors, exposes nothing, yet its alias was
+still handed to bwrap as a mask target. bwrap cannot create a mount point at
+a path that resolves into the covering mount, so sandbox startup aborts with
+"Can't mkdir parents ... Read-only file system".
+
+Layouts that hit this:
+
+- nix-user-chroot 2.x pivots the host root onto /nix and binds the store over
+  it, so /nix/tmp/codex-daemon-<uid> was masked. When the host /tmp is a
+  separate filesystem, the same alias comes from the host /tmp mount inside
+  the covered old root.
+- A per-user /tmp bound over a shared one leaves /tmp/usertmp mounted beneath
+  it (#48758).
+- A bind of /tmp that is overmounted at its mount point or at a parent
+  directory.
+
+The containing mount is already validated by walking its parent chain and
+rejecting it when a mount above that branch covers the directory. Move the
+walk into covered() and also run it for every alias, skipping the ones it
+reports as covered. It only reads the mount tree, so it applies with or
+without a mount ID. A parent cycle keeps the mask, and a missing relation
+only falls back to the previous behaviour, so a path that is still reachable
+is never left unmasked.
+
+Fixes #47455
+Fixes #48758
+---
+ linux-sandbox/src/daemon_mounts.rs       |  60 +++++++----
+ linux-sandbox/src/daemon_mounts_tests.rs | 123 +++++++++++++++++++++++
+ 2 files changed, 161 insertions(+), 22 deletions(-)
+
+diff --git a/linux-sandbox/src/daemon_mounts.rs b/linux-sandbox/src/daemon_mounts.rs
+index 1ad026f1b5be..a1eda7cdbd98 100644
+--- a/linux-sandbox/src/daemon_mounts.rs
++++ b/linux-sandbox/src/daemon_mounts.rs
+@@ -136,27 +136,8 @@ fn check_mounts(
+         let (_, _, _, root, destination) = selected;
+         let root = root.as_ref().ok_or_else(invalid)?;
+         let relative = directory.strip_prefix(destination).map_err(|_| invalid())?;
+-        let mut current = Some(selected);
+-        let mut visible_child: Option<&Path> = None;
+-        let mut visited = BTreeSet::new();
+-        while let Some((id, parent, _, _, destination)) = current {
+-            if !visited.insert(id)
+-                || mounts.iter().any(|(child_id, child_parent, _, _, child)| {
+-                    child_id != id
+-                        && child_parent == id
+-                        && directory.starts_with(child)
+-                        && !visible_child.is_some_and(|visible| child.starts_with(visible))
+-                })
+-            {
+-                return Err(invalid());
+-            }
+-            if id == parent {
+-                break;
+-            }
+-            // Follow the selected branch towards the namespace root. Sibling
+-            // mounts below this branch are hidden; mounts above it cover it.
+-            visible_child = Some(destination);
+-            current = mounts.iter().find(|(id, ..)| id == parent);
++        if covered(&mounts, selected, directory) != Some(false) {
++            return Err(invalid());
+         }
+         (root.join(relative), Some((mount_id, destination)))
+     } else {
+@@ -178,7 +159,8 @@ fn check_mounts(
+         (locations.into_iter().next().ok_or_else(invalid)?, None)
+     };
+     let mut mask_paths = BTreeSet::from([directory.to_path_buf()]);
+-    for (id, _, _, root, destination) in &mounts {
++    for mount in &mounts {
++        let (id, _, _, root, destination) = mount;
+         // Nested mounts can introduce another filesystem (or an individual socket) under the mask.
+         let nested = destination != directory && destination.starts_with(directory);
+         let alias = if let Some(root) = root {
+@@ -200,9 +182,12 @@ fn check_mounts(
+                     && containing_mount.starts_with(destination)
+                     && path.starts_with(containing_mount)
+             });
++            // An alias covered by a mount stacked on this mount or on one of its
++            // ancestors cannot reach the directory, and bwrap cannot mask it.
+             !path.starts_with(directory)
+                 && !masked_root.is_some_and(|root| path.starts_with(root))
+                 && !hidden
++                && covered(&mounts, mount, path) != Some(true)
+         });
+         if nested
+             || exposed_alias
+@@ -227,6 +212,37 @@ fn check_mounts(
+     Ok(mask_paths)
+ }
+ 
++type Mount<'a> = (&'a [u8], &'a [u8], &'a [u8], Option<PathBuf>, PathBuf);
++
++// Whether `path`, reached through `mount`, is covered by a mount stacked on it
++// or on one of its ancestors. `None` means the parent chain loops.
++fn covered<'a>(mounts: &'a [Mount<'a>], mount: &'a Mount<'a>, path: &Path) -> Option<bool> {
++    let mut current = Some(mount);
++    let mut visible_child: Option<&Path> = None;
++    let mut visited = BTreeSet::new();
++    while let Some((id, parent, _, _, destination)) = current {
++        if !visited.insert(id) {
++            return None;
++        }
++        if mounts.iter().any(|(child_id, child_parent, _, _, child)| {
++            child_id != id
++                && child_parent == id
++                && path.starts_with(child)
++                && !visible_child.is_some_and(|visible| child.starts_with(visible))
++        }) {
++            return Some(true);
++        }
++        if id == parent {
++            break;
++        }
++        // Follow this branch towards the namespace root. Sibling mounts below
++        // this branch are hidden; mounts above it cover it.
++        visible_child = Some(destination);
++        current = mounts.iter().find(|(id, ..)| id == parent);
++    }
++    Some(false)
++}
++
+ fn mount_path(encoded: &[u8]) -> io::Result<PathBuf> {
+     let mut decoded = Vec::new();
+     let mut bytes = encoded.iter().copied();
+diff --git a/linux-sandbox/src/daemon_mounts_tests.rs b/linux-sandbox/src/daemon_mounts_tests.rs
+index c332cad2f533..a4632732809e 100644
+--- a/linux-sandbox/src/daemon_mounts_tests.rs
++++ b/linux-sandbox/src/daemon_mounts_tests.rs
+@@ -322,3 +322,126 @@ fn masked_wslg_alias_does_not_skip_other_socket_masks() {
+         );
+     }
+ }
++
++#[test]
++fn skips_socket_alias_covered_by_a_stacked_mount() {
++    // nix-user-chroot 2.x pivots the host root onto /nix and binds the store
++    // over it, so /nix/tmp/codex-daemon-1000 never resolves.
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    let exposed = "1 0 0:9 /chroot / rw - ext4 home rw\n\
++                   2 1 0:1 /tmp /tmp rw - ext4 disk rw\n\
++                   3 1 0:9 /store /nix rw - ext4 home rw\n\
++                   4 3 0:1 / /nix rw - ext4 disk rw\n";
++    let covered = format!("{exposed}5 4 0:9 /store /nix rw - ext4 home rw\n");
++    for mount_id in [Some("2"), None] {
++        assert_eq!(
++            check_mounts(directory, "0:1", mount_id, exposed.as_bytes()).unwrap(),
++            BTreeSet::from([
++                directory.to_path_buf(),
++                PathBuf::from("/nix/tmp/codex-daemon-1000"),
++            ]),
++            "mount_id: {mount_id:?}"
++        );
++        assert_eq!(
++            check_mounts(directory, "0:1", mount_id, covered.as_bytes()).unwrap(),
++            BTreeSet::from([directory.to_path_buf()]),
++            "mount_id: {mount_id:?}"
++        );
++    }
++}
++
++#[test]
++fn skips_bind_alias_of_tmp_covered_at_the_same_mount_point() {
++    // `--bind /tmp $SHADOW --tmpfs $SHADOW`: the bind is fully overmounted.
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    let mounts = "1 0 0:1 / / rw - ext4 disk rw\n\
++                  2 1 0:2 / /tmp rw - tmpfs tmpfs rw\n\
++                  3 1 0:2 / /shadow rw - tmpfs tmpfs rw\n";
++    let exposed = BTreeSet::from([
++        directory.to_path_buf(),
++        PathBuf::from("/shadow/codex-daemon-1000"),
++    ]);
++    let covered = format!("{mounts}4 3 0:9 / /shadow rw - tmpfs shadow rw\n");
++    // A mount covering only part of the alias subtree still leaves it exposed.
++    let partial = format!("{mounts}4 3 0:9 / /shadow/other rw - tmpfs shadow rw\n");
++    for mount_id in [Some("2"), None] {
++        assert_eq!(
++            check_mounts(directory, "0:2", mount_id, mounts.as_bytes()).unwrap(),
++            exposed,
++            "mount_id: {mount_id:?}"
++        );
++        assert_eq!(
++            check_mounts(directory, "0:2", mount_id, covered.as_bytes()).unwrap(),
++            BTreeSet::from([directory.to_path_buf()]),
++            "mount_id: {mount_id:?}"
++        );
++        assert_eq!(
++            check_mounts(directory, "0:2", mount_id, partial.as_bytes()).unwrap(),
++            exposed,
++            "mount_id: {mount_id:?}"
++        );
++    }
++}
++
++#[test]
++fn skips_socket_aliases_beneath_a_covered_mount() {
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    for mounts in [
++        // nix-user-chroot on a host whose /tmp is a separate filesystem: the
++        // host /tmp stays mounted in the old root that the store bind covers.
++        "1 0 0:9 /chroot / rw - ext4 home rw\n\
++         2 1 0:2 / /tmp rw - tmpfs tmpfs rw\n\
++         3 1 0:9 /store /nix rw - ext4 home rw\n\
++         4 3 0:1 / /nix rw - ext4 disk rw\n\
++         5 4 0:2 / /nix/tmp rw - tmpfs tmpfs rw\n\
++         6 4 0:9 /store /nix rw - ext4 home rw\n",
++        // `--bind /tmp $SHADOW/inner --tmpfs $SHADOW` covers the bind from its
++        // parent directory.
++        "1 0 0:1 / / rw - ext4 disk rw\n\
++         2 1 0:2 / /tmp rw - tmpfs tmpfs rw\n\
++         3 1 0:2 / /shadow/inner rw - tmpfs tmpfs rw\n\
++         4 1 0:9 / /shadow rw - tmpfs shadow rw\n",
++    ] {
++        for mount_id in [Some("2"), None] {
++            assert_eq!(
++                check_mounts(directory, "0:2", mount_id, mounts.as_bytes()).unwrap(),
++                BTreeSet::from([directory.to_path_buf()]),
++                "mount_id: {mount_id:?}\n{mounts}"
++            );
++        }
++    }
++}
++
++#[test]
++fn skips_submount_hidden_by_a_per_user_tmp() {
++    // A per-user /tmp bound over the shared one hides /tmp/usertmp.
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    let mounts = "1 0 0:1 / /tmp rw - xfs disk rw\n\
++                  2 1 0:1 /usertmp /tmp/usertmp rw - xfs disk rw\n\
++                  3 1 0:1 /usertmp/user /tmp rw - xfs disk rw\n";
++    assert_eq!(
++        check_mounts(directory, "0:1", Some("3"), mounts.as_bytes()).unwrap(),
++        BTreeSet::from([directory.to_path_buf()])
++    );
++}
++
++#[test]
++fn mount_beneath_an_alias_does_not_hide_it() {
++    // 3 was mounted on the root filesystem before 4 covered /shadow, so the
++    // alias still resolves through 4. The namespace root is its own parent.
++    let directory = Path::new("/tmp/codex-daemon-1000");
++    let mounts = "1 1 0:1 / / rw - ext4 disk rw\n\
++                  2 1 0:2 / /tmp rw - tmpfs tmpfs rw\n\
++                  3 1 0:9 / /shadow/codex-daemon-1000 rw - tmpfs old rw\n\
++                  4 1 0:2 / /shadow rw - tmpfs tmpfs rw\n";
++    for mount_id in [Some("2"), None] {
++        assert_eq!(
++            check_mounts(directory, "0:2", mount_id, mounts.as_bytes()).unwrap(),
++            BTreeSet::from([
++                directory.to_path_buf(),
++                PathBuf::from("/shadow/codex-daemon-1000"),
++            ]),
++            "mount_id: {mount_id:?}"
++        );
++    }
++}
+-- 
+2.55.0
+
