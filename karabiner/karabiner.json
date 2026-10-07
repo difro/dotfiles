@@ -73,9 +73,7 @@
                         "manipulators": [
                             {
                                 "from": { "key_code": "f16" },
-                                "to": [
-                                    { "shell_command": "open -a \"Codex\"" }
-                                ],
+                                "to": [{ "shell_command": "open -a \"Codex\"" }],
                                 "type": "basic"
                             }
                         ]
