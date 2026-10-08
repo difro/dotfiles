@@ -266,13 +266,13 @@ outer.right =      2
     2 = [ 'main' ]
     3 = [ 'main' ]
     4 = [ 'main' ]
-    # Both Dells report the same name (macOS only adds a "(1)"/"(2)" suffix that can
-    # swap on reconnect), so the USB-C one is matched by position: it sits to the
-    # right of the main (HDMI) Dell, making it monitor 3 in left-to-right order.
-    # 'secondary' only resolves with exactly two monitors; it is the fallback for that case.
-    5 = [ 'built-in' ]
-    6 = [ 'built-in' ]
-    7 = [ 'built-in' ]
+    # 'secondary' only resolves with exactly two monitors: it sends 5-9 to the other Dell
+    # (lid closed) or to the laptop (one Dell). With three monitors the non-main Dell is
+    # matched by position rather than name, since the same Dell is 'main' when it is the
+    # only external one; it sits right of the main Dell (laptop below), so it is monitor 3.
+    5 = [ 'built-in', 'secondary' ]
+    6 = [ 'built-in', 'secondary' ]
+    7 = [ 'built-in', 'secondary' ]
     8 = [ 3, 'secondary' ]
     9 = [ 3, 'secondary' ]
 
