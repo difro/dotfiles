@@ -318,7 +318,18 @@ home-manager-update() {
     [[ $(ulimit -n) -lt 65536 ]] && ulimit -n 65536
     (
         cd ~/.config/home-manager || exit 1
-        rm -rf /homeless-shelter && nix flake update && rm -rf /homeless-shelter && home-manager switch --flake ".#$1"
+        # Reuse the lock home-manager-prebuild already built against, unless it
+        # is stale or older than the current one.
+        prebuilt=~/.local/state/home-manager-prebuild/$1.flake.lock
+        lastmod='.nodes[.nodes.root.inputs.nixpkgs].locked.lastModified'
+        if [[ -n $(find "$prebuilt" -mmin -1200 2>/dev/null) ]] &&
+            (($(jq "$lastmod" "$prebuilt") >= $(jq "$lastmod" flake.lock))); then
+            echo "Using prebuilt lock: $prebuilt"
+            cp "$prebuilt" flake.lock || exit 1
+        else
+            rm -rf /homeless-shelter && nix flake update || exit 1
+        fi
+        rm -rf /homeless-shelter && home-manager switch --flake ".#$1"
     )
 }
 
