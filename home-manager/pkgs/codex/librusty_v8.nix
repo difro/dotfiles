@@ -2,10 +2,10 @@
 { fetchLibrustyV8 }:
 
 fetchLibrustyV8 {
-  version = "150.4.0";
+  version = "152.2.0";
   shas = {
-    x86_64-linux = "10xm60dl5ywwp0r8nmjha3q59gjf194k6nx4hlw9hskfyb8pap53";
-    aarch64-linux = "1fhi51yhpwkd79mr27rmimf4vivyk7zda1dh55q56s2l83npwlfi";
-    aarch64-darwin = "18gl82dv6b13xv6sngmpw6w2k1ay79knh724a1swfj48g54bpb80";
+    x86_64-linux = "1kfv6xqqrhmarxvpb0kjpraq7kh0zd8zh9y7d9zxm7l0mbr91d5k";
+    aarch64-linux = "11syn514fwd88i7ydwy2lawyvwrb01vhiqjswbsws1ihc954cm0h";
+    aarch64-darwin = "0jgpdzbzgvmafrw5q647slij3m69c926a06hq6csmssb73h9mazy";
   };
 }
