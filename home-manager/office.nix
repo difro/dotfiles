@@ -32,7 +32,7 @@
     pkgs.luajitPackages.tree-sitter-cli
     pkgs.natscli
     pkgs.neovim
-    pkgs.nodejs_24
+    pkgs.nodejs_latest
     pkgs.ripgrep
     pkgs.tmux
     pkgs.ty
