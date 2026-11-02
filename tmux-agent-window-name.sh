@@ -9,7 +9,7 @@ agent="${1:-}"
 # 요약용 claude -p 가 이 훅을 다시 부르는 것을 막는다
 [[ -z "${TMUX_AGENT_NAME_LOCK:-}" ]] || exit 0
 
-MODEL="claude-haiku-4-5-20251001"
+MODEL="haiku"
 MAXLEN=16
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/tmux-agent-window-name"
 
@@ -104,7 +104,9 @@ Answer in the same language as the title. No quotes, no punctuation, at most ${M
 Reply with the label only.
 
 Title: ${title}"
-    short="$(clean "$(TMUX_AGENT_NAME_LOCK=1 claude -p --model "$MODEL" "$prompt" 2>/dev/null | head -1)")"
+    # 요약에 필요 없는 tool, skill, MCP를 빼고 세션 기록도 남기지 않는다.
+    # --bare는 claude.ai 로그인을 쓰지 않아 API key 없이는 인증되지 않는다.
+    short="$(clean "$(TMUX_AGENT_NAME_LOCK=1 claude -p --model "$MODEL" --no-session-persistence --tools "" --disable-slash-commands --strict-mcp-config "$prompt" 2>/dev/null | head -1)")"
     # 요약이 실패하면 앞 두 어절을 쓴다
     [[ -n "$short" ]] || short="$(clean "$(awk '{print $1, $2}' <<<"$title")")"
     name="$(fit "$short" "$MAXLEN")"
