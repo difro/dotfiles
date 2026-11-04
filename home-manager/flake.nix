@@ -37,6 +37,19 @@
       overlays = [
         claude-code.overlays.default
         codex.overlays.default
+        # bun 1.4.4 filters optional deps by host libc, so the node_modules FOD
+        # differs per platform while nixpkgs still carries the bun 1.4.2 hash
+        # (NixOS/nixpkgs#582673). Drop once #582675 or a follow-up lands.
+        (final: prev: {
+          opencode = prev.opencode.overrideAttrs (old: {
+            node_modules = old.node_modules.overrideAttrs (_: {
+              outputHash =
+                if prev.stdenv.hostPlatform.isDarwin
+                then "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc="
+                else "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
+            });
+          });
+        })
       ];
     };
   in
