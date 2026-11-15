@@ -72,6 +72,6 @@ printf 'updated codex to %s\n' "$VERSION"
 # the recipe (e.g. a patched file disappearing) are caught here instead of on
 # the machines that pull the update.
 printf 'verifying codex %s build\n' "$VERSION"
-nix build --no-write-lock-file "$SCRIPT_DIR#codex" --override-input nixpkgs "$HM_NIXPKGS" --no-link
+nix build -L --no-write-lock-file "$SCRIPT_DIR#codex" --override-input nixpkgs "$HM_NIXPKGS" --no-link
 
 printf 'verified codex %s build\n' "$VERSION"

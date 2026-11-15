@@ -39,11 +39,34 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
+      # Hosted runners have 16 GB of memory and no swap, which the full codex
+      # build can outgrow. / has plenty of free space for a swap file.
+      - name: Add swap
+        run: |
+          sudo swapoff -a
+          sudo fallocate -l 16G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+          df -h /
+
       - name: Update package if needed
         id: update
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
+          # A runner that runs out of memory dies without saying why, so leave
+          # a trail once a minute.
+          while sleep 60; do
+            printf '[resources] %s %s root_avail=%s\n' \
+              "$(free -m | awk '/^Mem:/ {printf "mem_avail=%sM", $7} /^Swap:/ {printf " swap_used=%sM", $3}')" \
+              "$(ps -eo rss=,comm= --sort=-rss | head -n 3 | awk '{printf "%s=%dM ", $2, $1 / 1024}')" \
+              "$(df -BG --output=avail / | tail -n 1 | tr -d ' ')"
+          done &
+          monitor=$!
+          trap 'kill "$monitor"' EXIT
+
           ./home-manager/pkgs/codex/update-if-needed.sh
 
           if git diff --quiet -- home-manager/pkgs/codex/package.nix home-manager/pkgs/codex/librusty_v8.nix home-manager/pkgs/codex/librusty_v8_src_binding.nix; then
