@@ -23,8 +23,8 @@ jobs:
   update:
     runs-on: ubuntu-latest
     # update.sh fully builds the package for verification, which compiles the
-    # whole codex-rs workspace on cold caches.
-    timeout-minutes: 120
+    # whole codex-rs workspace on cold caches (about 105 minutes for 0.169.0).
+    timeout-minutes: 180
 
     steps:
       - name: Check out repository
@@ -40,7 +40,8 @@ jobs:
             experimental-features = nix-command flakes
 
       # Hosted runners have 16 GB of memory and no swap, which the full codex
-      # build can outgrow. / has plenty of free space for a swap file.
+      # build outgrows (0.169.0 peaked at about 6 GB of swap). / has plenty of
+      # free space for a swap file.
       - name: Add swap
         run: |
           sudo swapoff -a
