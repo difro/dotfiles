@@ -56,6 +56,7 @@ brew "zoxide"
 # Casks
 cask "aerospace"
 cask "alfred"
+cask "betterdisplay"
 cask "bitwarden"
 cask "brave-browser"
 cask "calibre"
