@@ -5,6 +5,7 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
+  aws-lc,
   bubblewrap,
   clang,
   cmake,
@@ -20,10 +21,13 @@
   lld,
   makeBinaryWrapper,
   nix-update-script,
+  oniguruma,
   pkg-config,
   openssl,
   ripgrep,
+  sqlite,
   versionCheckHook,
+  zstd,
   installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   _experimental-update-script-combinators,
 }:
@@ -84,8 +88,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    aws-lc
     libclang
+    oniguruma
     openssl
+    sqlite
+    zstd
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     libcap
